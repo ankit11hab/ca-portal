@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <title>Dashboard</title>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
+  integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<body>
+  <div class="bg-blue-50 flex">
+    <div class="hidden sm:block bg-white h-screen w-80 border-gray-400 rounded"></div>
+    <div class=" mx-4">
+      <nav class=" px-8 py-5 flex justify-between">
+        <a href="#" class=" font-medium text-2xl ">Dashboard</a>
+        <a href="#">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M26 24V24.4142L26.2929 24.7071L29 27.4142V27.5H7V27.4142L9.70711 24.7071L10 24.4142V24V16.5C10 12.2287 12.2294 8.88184 15.9806 7.99306L16.75 7.81075V7.02V6C16.75 5.30728 17.3073 4.75 18 4.75C18.6927 4.75 19.25 5.30728 19.25 6V7.02V7.81011L20.0187 7.99288C23.7562 8.88153 26 12.2446 26 16.5V24ZM19.7292 31C19.3814 31.5961 18.7344 32 18 32C17.2571 32 16.6124 31.5969 16.2674 31H19.7292Z"
+              stroke="#90A0B7" stroke-width="2" />
+            <circle cx="25.5" cy="9" r="6.5" fill="#FF4433" stroke="white" />
+          </svg>
+        </a>
+      </nav>
+      <div class="flex">
+        <div>
+          <div class=" flex flex-col md:flex-row m-2 md:space-x-4">
+            <div class=" bg-white rounded-md shadow-md-1 my-2">
+              <div class="py-3 pl-6 font-medium text-lg border-b-2">Level</div>
+              <div class=" flex justify-center w-full min-w-x">
+                <div class=" py-4 px-10">
+                  <div class=" w-40 h-40">
+                    <div class=" absolute ml-14 mt-12">
+                      <svg width="46" height="44" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M34.3234 4.34916H28.9342V2.59267C28.9342 2.12682 28.7449 1.68005 28.408 1.35064C28.0711 1.02124 27.6142 0.836182 27.1378 0.836182H9.17369C8.69725 0.836182 8.24033 1.02124 7.90344 1.35064C7.56654 1.68005 7.37728 2.12682 7.37728 2.59267V4.34916H1.98806C1.51162 4.34916 1.0547 4.53421 0.717806 4.86362C0.380914 5.19303 0.19165 5.63979 0.19165 6.10564V11.3751C0.19165 18.9456 3.42518 23.5124 8.85033 23.6705C9.6419 25.0089 10.7249 26.1606 12.0226 27.0439C13.3203 27.9273 14.8009 28.5206 16.3593 28.7819V32.453H12.7665V35.9659H23.5449V32.453H19.9521V28.7819C21.5106 28.5206 22.9911 27.9273 24.2888 27.0439C25.5865 26.1606 26.6695 25.0089 27.4611 23.6705C32.8503 23.4949 36.1198 18.928 36.1198 11.3751V6.10564C36.1198 5.63979 35.9305 5.19303 35.5936 4.86362C35.2568 4.53421 34.7998 4.34916 34.3234 4.34916ZM3.78447 11.3751V7.86213H7.37728V19.8589C4.17967 18.5416 3.78447 13.6585 3.78447 11.3751ZM28.9342 19.8589V7.86213H32.527V11.3751C32.527 13.6585 32.1318 18.5416 28.9342 19.8589Z"
+                          fill="#334D6E" />
+                      </svg>
+                    </div>
+                    <div id="level-value" class=" ml-16 mt-24 absolute font-medium text-xl">NaN</div>
+                    <canvas id="level-pie"></canvas>
+                  </div>
+                  <div class=" my-2">
+                    <div class=" text-gray-600 text-xl font-medium text-center">Bronze</div>
+                    <div class=" text-gray-600 text-center whitespace-nowrap">14 more points to Silver</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class=" bg-white rounded-md shadow-md-1 my-2 w-full">
+              <div class="py-3 pl-6 font-medium text-lg border-b-2">My Progress</div>
+              <div class=" flex justify-around p-4">
+                <div class=" flex flex-col justify-center">
+                  <div class=" w-40 h-40 flex">
+                    <div id="tasks-completed-value" class=" m-14 absolute font-medium text-5xl">NaN</div>
+                    <canvas id="tasks-completed-pie"></canvas>
+                  </div>
+                  <div class=" my-2">
+                    <div class=" text-gray-600 text-xl font-medium text-center">Tasks completed</div>
+                    <div class=" text-gray-600 text-center ">125 points earned</div>
+                  </div>
+                </div>
+                <div>
+                  <div class=" w-40 h-40">
+                    <div id="referrals-value" class=" m-14 absolute font-medium text-5xl">NaN</div>
+                    <canvas id="referrals-pie"></canvas>
+                  </div>
+                  <div class=" my-2">
+                    <div class=" text-gray-600 text-xl font-medium text-center">Referrals</div>
+                    <div class=" text-gray-600 text-center ">45 points earned</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" bg-white rounded-md shadow-md pb-1">
+            <div class="py-3 pl-6 font-medium text-lg border-b-2">Tasks</div>
+            <div class=" bg-gray-100 p-4 mx-5 my-3 rounded-md shadow-md flex justify-between">
+              <div>
+                <div class="font-medium text-xl mb-2">Submit poc</div>
+                <p class=" text-justify mr-4">
+                  Submit contacts of individual or group of participants. You will be rewarded with 25
+                  points for this task.
+                </p>
+                <br>
+                <span class=" text-gray-500">Due date:</span>
+                <span>December 23, 2021</span>
+              </div>
+              <div class=" text-right whitespace-nowrap grid content-between">
+                <div>
+                  <div class="text-gray-500 text-xs">Tasks completed</div>
+                  <div class="text-gray-500 font-medium text-base">1/2</div>
+                </div>
+                <button
+                  class=" bg-blue-600 hover:bg-blue-700 text-white inline-block py-2 px-4 rounded shadow-sm font-semibold text-base">
+                  Submit
+                </button>
+              </div>
+            </div>
+            <div class=" bg-gray-100 p-4 mx-5 my-3 rounded-md shadow-md flex justify-between">
+              <div>
+                <div class="font-medium text-xl mb-2">Submit poc</div>
+                <p class=" text-justify mr-4">
+                  Submit contacts of individual or group of participants. You will be rewarded with 25
+                  points for this task.
+                </p>
+                <br>
+                <span class=" text-gray-500">Due date:</span>
+                <span>December 23, 2021</span>
+              </div>
+            </div>
+            <div class=" bg-gray-100 p-4 mx-5 my-3 rounded-md shadow-md flex justify-between">
+              <div>
+                <div class=" mb-2">
+                  <span class="font-medium text-xl">Submit poc</span>
+                  <span class=" bg-green-50 text-green-400 font-medium text-lg mx-1 px-2 mb-2">25 points</span>
+                </div>
+                <p class=" text-justify mr-4">
+                  Submit contacts of individual or group of participants. You will be rewarded with 25
+                  points for this task.
+                </p>
+                <br>
+                <span class=" text-gray-500">Due date:</span>
+                <span>December 23, 2021</span>
+              </div>
+              <div class=" text-right whitespace-nowrap grid content-between">
+                <div>
+                  <div class="text-gray-500 text-xs">Tasks completed</div>
+                  <div class="text-gray-500 font-medium text-base">1/2</div>
+                </div>
+                <button
+                  class=" bg-blue-600 hover:bg-blue-700 text-white inline-block py-2 px-4 rounded shadow-sm font-semibold text-base">
+                  Submit
+                </button>
+              </div>
+            </div>
+            <div class=" bg-gray-100 p-4 mx-5 my-3 rounded-md shadow-md flex justify-between">
+              <div>
+                <div class="font-medium text-xl mb-2">Submit poc</div>
+                <p class=" text-justify mr-4">
+                  Submit contacts of individual or group of participants. You will be rewarded with 25
+                  points for this task.
+                </p>
+                <br>
+                <span class=" text-gray-500">Due date:</span>
+                <span>December 23, 2021</span>
+              </div>
+              <div class=" text-right whitespace-nowrap grid content-between">
+                <div>
+                  <div class="text-gray-500 text-xs">Tasks completed</div>
+                  <div class="text-gray-500 font-medium text-base">1/2</div>
+                </div>
+                <button
+                  class=" bg-blue-600 hover:bg-blue-700 text-white inline-block py-2 px-4 rounded shadow-sm font-semibold text-base">
+                  Submit
+                </button>
+              </div>
+            </div>
+            <div class=" bg-gray-100 p-4 mx-5 my-3 rounded-md shadow-md flex justify-between">
+              <div>
+                <div class=" mb-2">
+                  <span class="font-medium text-xl">Submit poc</span>
+                  <span class=" bg-red-50 text-red-400 font-medium text-lg mx-1 px-2 mb-2">25 points</span>
+                </div>
+                <p class=" text-justify mr-4">
+                  Submit contacts of individual or group of participants. You will be rewarded with 25
+                  points for this task.
+                </p>
+                <br>
+                <span class=" text-gray-500">Due date:</span>
+                <span>December 23, 2021</span>
+              </div>
+              <div class=" text-right whitespace-nowrap grid content-between">
+                <div>
+                  <div class="text-gray-500 text-xs">Tasks completed</div>
+                  <div class="text-gray-500 font-medium text-base">1/2</div>
+                </div>
+                <button
+                  class=" bg-blue-600 hover:bg-blue-700 text-white inline-block py-2 px-4 rounded shadow-sm font-semibold text-base">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class=" my-2 bg-white max-w-5xl rounded-md shadow-md flex flex-col justify-center content-center">
+            <div class="py-3 pl-6 font-medium text-lg border-b-2">Refer and Earn</div>
+            <div class=" flex flex-col justify-center">
+              <div class="flex justify-center">
+                <img src='https://svgshare.com/i/a85.svg' title='refer and earn' />
+              </div>
+              <div class=" text-lg text-center my-2">Refer your friend and you both earn</div>
+              <div class=" font-medium text-4xl text-center">25 points!</div>
+              <div class=" flex flex-wrap justify-center m-4">
+                <input type="url" class=" border-2 border-gray-400 text-gray-600 text-sm px-2 m-2"
+                  value="https://alcheringa.in/?rid=ALCHER-MOH-12" size="35" disabled>
+                <button
+                  class=" bg-blue-600 hover:bg-blue-700 text-white inline-block py-1 px-3 rounded shadow-sm font-semibold text-base m-2">
+                  copy link
+                </button>
+              </div>
+              <div class=" flex justify-center space-x-4 m-2">
+                <svg width="44" height="45" viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M1.22217 22.616C1.22217 32.946 8.72468 41.5359 18.537 43.2778V28.271H13.3425V22.5H18.537V17.8821C18.537 12.6877 21.8839 9.80305 26.6178 9.80305C28.1173 9.80305 29.7345 10.0333 31.2339 10.2636V15.5741H28.5796C26.0395 15.5741 25.4629 16.8433 25.4629 18.4605V22.5H31.0037L30.0808 28.271H25.4629V43.2778C35.2752 41.5359 42.7777 32.9478 42.7777 22.616C42.7777 11.1242 33.4277 1.72223 21.9999 1.72223C10.5722 1.72223 1.22217 11.1242 1.22217 22.616Z"
+                    fill="#1877F2" />
+                </svg>
+                <svg width="44" height="45" viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M39.6 5.38892H4.4C1.98 5.38892 0.022 7.38267 0.022 9.81947L0 36.4028C0 38.8396 1.98 40.8334 4.4 40.8334H39.6C42.02 40.8334 44 38.8396 44 36.4028V9.81947C44 7.38267 42.02 5.38892 39.6 5.38892ZM39.6 14.25L22 25.3264L4.4 14.25V9.81947L22 20.8959L39.6 9.81947V14.25Z"
+                    fill="#334D6E" />
+                </svg>
+                <svg width="44" height="45" viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0)">
+                    <path
+                      d="M16.415 40.5505C14.5123 40.5505 12.5539 40.3964 10.5837 40.0876C7.11365 39.5431 3.60097 37.728 2.60698 37.1845L0 35.7592L2.8225 34.831C5.90784 33.8165 7.7847 33.1871 10.108 32.2015C7.78168 31.0749 5.98875 29.0483 5.12568 26.4286L4.46907 24.4352L5.00752 24.5175C4.49693 24.0028 4.09376 23.4805 3.78123 23.0055C2.66976 21.3173 2.08129 19.2545 2.2065 17.4867L2.33004 15.7468L3.37169 16.1503C2.93227 15.3205 2.6147 14.4342 2.42806 13.5054C1.9732 11.2401 2.35387 8.83354 3.50026 6.72908L4.40764 5.06337L5.62116 6.52095C9.45913 11.1314 14.3203 13.8663 20.0898 14.6669C19.8542 13.0425 20.0307 11.4748 20.6152 10.0696C21.2956 8.43339 22.5061 7.04597 24.1148 6.05702C25.9013 4.95897 28.0679 4.42689 30.2153 4.55882C32.4936 4.6988 34.5622 5.55247 36.2051 7.02919C37.0074 6.82072 37.5985 6.59816 38.3975 6.29737C38.8782 6.11644 39.4233 5.91099 40.1055 5.67601L42.6191 4.80992L40.9799 9.4915C41.088 9.48243 41.1995 9.47471 41.316 9.46968L44.0002 9.34816L42.4137 11.5164C42.3227 11.6406 42.2995 11.6759 42.2673 11.7245C42.1394 11.9172 41.9803 12.1569 39.8027 15.0647C39.2575 15.7928 38.9853 16.7411 39.0359 17.7355C39.229 21.514 38.7654 24.9327 37.6573 27.8962C36.6092 30.6999 34.9851 33.1055 32.8307 35.0462C30.1646 37.447 26.7651 39.0909 22.726 39.9315C20.7448 40.3437 18.6171 40.5505 16.415 40.5505V40.5505Z"
+                      fill="#1DA1F2" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0">
+                      <rect width="44" height="44" fill="white" transform="translate(0 0.5)" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white h-screen w-80 border-gray-400 rounded m-4 hidden sm:block"></div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+  const levelPoints = [185, 14];
+  document.getElementById('level-value').innerText = levelPoints[0]
+
+  // class initialization(myChat)
+  var levelChart = new Chart(document.getElementById('level-pie').getContext('2d'), {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        data: levelPoints,
+        backgroundColor: [
+          'rgba(232, 107, 115, 1)',
+          'rgba(243, 246, 248, 1)'
+        ],
+        borderWidth: 0,
+        cutout: 62,
+      }]
+    },
+    options: {
+      plugins: {
+        legend: false,
+        tooltip: false,
+      }
+    }
+  });
+
+
+  const tasksCompletedPoints = [23, 5];
+  document.getElementById('tasks-completed-value').innerText = tasksCompletedPoints[0]
+
+  // class initialization(myChat)
+  var tasksCompletedChart = new Chart(document.getElementById('tasks-completed-pie').getContext('2d'), {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        data: tasksCompletedPoints,
+        backgroundColor: [
+          'rgba(0, 201, 92, 1)',
+          'rgba(243, 246, 248, 1)'
+        ],
+        borderWidth: 0,
+        cutout: 62,
+      }]
+    },
+    options: {
+      tooltips: {
+        enabled: false
+      }
+    }
+  });
+
+
+
+  const referralsPoints = [16, 3];
+  document.getElementById('referrals-value').innerText = referralsPoints[0]
+
+  // class initialization(myChat)
+  var referralsChart = new Chart(document.getElementById('referrals-pie').getContext('2d'), {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        data: referralsPoints,
+        backgroundColor: [
+          'rgba(255, 161, 51, 1)',
+          'rgba(243, 246, 248, 1)'
+        ],
+        borderWidth: 0,
+        cutout: 62,
+      }]
+    },
+    options: {
+      tooltips: {
+        enabled: false
+      }
+    }
+  });
+</script>
+
+</html>
