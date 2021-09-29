@@ -1,0 +1,52 @@
+{% extends '../basic.html'%}
+{%block title%}Alcheringa {%endblock%}
+{% block body %}
+{% load crispy_forms_tags %}
+<section class="gradient-custom">
+	<div class="container py-5 h-100" >
+		<div class="row justify-content-center align-items-center h-100">
+			<div class="col-12 col-lg-9 col-xl-7">
+				<div class="card shadow-2-strong card-registration" style="border-radius: 15px; border:10px solid #d17a00">
+					<div class="card-body p-4 p-md-5" id="#myGroup">
+						<h3 class="mt-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+                        <a class="btn btn-warning" href="{% url 'register_single' %}">Register solo</a>
+                        <a class="btn btn-warning" href="{% url 'register_group' %}">Register in a group</a>
+                    
+                    
+                        <!-- Group User Register Form -->
+                        <form id="group_user_register_form" method="POST" >{% csrf_token %}
+                            
+                        <!-- Leader -->
+                        <h4 class="mt-4 pb-2 pb-md-0 mb-md-5">Team Leader</h4>
+                            {{ single_user_register_form_1 | crispy}}
+                        <!-- Executive     -->
+                        <h4 class="mt-4 pb-2 pb-md-0 mb-md-5">Team Executive</h4>
+                            {{ single_user_register_form_2 | crispy}}
+                        <h4 class="mt-4 pb-2 pb-md-0 mb-md-5">Other Fields</h4>
+                            {{group_user_register_form | crispy}}
+                        <div class="form-group">
+                               <input type="password" class="form-control" name="password1" placeholder="Password">
+                        </div>
+                        <div class="mt-4 pt-2">
+							<input class="btn btn-warning btn-md" type="submit" name="group_user_register_form" value="Register" />
+						</div>
+						</form>
+                        
+                        <!-- Login -->
+						<div class="mt-4">
+							<div class="d-flex justify-content-center">
+								Already have an account? <a href="{% url 'login' %}" class="ml-2 link-warning">Log In</a>
+							</div>
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+{% block script %}
+
+{% endblock %}

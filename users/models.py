@@ -32,17 +32,24 @@ class CustomAccountManager(BaseUserManager):
         return user
 
 
+# Username for admin is admin, superuser is superuser
+# firstname field stores the user full name of the User
+
+
 class NewUser(AbstractBaseUser, PermissionsMixin):
     id = models.SlugField(primary_key=True, default=uuid.uuid4)
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(max_length=150, unique=False, default="user")
     firstname = models.CharField(max_length=150, blank=True)
     phone = PhoneNumberField(unique=False, blank=True)
-    college = models.CharField(max_length=200, unique=False)
-    department = models.CharField(max_length=200, unique=False)
-    degree = models.CharField(max_length=200, unique=False)
-    course_duration = models.CharField(max_length=200, unique=False)
     graduation_year = models.CharField(max_length=200, unique=False)
+    college_state = models.CharField(max_length=200, unique=False)
+    college_city = models.CharField(max_length=200, unique=False)
+    college_name = models.CharField(max_length=200, unique=False)
+    position_of_responsibility = models.CharField(max_length=200, unique=False)
+    interested_modules = models.CharField(max_length=200, unique=False)
+    # other fields
+    
     date_joined = models.DateTimeField(default=timezone.now)
     provider = models.CharField(max_length=200, unique=False, default="email")
     about = models.TextField(_('about'), max_length=500, blank=True)
@@ -56,12 +63,21 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return str(self.id)
 
-# Username for admin is admin, superuser is superuser
-# firstname field stores the user full name not the username
 
-
-class Profile(models.Model):
-    user = models.OneToOneField(NewUser, on_delete=models.CASCADE)
+class UserSingle(models.Model):
+    user = models.ForeignKey('NewUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.user.firstname} Profile'
+        return f'{self.user.id} Profile'
+
+
+class UserGroup(models.Model):
+    id = models.SlugField(primary_key=True, default=uuid.uuid4)
+    leader = models.ForeignKey('NewUser', related_name='leader', on_delete=models.CASCADE)
+    executive = models.ForeignKey('NewUser', related_name='executive', on_delete=models.CASCADE)
+    college_state = models.CharField(max_length=200, unique=False)
+    college_city = models.CharField(max_length=200, unique=False)
+    college_name = models.CharField(max_length=200, unique=False)
+
+    def __str__(self):
+        return str(self.id)

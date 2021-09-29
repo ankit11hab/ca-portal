@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import NewUser
-from .models import Profile
+from .models import UserSingle
+from .models import UserGroup
 from django.contrib.auth.admin import UserAdmin
 from django.forms import TextInput, Textarea
 
@@ -8,14 +9,14 @@ from django.forms import TextInput, Textarea
 class UserAdminConfig(UserAdmin):
     model = NewUser
     search_fields = ('email', 'username', 'firstname',)
-    list_filter = ('email', 'username', 'firstname', 'is_active', 'is_staff','id')
+    list_filter = ('email', 'username', 'firstname', 'is_active', 'is_staff', 'id')
     ordering = ('-date_joined',)
     list_display = ('email', 'username', 'firstname',
                     'is_active', 'is_staff', 'id')
     fieldsets = (
         (None, {'fields': ('email', 'username', 'firstname', 'id')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
-        ('Personal', {'fields': ('about', 'phone', 'college', 'department', 'degree', 'course_duration' ,'graduation_year', 'provider')}),
+        ('Personal', {'fields': ('about', 'phone', 'college_state', 'graduation_year', 'college_city', 'college_name', 'position_of_responsibility', 'interested_modules' , 'provider')}),
     )
     formfield_overrides = {
         NewUser.about: {'widget': Textarea(attrs={'rows': 10, 'cols': 40})},
@@ -29,4 +30,5 @@ class UserAdminConfig(UserAdmin):
 
 
 admin.site.register(NewUser, UserAdminConfig)
-admin.site.register(Profile)
+admin.site.register(UserSingle)
+admin.site.register(UserGroup)

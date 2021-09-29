@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegisterForm, UserUpdateForm
+from .forms import SingleUserRegisterForm, GroupUserRegisterForm, GroupUserRegisterFormForSingle, UserUpdateForm
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from .models import NewUser
@@ -17,17 +17,21 @@ from django.contrib.auth import get_user_model
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.db.models.query_utils import Q
+from .models import UserSingle
 
 
-def register(request):
+def register_single_user(request):
     if request.user.is_authenticated:
         return redirect('dashboard_page')
     else:
+        single_user_form = SingleUserRegisterForm(request.POST or None)
         if request.method == 'POST':
-            form = UserRegisterForm(request.POST)
-            if form.is_valid():
-                form.save()
+            if single_user_form.is_valid():
+                single_user_form.save()
                 user = NewUser.objects.get(email=request.POST.get('email'))
+                userSingle = UserSingle()
+                userSingle.user = user
+                userSingle.save()
                 uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
                 domain = get_current_site(request).domain
                 link = reverse('activate', kwargs={
@@ -47,8 +51,82 @@ def register(request):
                 messages.success(request, ('Registration successful. Check your mail for the link to activate your account.'))
                 return redirect('login')
         else:
-            form = UserRegisterForm()
-        return render(request, 'users/register.html', {'form': form})
+            single_user_form = SingleUserRegisterForm()
+        return render(request, 'users/register_single.html', {'single_user_register_form': single_user_form,})
+
+
+def register_group_user(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard_page')
+    else:
+        group_user_form = GroupUserRegisterForm(request.POST or None)
+        single_user_form_1 = GroupUserRegisterFormForSingle(request.POST or None, prefix='form_1')
+        single_user_form_2 = GroupUserRegisterFormForSingle(request.POST or None, prefix='form_2')
+        if request.method == 'POST':
+            if single_user_form_1.is_valid() and single_user_form_2.is_valid() and group_user_form.is_valid():
+                single_form_1_result = single_user_form_1.save(commit=False)
+                single_form_1_result.college_state = request.POST.get('college_state')
+                single_form_1_result.college_city = request.POST.get('college_city')
+                single_form_1_result.college_name = request.POST.get('college_name')
+                single_form_1_result.set_password(request.POST.get('password1'))
+                single_form_1_result.username = "Groupuser"
+                single_form_1_result.save()
+
+                single_form_2_result = single_user_form_2.save(commit=False)
+                single_form_2_result.college_state = request.POST.get('college_state')
+                single_form_2_result.college_city = request.POST.get('college_city')
+                single_form_2_result.college_name = request.POST.get('college_name')
+                single_form_2_result.set_password(request.POST.get('password1'))
+                single_form_2_result.username = "Groupuser"
+                single_form_2_result.save()
+
+                user_1 = NewUser.objects.get(email=request.POST.get('form_1-email'))
+                user_2 = NewUser.objects.get(email=request.POST.get('form_2-email'))
+
+                group_form_result = group_user_form.save(commit=False)
+                group_form_result.leader = user_1
+                group_form_result.executive = user_2
+                group_form_result.save()
+
+                # SEnding mail to leader
+
+                uidb64 = urlsafe_base64_encode(force_bytes(user_1.pk))
+                domain = get_current_site(request).domain
+                link = reverse('activate', kwargs={'uidb64': uidb64, 'token': token_generator.make_token(user_1)})
+                subject = "Activate your account"
+                email_template_name = "users/email_verify_mail.txt"
+                firstname = user_1.firstname
+                c = {
+                    "firstname": firstname,
+                    "link": 'https://'+domain+link,
+                }
+                email1 = render_to_string(email_template_name, c)
+
+                # sending mail to executive
+
+                uidb64 = urlsafe_base64_encode(force_bytes(user_2.pk))
+                domain = get_current_site(request).domain
+                link = reverse('activate', kwargs={'uidb64': uidb64, 'token': token_generator.make_token(user_2)})
+                subject = "Activate your account"
+                email_template_name = "users/email_verify_mail.txt"
+                firstname = user_2.firstname
+                c = {
+                    "firstname": firstname,
+                    "link": 'https://'+domain+link,
+                }
+                email2 = render_to_string(email_template_name, c)
+                try:
+                    send_mail(subject, email1, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [user_1.email], fail_silently=False)
+                    send_mail(subject, email2, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [user_2.email], fail_silently=False)
+                except BadHeaderError:
+                    return HttpResponse('Invalid header found.')
+                messages.success(request, ('Registration successful. Check your mail for the link to activate your account.'))
+                return redirect('login')
+        # else:
+        #     group_user_form = GroupUserRegisterForm()
+        #     single_user_form_1 = GroupUserRegisterFormForSingle()
+        #     single_user_form_2 = GroupUserRegisterFormForSingle()
+        return render(request, 'users/register_group.html', {'group_user_register_form': group_user_form,'single_user_register_form_1': single_user_form_1,'single_user_register_form_2': single_user_form_2})
 
 
 def loginPage(request):
@@ -78,48 +156,8 @@ def loginPage(request):
 # authentication with google
 
 
-def googleauth(request):
-    if request.user.is_authenticated:
-        return redirect('dashboard_page')
-    else:
-        if request.method == 'GET':
-            email = request.GET.get('email')
-            firstname = request.GET.get('firstname')
-            password = "GOOGLEgoogle123"
-            user = NewUser.objects.filter(email=email)
-            if user:
-                user = authenticate(email=email, password=password)
-                if user is not None:
-                    login(request, user)
-                    return HttpResponse('Signed in successfully')
-                else:
-                    messages.error(request, 'Email is registered with another provider or the email is not activated')
-                    return HttpResponse('Email is registered with another provider or the email is not activated') 
-            else:
-                myuser = NewUser.objects.create_user(email, firstname, password, "google")
-                myuser.save()
-                messages.success(request, 'Registration successful. Check your mail for the link to update your account')
-                user = NewUser.objects.get(email=email)
-                uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-                domain = get_current_site(request).domain
-                link = reverse('activate', kwargs={
-                               'uidb64': uidb64, 'token': token_generator.make_token(user)})
-                subject = "Activate your account"
-                email_template_name = "users/email_verify_mail.txt"
-                firstname = request.GET.get('firstname')
-                c = {
-                    "firstname": firstname,
-                    "link": 'https://'+domain+link,
-                    }
-                email = render_to_string(email_template_name, c)
-                try:
-                    send_mail(subject, email, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [user.email], fail_silently=False)
-                except BadHeaderError:
-                    return HttpResponse('Invalid header found. Try again')
-                return HttpResponse('Registration successful. Check your mail for the link to update your account')
-
-
 class VerificationView(View):
+
     def get(self, request, uidb64, token, *args, **kwargs):
         try:
             uid = force_text(urlsafe_base64_decode(uidb64))

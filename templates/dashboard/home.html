@@ -1,0 +1,14 @@
+{% extends '../basic.html'%}
+{%block title%}Alcheringa{%endblock%}
+{% block body %}
+
+{% if user.is_authenticated %}
+<a href="{% url 'logout' %}"><button type="button"  class="btn btn-outline-primary">Logout</button></a>
+<a href="{% url 'profile' %}"><button type="button"  class="btn btn-outline-primary">Profile</button></a>
+{% else %}
+<a href="{% url 'login' %}" ><button type="button" class="btn btn-outline-primary">Login</button></a>
+<a href="{% url 'register_single' %}" ><button type="button" class="btn btn-outline-primary">Register Single</button></a>
+<a href="{% url 'register_group' %}" ><button type="button" class="btn btn-outline-primary">Register Group</button></a>
+{% endif %}
+
+{%endblock%}
