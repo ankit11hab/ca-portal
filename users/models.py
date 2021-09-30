@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from phonenumber_field.modelfields import PhoneNumberField
-
+from .utils import create_new_ref_number
 
 class CustomAccountManager(BaseUserManager):
     def create_superuser(self, email, firstname, password, **other_fields):
@@ -38,6 +38,7 @@ class CustomAccountManager(BaseUserManager):
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
     id = models.SlugField(primary_key=True, default=uuid.uuid4)
+    alcherid = models.CharField(max_length=9,blank=True,unique=True,default=create_new_ref_number)
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(max_length=150, unique=False, default="user")
     firstname = models.CharField(max_length=150, blank=True)
