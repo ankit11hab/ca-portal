@@ -12,5 +12,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('', include('dashboard.urls')),
     path('caportal/', include('ca.urls')),
+    
+
    
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
