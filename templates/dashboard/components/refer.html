@@ -6,14 +6,16 @@
         </div>
         <div class=" text-lg text-center my-2">Refer your friend and you both earn</div>
         <div class=" font-medium text-4xl text-center">25 points!</div>
-        <div class=" flex flex-wrap justify-center m-4">
+        <div class=" flex flex-wrap justify-center mt-4 ml-4 mr-4">
             <input type="url" class=" border-2 border-gray-400 text-gray-600 text-sm px-2 m-2"
-                value="{{request.user.alcherid}}" size="35" disabled>
-            <button
+                value="{{request.user.alcherid}}"id="alcherid" size="35" disabled>
+            <button onclick="copytext()"
                 class=" bg-blue-600 hover:bg-blue-700 active:bg-blue-700 text-white inline-block py-1 px-3 rounded shadow-sm font-semibold text-base m-2">
                 copy id
             </button>
+            
         </div>
+        <div class=" flex flex-wrap justify-center ml-4 mb-4 mr-4" id="copied"></div>
         <div class=" flex justify-center space-x-4 m-4">
             <svg width="44" height="45" viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -40,3 +42,17 @@
         </div>
     </div>
 </div>
+
+{% block script %}
+<script>
+    function copytext() {
+            var copyText = document.getElementById("alcherid");
+
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); 
+            navigator.clipboard.writeText(copyText.value);
+
+            document.getElementById("copied").innerHTML="Copied id successfully"
+        }
+</script>
+{% endblock %}
