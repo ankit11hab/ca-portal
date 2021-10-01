@@ -9,11 +9,12 @@ User = get_user_model()
 class SingleUserRegisterForm(UserCreationForm):
     email = forms.EmailField(label="Email")
     firstname = forms.CharField(label="Full Name")
+    referred_by = forms.CharField(label="Enter referral id")
     phone = PhoneNumberField(widget=forms.TextInput(), label="Phone number (e.g. +12125552368)", required=False)
 
     class Meta:
         model = User
-        fields = ['firstname', 'email', 'phone', 'graduation_year', 'college_state', 'college_city', 'college_name', 'position_of_responsibility', 'interested_modules']
+        fields = ['firstname', 'email', 'phone', 'graduation_year', 'college_state', 'college_city', 'college_name', 'position_of_responsibility', 'interested_modules','referred_by']
 
 
 class GroupUserRegisterFormForSingle(forms.ModelForm):

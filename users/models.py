@@ -7,6 +7,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from phonenumber_field.modelfields import PhoneNumberField
 from .utils import create_new_ref_number
 
+
 class CustomAccountManager(BaseUserManager):
     def create_superuser(self, email, firstname, password, **other_fields):
         other_fields.setdefault('is_staff', True)
@@ -38,7 +39,8 @@ class CustomAccountManager(BaseUserManager):
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
     id = models.SlugField(primary_key=True, default=uuid.uuid4)
-    alcherid = models.CharField(max_length=9,blank=True,unique=True,default=create_new_ref_number)
+    alcherid = models.CharField(
+        max_length=9, blank=True, unique=True, default=create_new_ref_number)
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(max_length=150, unique=False, default="user")
     firstname = models.CharField(max_length=150, blank=True)
@@ -49,8 +51,11 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     college_name = models.CharField(max_length=200, unique=False)
     position_of_responsibility = models.CharField(max_length=200, unique=False)
     interested_modules = models.CharField(max_length=200, unique=False)
+    referred_by = models.CharField(
+        max_length=9, blank=True)
+    referrals= models.IntegerField(default=0)
     # other fields
-    
+
     date_joined = models.DateTimeField(default=timezone.now)
     provider = models.CharField(max_length=200, unique=False, default="email")
     about = models.TextField(_('about'), max_length=500, blank=True)
@@ -74,8 +79,10 @@ class UserSingle(models.Model):
 
 class UserGroup(models.Model):
     id = models.SlugField(primary_key=True, default=uuid.uuid4)
-    leader = models.ForeignKey('NewUser', related_name='leader', on_delete=models.CASCADE)
-    executive = models.ForeignKey('NewUser', related_name='executive', on_delete=models.CASCADE)
+    leader = models.ForeignKey(
+        'NewUser', related_name='leader', on_delete=models.CASCADE)
+    executive = models.ForeignKey(
+        'NewUser', related_name='executive', on_delete=models.CASCADE)
     college_state = models.CharField(max_length=200, unique=False)
     college_city = models.CharField(max_length=200, unique=False)
     college_name = models.CharField(max_length=200, unique=False)

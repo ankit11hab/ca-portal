@@ -17,15 +17,19 @@
                         <form id="group_user_register_form" method="POST" >{% csrf_token %}
                             
                         <!-- Leader -->
-                        <h4 class="mt-4 pb-2 pb-md-0 mb-md-5">Team Leader</h4>
+                        <h1>Team Leader</h1>
                             {{ single_user_register_form_1 | crispy}}
                         <!-- Executive     -->
-                        <h4 class="mt-4 pb-2 pb-md-0 mb-md-5">Team Executive</h4>
+                        <h1 >Team Executive</h1>
                             {{ single_user_register_form_2 | crispy}}
-                        <h4 class="mt-4 pb-2 pb-md-0 mb-md-5">Other Fields</h4>
+                        <h1>Other Fields</h1>
                             {{group_user_register_form | crispy}}
+
+						<div class="form-group">
+							<input type="text" class="form-control" name="referred_by" placeholder="Referred by(Enter referral id)">
+						</div>
                         <div class="form-group">
-                               <input type="password" class="form-control" name="password1" placeholder="Password">
+                               <input type="password" class="form-control" name="password1" placeholder="Password" required>
                         </div>
                         <div class="mt-4 pt-2">
 							<input class="btn btn-warning btn-md" type="submit" name="group_user_register_form" value="Register" />

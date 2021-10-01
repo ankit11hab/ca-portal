@@ -28,6 +28,17 @@ def register_single_user(request):
         if request.method == 'POST':
             if single_user_form.is_valid():
                 single_user_form.save()
+
+                if(request.POST.get('referred_by')):
+                    try:
+                        user = NewUser.objects.get(alcherid=request.POST.get('referred_by'))
+                        user.referrals += 1
+                        user.save()
+                    except:
+                        raise single_user_form.ValidationError("Referral id is invalid")
+                  
+                        
+
                 user = NewUser.objects.get(email=request.POST.get('email'))
                 userSingle = UserSingle()
                 userSingle.user = user
@@ -42,17 +53,19 @@ def register_single_user(request):
                 c = {
                     "firstname": firstname,
                     "link": 'https://'+domain+link,
-                    }
+                }
                 email = render_to_string(email_template_name, c)
                 try:
-                    send_mail(subject, email, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [user.email], fail_silently=False)
+                    send_mail(subject, email, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
+                              user.email], fail_silently=False)
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
-                messages.success(request, ('Registration successful. Check your mail for the link to activate your account.'))
+                messages.success(
+                    request, ('Registration successful. Check your mail for the link to activate your account.'))
                 return redirect('login')
         else:
             single_user_form = SingleUserRegisterForm()
-        return render(request, 'users/register_single.html', {'single_user_register_form': single_user_form,})
+        return render(request, 'users/register_single.html', {'single_user_register_form': single_user_form, })
 
 
 def register_group_user(request):
@@ -60,39 +73,64 @@ def register_group_user(request):
         return redirect('dashboard_page')
     else:
         group_user_form = GroupUserRegisterForm(request.POST or None)
-        single_user_form_1 = GroupUserRegisterFormForSingle(request.POST or None, prefix='form_1')
-        single_user_form_2 = GroupUserRegisterFormForSingle(request.POST or None, prefix='form_2')
+        single_user_form_1 = GroupUserRegisterFormForSingle(
+            request.POST or None, prefix='form_1')
+        single_user_form_2 = GroupUserRegisterFormForSingle(
+            request.POST or None, prefix='form_2')
         if request.method == 'POST':
             if single_user_form_1.is_valid() and single_user_form_2.is_valid() and group_user_form.is_valid():
                 single_form_1_result = single_user_form_1.save(commit=False)
-                single_form_1_result.college_state = request.POST.get('college_state')
-                single_form_1_result.college_city = request.POST.get('college_city')
-                single_form_1_result.college_name = request.POST.get('college_name')
-                single_form_1_result.set_password(request.POST.get('password1'))
+                single_form_1_result.college_state = request.POST.get(
+                    'college_state')
+                single_form_1_result.college_city = request.POST.get(
+                    'college_city')
+                single_form_1_result.college_name = request.POST.get(
+                    'college_name')
+                single_form_1_result.referred_by = request.POST.get(
+                    'referred_by')
+                single_form_1_result.set_password(
+                    request.POST.get('password1'))
                 single_form_1_result.username = "Groupuser"
                 single_form_1_result.save()
-
+                #2nd form
                 single_form_2_result = single_user_form_2.save(commit=False)
-                single_form_2_result.college_state = request.POST.get('college_state')
-                single_form_2_result.college_city = request.POST.get('college_city')
-                single_form_2_result.college_name = request.POST.get('college_name')
-                single_form_2_result.set_password(request.POST.get('password1'))
+                single_form_2_result.college_state = request.POST.get(
+                    'college_state')
+                single_form_2_result.college_city = request.POST.get(
+                    'college_city')
+                single_form_2_result.college_name = request.POST.get(
+                    'college_name')
+                single_form_2_result.referred_by = request.POST.get(
+                    'referred_by')
+                single_form_2_result.set_password(
+                    request.POST.get('password1'))
                 single_form_2_result.username = "Groupuser"
                 single_form_2_result.save()
 
-                user_1 = NewUser.objects.get(email=request.POST.get('form_1-email'))
-                user_2 = NewUser.objects.get(email=request.POST.get('form_2-email'))
+                user_1 = NewUser.objects.get(
+                    email=request.POST.get('form_1-email'))
+                user_2 = NewUser.objects.get(
+                    email=request.POST.get('form_2-email'))
 
                 group_form_result = group_user_form.save(commit=False)
                 group_form_result.leader = user_1
                 group_form_result.executive = user_2
                 group_form_result.save()
+                
 
+                if(request.POST.get('referred_by')):
+                    try:
+                        user = NewUser.objects.get(alcherid=request.POST.get('referred_by'))
+                        user.referrals += 1
+                        user.save()
+                    except:
+                        raise group_user_form.ValidationError("Referral id is invalid")
                 # SEnding mail to leader
 
                 uidb64 = urlsafe_base64_encode(force_bytes(user_1.pk))
                 domain = get_current_site(request).domain
-                link = reverse('activate', kwargs={'uidb64': uidb64, 'token': token_generator.make_token(user_1)})
+                link = reverse('activate', kwargs={
+                               'uidb64': uidb64, 'token': token_generator.make_token(user_1)})
                 subject = "Activate your account"
                 email_template_name = "users/email_verify_mail.txt"
                 firstname = user_1.firstname
@@ -106,7 +144,8 @@ def register_group_user(request):
 
                 uidb64 = urlsafe_base64_encode(force_bytes(user_2.pk))
                 domain = get_current_site(request).domain
-                link = reverse('activate', kwargs={'uidb64': uidb64, 'token': token_generator.make_token(user_2)})
+                link = reverse('activate', kwargs={
+                               'uidb64': uidb64, 'token': token_generator.make_token(user_2)})
                 subject = "Activate your account"
                 email_template_name = "users/email_verify_mail.txt"
                 firstname = user_2.firstname
@@ -116,17 +155,20 @@ def register_group_user(request):
                 }
                 email2 = render_to_string(email_template_name, c)
                 try:
-                    send_mail(subject, email1, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [user_1.email], fail_silently=False)
-                    send_mail(subject, email2, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [user_2.email], fail_silently=False)
+                    send_mail(subject, email1, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
+                              user_1.email], fail_silently=False)
+                    send_mail(subject, email2, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
+                              user_2.email], fail_silently=False)
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
-                messages.success(request, ('Registration successful. Check your mail for the link to activate your account.'))
+                messages.success(
+                    request, ('Registration successful. Check your mail for the link to activate your account.'))
                 return redirect('login')
         # else:
         #     group_user_form = GroupUserRegisterForm()
         #     single_user_form_1 = GroupUserRegisterFormForSingle()
         #     single_user_form_2 = GroupUserRegisterFormForSingle()
-        return render(request, 'users/register_group.html', {'group_user_register_form': group_user_form,'single_user_register_form_1': single_user_form_1,'single_user_register_form_2': single_user_form_2})
+        return render(request, 'users/register_group.html', {'group_user_register_form': group_user_form, 'single_user_register_form_1': single_user_form_1, 'single_user_register_form_2': single_user_form_2})
 
 
 def loginPage(request):
@@ -140,15 +182,18 @@ def loginPage(request):
             if(user):
                 user = NewUser.objects.filter(email=email, provider="email")
                 if user:
-                    user = authenticate(request, email=email, password=password)
+                    user = authenticate(
+                        request, email=email, password=password)
                     if user is not None:
                         login(request, user)
                         return redirect('dashboard_page')
                     else:
                         print("errrr")
-                        messages.error(request, 'Password is incorrect for the email address entered or the email is not activated') 
+                        messages.error(
+                            request, 'Password is incorrect for the email address entered or the email is not activated')
                 else:
-                    messages.error(request, 'This email is registered with another provider')
+                    messages.error(
+                        request, 'This email is registered with another provider')
             else:
                 messages.error(request, 'Email is not registered')
         return render(request, 'users/login.html')
@@ -186,7 +231,7 @@ def profile(request):
             return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
-    return render(request, 'users/profile.html', {'title': 'profile', 'u_form':u_form})
+    return render(request, 'users/profile.html', {'title': 'profile', 'u_form': u_form})
 
 
 def password_reset_request(request):
@@ -195,7 +240,8 @@ def password_reset_request(request):
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
             data = password_reset_form.cleaned_data['email']
-            associated_users = User.objects.filter(Q(email=data, provider="email"))
+            associated_users = User.objects.filter(
+                Q(email=data, provider="email"))
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Requested"
@@ -211,12 +257,13 @@ def password_reset_request(request):
                     }
                     email = render_to_string(email_template_name, c)
                     try:
-                        send_mail(subject, email, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [user.email], fail_silently=False)
+                        send_mail(subject, email, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
+                                  user.email], fail_silently=False)
                     except BadHeaderError:
                         return HttpResponse('Invalid header found.')
-                    messages.success(request, ("Password reset mail sent successfully."))
+                    messages.success(
+                        request, ("Password reset mail sent successfully."))
             else:
                 messages.error(request, ("Email not registered with us"))
     password_reset_form = PasswordResetForm()
-    return render(request=request, template_name="users/password/password_reset.html", context={"password_reset_form":password_reset_form})
-
+    return render(request=request, template_name="users/password/password_reset.html", context={"password_reset_form": password_reset_form})
