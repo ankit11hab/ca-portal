@@ -4,22 +4,33 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
+    <!-- JS ANIMATE ON SCROLL LIBRARY -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- FONT AWESOME CDN -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- BOOTSTRAP CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <!-- GOOGLE AUTH K LIE JS FILE-->
     <script src="https://apis.google.com/js/api:client.js"></script>
+    <!-- TAILWIND CSS CDN -->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <!-- EXTERNAL STYLES-->
     <link rel="stylesheet" href={% static "css/stylesheet.css" %}>
-    <script src="https://apis.google.com/js/api:client.js"></script>
+    <!-- CHART  JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
+        integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
     <title>{% block title %} {% endblock %}</title>
     <style>
         {% block style %} {% endblock %}
     </style>
-    {% block script %}{% endblock %}
+    
 </head>
 
 <body>
@@ -31,5 +42,6 @@
 
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <script src={% static "js/script.js" %}></script> -->
+{% block script %}{% endblock %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+

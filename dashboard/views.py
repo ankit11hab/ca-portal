@@ -6,4 +6,4 @@ def dashboard(request):
     if request.user.is_authenticated:
         return render(request, 'dashboard/dashboard_page.html')
     else:
-        return render(request, 'dashboard/home.html')
+        return render(request, 'dashboard/landing_page.html')
