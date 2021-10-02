@@ -1,37 +1,85 @@
-{% extends '../basic.html'%}
+
+{% extends '../basicbootstrap.html'%}
+{% load static %}
 {%block title%}Alcheringa {%endblock%}
 {% block body %}
 {% load crispy_forms_tags %}
-<section class="gradient-custom">
-	<div class="container py-5 h-100" >
-		<div class="row justify-content-center align-items-center h-100">
-			<div class="col-12 col-lg-9 col-xl-7">
-				<div class="card shadow-2-strong card-registration" style="border-radius: 15px; border:10px solid #d17a00">
-					<div class="card-body p-4 p-md-5" id="#myGroup">
-						<h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                        <a class="btn btn-warning" href="{% url 'register_single' %}">Register solo</a>
-                        <a class="btn btn-warning" href="{% url 'register_group' %}">Register in a group</a>
-                        <!-- Single User Register Form -->
-						<form id="single_user_register_form" method="POST" >{% csrf_token %} 
-							{{single_user_register_form|crispy}}
-							<div class="mt-4 pt-2">
-								<input class="btn btn-warning btn-md" type="submit" name="single_user_register_form" value="Register" />
-							</div>
-						</form>
-                        
+<nav class="navbar navbar-light bg-light">
+	<div class="container-fluid">
+		<a class="navbar-brand ms-5" href="#">
+			<img src="{% static 'images/Logo.png' %" alt="" width="auto" height="28" class="d-inline-block align-text-top">
 
-						<div class="mt-4">
-							<div class="d-flex justify-content-center">
-								Already have an account? <a href="{% url 'login' %}" class="ml-2 link-warning">Log In</a>
-							</div>
-						
+		</a>
+	</div>
+</nav>
+<div class="row">
+	<div class="col form-div">
+		<div class="container form-wrapper">
+			<h2>REGISTRATION</h2>
+			<div class="form">
+				<div class="form-head my-2">
+					<div class="row">
+						<div class="col bg-light">
+							<a href="{% url 'register_single' %}" type="button" class="btn btn-outline-primary">SOLO
+								REGISTRATION</a>
+						</div>
+						<div class="col bg-light">
+							<a href="{% url 'register_group' %}" type="button" class="btn btn-outline-primary">TEAM
+								REGISTRATION</a>
 						</div>
 					</div>
 				</div>
+				<form method="POST">
+            		{% csrf_token %}
+					<ul class="errorlist">
+						{% if single_user_register_form.non_field_errors %}
+						<li>{{  single_user_register_form.non_field_errors }}</li>
+						{% endif %}
+						{% for field in single_user_register_form %}
+						{% if field.errors %}
+						<li>
+							{{ field.label }}
+							<ul class="errorlist">
+								{% for error in field.errors %}
+								<li>{{ error }}</li>
+								{% endfor %}
+							</ul>
+						</li>
+						{% endif %}
+						{% endfor %}
+					</ul>
+					<p class="my-1">Feild marked * are mandatory</p>
+					<div class="entry-head">
+						<h8>
+							TEAM LEADER
+						</h8>
+
+					</div>
+
+					{{ single_user_register_form.firstname }}
+					{{ single_user_register_form.email }}
+					{{ single_user_register_form.phone }}
+					{{ single_user_register_form.graduation_year }}
+					{{ single_user_register_form.college_state }}
+					{{ single_user_register_form.college_city }}
+					{{ single_user_register_form.college_name }}
+					{{ single_user_register_form.position_of_responsibility }}
+					{{ single_user_register_form.interested_modules }}
+					{{ single_user_register_form.referred_by }}
+
+					{{ single_user_register_form.password1 }}
+					{{ single_user_register_form.password2 }}
+				
+					<input type="submit" class="btn btn-primary sub-btn"/>
+				</form>
 			</div>
+
 		</div>
 	</div>
-</section>
+	<div class="col img-div">
+		<img src="{% static 'images/Graphic.jpg' %}" alt="">
+	</div>
+</div>
 
 {% endblock %}
 {% block script %}
