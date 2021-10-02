@@ -2,13 +2,13 @@
 {% extends '../basicbootstrap.html'%}
 {% load static %}
 {%block title%}Alcheringa {%endblock%}
+{% block style %}<link rel="stylesheet" href={% static "css/register_login.css" %}>{% endblock %}
 {% block body %}
 {% load crispy_forms_tags %}
 <nav class="navbar navbar-light pb-5">
 	<div class="container-fluid">
 		<a class="navbar-brand ms-5" href="#">
 			<img src="{% static 'images/Logo.png' %}" alt="" width="auto" height="28" class="d-inline-block align-text-top">
-
 		</a>
 	</div>
 </nav>
@@ -64,7 +64,7 @@
 					{{ single_user_register_form.password1 }}
 					{{ single_user_register_form.password2 }}
 				
-					<input type="submit" class="btn btn-primary sub-btn"/>
+					<input type="submit" class="bg-blue-600 hover:bg-blue-700 text-white inline-block py-2 px-4 rounded shadow-sm font-semibold text-base"/>
 				</form>
 			</div>
 
@@ -75,20 +75,4 @@
 	</div>
 </div>
 
-{% endblock %}
-{% block script %}
-<!-- <script>
-    function group_user_register_form(event) {
-        if(document.querySelector("#group_user_register_form").style.display=="none"){
-            document.querySelector("#single_user_register_form").style.display="none"
-            document.querySelector("#group_user_register_form").style.display="block"
-        }
-    }
-    function single_user_register_form(event) {
-        if(document.querySelector("#single_user_register_form").style.display=="none"){
-            document.querySelector("#group_user_register_form").style.display="none"
-            document.querySelector("#single_user_register_form").style.display="block"
-        }
-    }
-</script> -->
 {% endblock %}
