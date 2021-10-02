@@ -27,7 +27,7 @@
     const sidebar = document.querySelector(".navbar");
     const arrow = document.querySelector(".side");
     const middle = document.querySelector(".Middle");
-    const alcher = document.querySelector(".Alcher");
+    // const alcher = document.querySelector(".Alcher");
     const ak = document.querySelector(".ak");
 
     if (screen.width < 672) {
@@ -36,11 +36,11 @@
 
     }
 
-    alcher.addEventListener("click", () => {
-        sidebar.classList.toggle("-translate-x-full"),
-            middle.classList.add("sm:mx-96"),
-            btn.classList.add("invisible")
-    });
+    // alcher.addEventListener("click", () => {
+    //     sidebar.classList.toggle("-translate-x-full"),
+    //         middle.classList.add("sm:mx-96"),
+    //         btn.classList.add("invisible")
+    // });
     arrow.addEventListener("click", () => {
         middle.classList.remove("sm:mx-96")
         sidebar.classList.toggle("-translate-x-full"),
