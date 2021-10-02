@@ -27,17 +27,17 @@ def register_single_user(request):
         single_user_form = SingleUserRegisterForm(request.POST or None)
         if request.method == 'POST':
             if single_user_form.is_valid():
-                single_user_form.save()
+                result = single_user_form.save(commit=False)
 
                 if(request.POST.get('referred_by')):
-                    try:
-                        user = NewUser.objects.get(alcherid=request.POST.get('referred_by'))
-                        user.referrals += 1
-                        user.save()
-                    except:
-                        raise single_user_form.ValidationError("Referral id is invalid")
-                  
-                        
+                    user = NewUser.objects.get(
+                    alcherid=request.POST.get('referred_by'))
+                    # result.referred_by_user=user
+                    result.save()
+                    user.referrals += 1
+                    user.save()
+                else:
+                    result.save()
 
                 user = NewUser.objects.get(email=request.POST.get('email'))
                 userSingle = UserSingle()
@@ -92,7 +92,7 @@ def register_group_user(request):
                     request.POST.get('password1'))
                 single_form_1_result.username = "Groupuser"
                 single_form_1_result.save()
-                #2nd form
+                # 2nd form
                 single_form_2_result = single_user_form_2.save(commit=False)
                 single_form_2_result.college_state = request.POST.get(
                     'college_state')
@@ -115,16 +115,19 @@ def register_group_user(request):
                 group_form_result = group_user_form.save(commit=False)
                 group_form_result.leader = user_1
                 group_form_result.executive = user_2
-                group_form_result.save()
-                
+               
 
                 if(request.POST.get('referred_by')):
-                    try:
-                        user = NewUser.objects.get(alcherid=request.POST.get('referred_by'))
-                        user.referrals += 1
-                        user.save()
-                    except:
-                        raise group_user_form.ValidationError("Referral id is invalid")
+                    user = NewUser.objects.get(
+                        alcherid=request.POST.get('referred_by'))
+                    # result.referred_by_user=user
+                    group_form_result.referred_by = request.POST.get(
+                        'referred_by')
+                    user.referrals += 1
+                    user.save()
+                    group_form_result.save()
+                else:
+                    group_form_result.save()
                 # SEnding mail to leader
 
                 uidb64 = urlsafe_base64_encode(force_bytes(user_1.pk))

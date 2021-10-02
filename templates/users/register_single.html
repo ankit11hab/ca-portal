@@ -7,7 +7,7 @@
 {% load crispy_forms_tags %}
 <nav class="navbar navbar-light pb-5">
 	<div class="container-fluid">
-		<a class="navbar-brand ms-5" href="#">
+		<a class="navbar-brand ms-5" href="/">
 			<img src="{% static 'images/Logo.png' %}" alt="" width="auto" height="28" class="d-inline-block align-text-top">
 		</a>
 	</div>
@@ -37,13 +37,11 @@
 						{% endif %}
 						{% for field in single_user_register_form %}
 						{% if field.errors %}
-						<li>
 							<ul class="errorlist">
 								{% for error in field.errors %}
 									{{ error }}
 								{% endfor %}
 							</ul>
-						</li>
 						{% endif %}
 						{% endfor %}
 					</ul>

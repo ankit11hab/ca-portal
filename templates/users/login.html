@@ -1,53 +1,39 @@
-{% extends '../basic.html'%}
+{% extends '../basicbootstrap.html'%}
+{% load static %}
 {%block title%}Alcheringa {%endblock%}
+{% block style %}
+<link rel="stylesheet" href={% static "css/register_login.css" %}>{% endblock %}
 {% block body %}
-
-<section class="gradient-custom" style="height:100vh;">
-	<div class="container py-5 h-100">
-		<div class="row justify-content-center align-items-center h-100">
-			<div class="col-12 col-lg-9 col-xl-7">
-				<div class="card shadow-2-strong card-registration" style="border-radius: 15px; border:10px solid #d17a00">
-					<div class="card-body p-4 p-md-5">
-
-						<h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Alcheringa Campus Ambassador</h3>
-						<form method="POST">{% csrf_token %}
-							{% csrf_token %}
-							<div class="input-group mb-3">
-								<div class="input-group-append">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
-								<input type="email" name="email" placeholder="Email..." class="form-control" required>
-							</div>
-							<div class="input-group mb-2">
-								<div class="input-group-append">
-									<span class="input-group-text"><i class="fas fa-key"></i></span>
-								</div>
-								<input type="password" name="password" placeholder="Password..." class="form-control" required>
-							</div>
-							<div class="d-flex justify-content-center mt-3 login_container">
-								<input class="btn btn-warning btn-md" id="login-email" style="width: 184px;" type="submit" value="Login">
-							</div>
-
-						</form>
-                        
-                        <!-- <div class="d-flex justify-content-center mt-2">
-                            <div class="google-btn" id="customBtn">
-                                <div class="google-icon-wrapper">
-                                    <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
-                                </div>
-                                <p class="btn-text"><b>Sign in with google</b></p>
-                            </div>
-                        </div> -->
-						<div class="d-flex justify-content-center mt-3">
-							Do not have an account? <a href="{% url 'register_single' %}" class="ml-2 link-warning">Register</a>
-						</div>
-                        <div class="d-flex justify-content-center">
-					        <a href="{% url 'password_reset' %}" class="ml-2 link-warning">Forgot Password</a>
-					    </div>
-					</div>
-				</div>
+{% load crispy_forms_tags %}
+<nav class="navbar navbar-light pb-5">
+	<div class="container-fluid">
+		<a class="navbar-brand ms-5" href="/">
+			<img src="{% static 'images/Logo.png' %}" alt="" width="auto" height="28"
+				class="d-inline-block align-text-top">
+		</a>
+	</div>
+</nav>
+<div class="row">
+	<div class="col form-div">
+		<div class="container form-wrapper">
+			<h2>LOG IN</h2>
+			<div class="form">
+				<form method="POST">
+					{% csrf_token %}
+					<input type="email" name="email" placeholder="Email..." class="input_field mt-4" required>
+					<input type="password" name="password" placeholder="Password..." class="input_field" required>
+					<input type="submit" value="Log in"
+						class="bg-blue-600 hover:bg-blue-700 text-white inline-block py-2 px-4 rounded shadow-sm font-semibold text-base" />
+				</form>
+				Do not have an account? <a href="{% url 'register_single' %}" class="ml-2">Register</a><br />
+				<a href="{% url 'password_reset' %}" class="ml-2">Forgot Password</a>
 			</div>
+				
 		</div>
 	</div>
-</section>
+	<div class="col img-div">
+		<img src="{% static 'images/Graphic.jpg' %}" alt="">
+	</div>
+</div>
+
 {% endblock %}

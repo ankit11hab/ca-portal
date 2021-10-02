@@ -53,9 +53,12 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         max_length=200, unique=False, blank=True)
     interested_modules = models.CharField(
         max_length=200, unique=False, blank=True)
+    # Referral fields
     referred_by = models.CharField(
         max_length=9, blank=True)
-    referrals= models.IntegerField(default=0)
+    # referred_by_user = models.ForeignKey(
+    #     'NewUser', blank=True, on_delete=models.CASCADE)
+    referrals = models.IntegerField(default=0)
     # other fields
 
     date_joined = models.DateTimeField(default=timezone.now)
@@ -88,6 +91,11 @@ class UserGroup(models.Model):
     college_state = models.CharField(max_length=200, unique=False)
     college_city = models.CharField(max_length=200, unique=False)
     college_name = models.CharField(max_length=200, unique=False)
+
+    referred_by = models.CharField(
+        max_length=9, blank=True)
+    # referred_by_user = models.ForeignKey(
+    #     'NewUser', blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)
