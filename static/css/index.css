@@ -58,5 +58,13 @@ input, select{
 
  
 .input_field{
-    background-color: black;
+  display: block;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid rgb(180 180 180);
+  width: 100%;
+}
+.input_field:focus{
+   outline: none;
 }

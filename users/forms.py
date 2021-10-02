@@ -7,19 +7,38 @@ User = get_user_model()
 
 
 class SingleUserRegisterForm(UserCreationForm):
-    firstname = forms.CharField(label="Full Name")
-    referred_by = forms.CharField(label="Enter referral id")
-    phone = PhoneNumberField(widget=forms.TextInput(
-    ), label="Phone number (e.g. +12125552368)", required=False)
-    widgets = {
-        'email': forms.EmailInput(attrs={'class': 'input_field', 'placeholder': 'Email'}),
-    }
+    email = forms.EmailField(widget=forms.TextInput(
+        attrs={'class': 'input_field', 'placeholder': 'Email'}))
+    firstname = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Full Name'}))
+    referred_by = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'input_field', 'placeholder': 'Enter referral id'}))
+    phone = PhoneNumberField(widget=forms.TextInput(attrs={
+                             'class': 'input_field', 'placeholder': 'Phone Number (e.g. +12125552368)'}), label="Phone number (e.g. +12125552368)", )
+
+    graduation_year = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'graduation_year'}))
+    college_city = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'college_city'}))
+    college_state = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'college_state'}))
+    college_name = forms.CharField(
+        label="Full Name", widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'college_name'}))
+
+    position_of_responsibility = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'position_of_responsibility'}))
+    interested_modules = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'interested_modules'}))
+
+    password1 = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Password'}))
+    password2 = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Password confirm'}))
+
     class Meta:
         model = User
         fields = ['firstname', 'email', 'phone', 'graduation_year', 'college_state', 'college_city',
                   'college_name', 'position_of_responsibility', 'interested_modules', 'referred_by']
-
-    
 
 
 class GroupUserRegisterFormForSingle(forms.ModelForm):
