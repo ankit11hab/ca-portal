@@ -3,7 +3,6 @@
 import random
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from six import text_type
-from .models import NewUser
 
 class AppTokenGenerator(PasswordResetTokenGenerator):
 
@@ -16,3 +15,4 @@ token_generator = AppTokenGenerator()
 
 def create_new_ref_number():
      return "ALC"+str(random.randint(100000, 999999))
+
