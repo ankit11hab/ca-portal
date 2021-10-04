@@ -11,8 +11,9 @@ class ShareablePost(models.Model):
     link_facebook = models.CharField(max_length=500, unique=False)
     is_instagram = models.BooleanField(default=False)
     is_facebook = models.BooleanField(default=False)
-    image = models.ImageField()
-    caption = models.CharField(max_length=500000, unique=False)
+    image = models.ImageField(upload_to="image-uploads/post-images/")
+    caption = models.CharField(max_length=160, unique=False)
+    created_on = models.DateTimeField(default=timezone.now)
     last_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

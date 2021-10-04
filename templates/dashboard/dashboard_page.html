@@ -9,16 +9,19 @@
                     <!-- scores -->
                     {% include "dashboard/components/level_myprogress.html" %}
                     <!-- recent_posts -->
-                    {% include "dashboard/components/recent_posts.html" %}
+                    {% include "dashboard/components/recent_posts_for_phone.html" %}
                     <!-- tasks -->
                     {% include "dashboard/components/tasks.html" %}
                     <!-- refer_and_earn -->
                     {% include "dashboard/components/refer.html" %}
                 </div>
-                <div class="bg-white h-screen w-80 border-gray-400 rounded m-4 hidden lg:block"></div>
+                <div class="bg-white h-screen w-80 border-gray-400 rounded m-4 hidden lg:block">
+                    {% include "dashboard/components/recent_posts_for_pc.html" %}
+                </div>
             </div>
         </div>
     </div>
+    
 </body>
 {%endblock%}
 {% block script %}
