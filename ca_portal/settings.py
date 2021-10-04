@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'dashboard.apps.DashboardConfig',
     'users.apps.UsersConfig',
+    'subIdea',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

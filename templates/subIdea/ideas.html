@@ -1,0 +1,31 @@
+{% extends '../basicbootstrap.html'%}
+{%block title%}Submissions | Alcheringa {%endblock%}
+{% block body %}
+    <h1>Your Ideas</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+              <th scope="col">Subject</th>
+              <th scope="col">Detail</th>
+              <th scope="col">Submitted On</th>
+              <th scope="col">Verification</th>
+            </tr>
+        </thead>
+    
+    {% for post in posts %}
+            <tbody>
+                <tr>
+                  <td>{{post.subject}}</td>
+                  <td>{{post.tell_us_your_idea}}</td>
+                  <td>{{post.submitdate}}</td>
+                  {% if post.validate %}
+                    <td><span style = "color:green">Verified</span></td>
+                  {% else %}
+                    <td><span style = "color:orange">Pending</span></td>
+                  {% endif %}
+                </tr>
+            </tbody>
+        
+    {% endfor %}
+</table>
+{% endblock %}
