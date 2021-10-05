@@ -1,14 +1,20 @@
-{% extends '../basicbootstrap.html'%}
-{% load crispy_forms_tags %}
+{% extends '../basic.html'%}
 {%block title%}Submissions | Alcheringa {%endblock%}
 {% block body %}
-    <h2>Submit Idea</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <br>
-        <button class = "btn btn-primary" type = "submit">Submit</button>
-        <br><br>
-        <p>Go back to submissions page <a href = "{% url 'submissionhome' %}">submissions page</a></p>
-    </form>
-{% endblock  %}
+<body>
+    <div class="bg-blue-50 flex">
+        {% include "../navbar.html" %}
+            <div class="flex">
+                <div>
+                    {% include "subIdea/submit_idea.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+{%endblock%}
+{% block script %}
+
+{% endblock %}
+

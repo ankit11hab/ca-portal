@@ -5,6 +5,23 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 User = get_user_model()
 # Create your models here.
+
+
+class POC(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=70)
+    design = models.CharField(max_length=60)
+    college = models.CharField(max_length=90)
+    contact = models.CharField(max_length=13)
+    validate = models.BooleanField(default=0)
+
+    def __str__(self):
+	    return f'{self.name}'
+
+    def get_absolute_url(self):
+        return reverse('submissionhome')
+
+
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.CharField(max_length=200)

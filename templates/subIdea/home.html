@@ -1,87 +1,19 @@
-{% extends '../basicbootstrap.html'%}
+{% extends '../basic.html'%}
 {%block title%}Submissions | Alcheringa {%endblock%}
 {% block body %}
+<body>
+    <div class="bg-blue-50 flex">
+        {% include "../navbar.html" %}
+            <div class="flex">
+                <div>
+                    {% include "subIdea/submissions.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+{%endblock%}
+{% block script %}
 
-    <h1>Hi {{ user.firstname }}</h1>
-    <a href = "{% url 'ideas' %}">View your ideas</a><br>
-    <br>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-              <th scope="col">Submit Idea</th>
-              <th scope="col">Submit POC</th>
-              <th scope="col">Social Media share</th>
-              <th scope="col">Points</th>
-            </tr>
-          </thead>
-          {% for task in tasks %}
-            <tbody>
-                <tr>
-                  {% if task.ideaDone %}
-                    <td><span style = "color:green">Done</span></td>
-                  {% else %}
-                    <td><span style = "color:orange">Pending</span></td>
-                  {% endif %}
-                  {% if task.pocDone %}
-                    <td><span style = "color:green">Done</span></td>
-                  {% else %}
-                    <td><span style = "color:orange">Pending</span></td>
-                  {% endif %}
-                  {% if task.socialDone %}
-                    <td><span style = "color:green">Done</span></td>
-                  {% else %}
-                    <td><span style = "color:orange">Pending</span></td>
-                  {% endif %}
-                  <td><span style = "color:green">{{ task.points }}</span></td>
-                </tr>
-            </tbody>
-        
-           {% endfor %}
-    </table><br><br>
-    <h2>Pending Tasks</h2>
-
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Task</th>
-          <th scope="col">Due date</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      {% for task in tasks %}
-      <tbody>
-        {% if task.ideaDone %}
-          <p></p>
-        {% else %}
-          <tr>
-            <td>Submit Idea</td>
-            <td>{{task.ideaDueData}}</td>
-            <td></td>
-            <td><a style = "margin-left: 20px" href= "{% url 'post-create' %}"><button type="button" class="btn btn-primary" style = "float:right">Submit</button></a></td>
-          </tr>
-        {% endif %}
-        {% if task.pocDone %}
-          <p></p>
-        {% else %}
-          <tr>
-            <td>Submit POC</td>
-            <td>{{task.pocDueData}}</td>
-            <td></td>
-            <td><button type="button" class="btn btn-primary" style = "float:right">Submit</button></td>
-          </tr>
-        {% endif %}
-        {% if task.socialDone %}
-          <p></p>
-        {% else %}
-          <tr>
-            <td>Social Media Share</td>
-            <td>{{task.socialDueData}}</td>
-            <td></td>
-            <td><button type="button" class="btn btn-primary" style = "float:right">Submit</button></td>
-          </tr>
-        {% endif %}
-      </tbody>
-      {% endfor %}
-    </table>
-{% endblock%}
+{% endblock %}

@@ -18,13 +18,14 @@
                 <p class="pl-4 hover:no-underline">Dashboard</p>
             </a>
             <!-- tasks -->
-            <a href="" class="rounded-full flex flex-nowrap py-4 w-60 pl-6 hover:border-0 hover:bg-gray-100 hover:no-underline">
+            <a href="{% url 'tasks' %}" class="rounded-full flex flex-nowrap py-4 w-60 pl-6 hover:border-0 hover:bg-gray-100 hover:no-underline">
                 <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.9 9.35V2.15H22.85V9.35H1.9ZM1.9 21.85V14.65H22.85V21.85H1.9Z" stroke="#C2CFE0"
                         stroke-width="2.8" />
                 </svg>
                 <p class="pl-4 no-underline" >Tasks</p>
             </a>
+            
             <!-- Group c put POC url here like profile uurl is added -->
             <a href="{% url 'submissionhome' %}" class="rounded-full flex flex-nowrap py-4 w-60 pl-6 hover:border-0 hover:bg-gray-100 hover:no-underline">
                 <svg class="" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
