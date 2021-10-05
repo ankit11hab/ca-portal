@@ -7,47 +7,64 @@ User = get_user_model()
 # Create your models here.
 
 
-class POC(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Submission(models.Model):
+    class SubmissionType(models.TextChoice):
+        IDEA="I",_("Idea")
+        POC="P",_("Poc")
+        MEDIA="M",_('Media')
+
+    is_verified= models.BooleanField(default=False)
+    submission_type = models.CharField(blank=True,null=True,choices=SubmissionType.choices)
+
+    class Meta:
+        abstract= True
+
+class POC(Submission):
+    user = models.ForeignKey(User,related_name="%(class)%_submissions",on_delete=models.CASCADE)
     name = models.CharField(max_length=70)
     design = models.CharField(max_length=60)
     college = models.CharField(max_length=90)
     contact = models.CharField(max_length=13)
-    validate = models.BooleanField(default=0)
-    submitdate = models.DateField(default=timezone.now)
+    submit_date = models.DateField(default=timezone.now)
+
+    @property
+    def points():
+        return 25
+        
+
+
+
+class Idea(Submission):
+    user = models.ForeignKey(User,related_name="%(class)%_submissions",on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    idea = models.TextField()
+    submit_date = models.DateField(default=timezone.now)
+
+    @property
+    def points():
+        return 25
 
     def __str__(self):
-	    return f'{self.name}'
-
-    def get_absolute_url(self):
-        return reverse('submissionhome')
+        return self.title
 
 
-class Post(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    subject = models.CharField(max_length=200)
-    tell_us_your_idea = models.TextField()
-    validate = models.BooleanField(default=0)
-    submitdate = models.DateField(default=timezone.now)
-    def __str__(self):
-        return self.subject
 
-    def get_absolute_url(self):
-        return reverse('submissionhome')
+class Media(Submission):
+    user = models.ForeignKey(User,related_name="%(class)%_submissions",on_delete=models.CASCADE)
+    shared_post = models.ForeignKey("dashboard.SharedPost",on_delete=models.CASCADE,related_name="media_submissions")
+    submit_date = models.DateField(default=timezone.now)
+    
+    @property
+    def points():
+        return 25
+
+    
 
 
-class Tasks(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE, blank=True, null=True)
-    ideaDone = models.BooleanField(default=0)
-    pocDone = models.BooleanField(default=0)
-    socialDone = models.BooleanField(default=0)
-    points = models.IntegerField(default=0)
-    ideaDueData = models.DateField(default=timezone.now)
-    pocDueData = models.DateField(default=timezone.now)
-    socialDueData = models.DateField(default=timezone.now)
 
-    def __str__(self):
-        return str(self.user)
+
+
 def change_Points(sender,instance,created,**kwargs):
     t = instance
     if t.points != 25*(int(t.ideaDone==1)+int(t.pocDone==1)+int(t.socialDone==1)):
