@@ -9,6 +9,7 @@ django-crispy-forms = "*"
 django-phonenumber-field = "*"
 phonenumbers = "*"
 six = "*"
+pillow = "*"
 
 [dev-packages]
 
