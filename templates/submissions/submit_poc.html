@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  <title>Submit POC</title>
+  <style>
+    .subpocbody {
+      font-family: 'Poppins';
+    }
+
+    .sform {
+      width: 70%;
+
+    }
+
+    .bell {
+      position: fixed;
+      top: 1vw;
+      right: 1vw;
+    }
+
+    #form_button {
+      background-color: #109CF1;
+      border: none;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 15px;
+      padding-right: 25px;
+      padding-left: 25px;
+      cursor: pointer;
+      border-radius: 10px;
+      font-family: 'Poppins';
+    }
+  </style>
+
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
+  integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<body>
+
+  <div class="sform">
+    <div class="subpocbody">
+      <div class=" bg-gray-50 flex  ">
+
+        <br>
+        <div class=" flex flex-wrap ">
+          <div class=" bg-white max-w-4xl rounded-lg w-screen shadow-md">
+            <div>
+              <div class="py-3 pl-6 font-medium text-xl border-b-2 font-semibold">Submit POC </div>
+              <br>
+              <p class=" font-small text-xl m-5  ">Tell us your ideas on how we can make Alcheringa bigger and better
+                than ever! </p>
+              <br>
+              <form action="#" method="post" id="contact_form" width:50%>
+                {% csrf_token %}
+                <div class="name m-5 my-8 text-m border-b-2 border-gray-300">
+                  <label for="name"></label>
+                  <!-- <input type="text" placeholder="Name of POC" name="name" id="name_input" required > -->
+                  {{ form.name }}
+                </div>
+
+
+                <div class="designation m-5 my-8 text-m border-b-2 border-gray-300">
+                  <label for="design"></label>
+                  <!-- <input type="text" placeholder="Designation of POC" name="designation" id="des_input" required> -->
+                  {{ form.design }}
+                </div>
+
+                <div class=" m-5 my-8 text-m border-b-2 border-gray-300">
+                  <label for="college"></label>
+                  <!-- <input placeholder="College of POC" name="college" id="college_input" required> -->
+                  {{ form.college }}
+
+                </div>
+
+                <div class="telephone m-5 my-8 text-m border-b-2 border-gray-300">
+                  <label for="telephone"></label>
+                  <!-- <input type="text" placeholder="Contact" name="telephone" id="telephone_input" required> -->
+                  {{ form.contact }}
+                </div>
+
+
+                <div class="submit m-4 mx-6 p-1 ">
+                  <input type="submit" value="Submit" id="form_button" />
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+
+            <div class="  w-80 border-gray-400 rounded mx-4 m-{5}"></div>
+          </div>
+        </div>
+
+
+</body>
+
+
+
+</html>

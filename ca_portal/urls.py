@@ -11,8 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('', include('dashboard.urls')),
-    path('caportal/', include('ca.urls')),
-    path('subidea/', include('subIdea.urls')),
+    path('submissions/', include('submissions.urls')),
     
 
    

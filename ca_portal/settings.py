@@ -38,14 +38,13 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'dashboard.apps.DashboardConfig',
     'users.apps.UsersConfig',
-    'subIdea',
+    'submissions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'ca'
+    'django.contrib.staticfiles'
 ]
 
 SITE_ID = 1
