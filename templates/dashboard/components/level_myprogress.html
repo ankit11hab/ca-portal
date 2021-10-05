@@ -34,7 +34,9 @@
                 <div class=" my-2">
                     <div class=" text-gray-600 text-xl font-medium text-center">Tasks completed
                     </div>
-                    <div class=" text-gray-600 text-center ">125 points earned</div>
+                    {% for tasks in tasks_done %}
+                        <div class=" text-gray-600 text-center ">{{ tasks.points }} points earned</div>
+                    {% endfor %}
                 </div>
             </div>
             <div>

@@ -48,7 +48,12 @@ class Tasks(models.Model):
 
     def __str__(self):
         return str(self.user)
-
+def change_Points(sender,instance,created,**kwargs):
+    t = instance
+    if t.points != 25*(int(t.ideaDone==1)+int(t.pocDone==1)+int(t.socialDone==1)):
+        t.points = 25*(int(t.ideaDone==1)+int(t.pocDone==1)+int(t.socialDone==1))
+        t.save()
+        print("Points updated")
 
 def create_Tasks(sender,instance,created,**kwargs):
     if created:
@@ -56,3 +61,4 @@ def create_Tasks(sender,instance,created,**kwargs):
         print("Tasks created")
 
 post_save.connect(create_Tasks, sender=User)
+post_save.connect(change_Points, sender=Tasks)

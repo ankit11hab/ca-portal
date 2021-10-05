@@ -38,8 +38,6 @@ def home(request):
         t.ideaDone = userNow.post_set.first().validate
         t.save()
 
-    t.points = 25*(int(t.ideaDone==1)+int(t.pocDone==1)+int(t.socialDone==1))
-    t.save()
     contextTasks = {
         'tasks': userNow.tasks_set.all()
     }
