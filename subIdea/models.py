@@ -14,6 +14,7 @@ class POC(models.Model):
     college = models.CharField(max_length=90)
     contact = models.CharField(max_length=13)
     validate = models.BooleanField(default=0)
+    submitdate = models.DateField(default=timezone.now)
 
     def __str__(self):
 	    return f'{self.name}'
