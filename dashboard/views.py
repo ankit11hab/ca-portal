@@ -4,6 +4,7 @@ from .models import ShareablePost
 from submissions.models import Media
 from datetime import datetime
 from django.db.models import Exists,OuterRef
+from submissions.models import Idea
 
 
 def dashboard(request):
@@ -12,12 +13,12 @@ def dashboard(request):
         ).exclude(last_date__lt=datetime.now().date()
         ).annotate(is_shared=Exists(Media.objects.filter(
             shared_post__id=OuterRef('id'),
-            user=request.user
+            user=request.user,
             ))
         ).exclude(is_shared=True)
         context = {
             'post_list': post_list,
-            'heading':'Dashboard'
+            'heading':'Dashboard',
         }
         return render(request, 'dashboard/dashboard_page.html',context)
     else:

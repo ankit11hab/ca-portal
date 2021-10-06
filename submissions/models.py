@@ -28,7 +28,10 @@ class POC(Submission):
 
     @property
     def points(self):
-        return 25
+        if self.is_verified:
+            return 25
+        else:
+            return 0
         
 
 class Idea(Submission):
@@ -37,7 +40,10 @@ class Idea(Submission):
 
     @property
     def points(self):
-        return 50
+        if self.is_verified:
+            return 50
+        else:
+            return 0
 
 
 
@@ -56,5 +62,23 @@ class Media(Submission):
 def update_points(sender,instance,*args,**kwargs):
     if instance.shared_post.is_facebook:
         instance.user.points+=instance.points 
+        print(instance.points)
+        instance.user.save()
+
+@receiver(post_save,sender=Idea)
+def update_points(sender,instance,*args,**kwargs):
+    if instance.title:
+        instance.user.points+=(instance.points) 
+        print(instance)
+        print(instance.points)
+        instance.user.save()
+
+
+@receiver(post_save,sender=POC)
+def update_points(sender,instance,*args,**kwargs):
+    if instance.name:
+        instance.user.points+=(instance.points) 
+        print(instance)
+        print(instance.points)
         instance.user.save()
 
