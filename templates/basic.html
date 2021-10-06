@@ -45,20 +45,6 @@
 </head>
 
 <body>
-    {% include 'notifications.html' %}
-    <script type="text/javascript">
-        function notifySuccess(title, description) {
-            let notification = document.querySelector("#success_notification")
-            let notification_title = document.querySelector("#success_notification #notification_title")
-            let notification_content = document.querySelector("#success_notification #notification_content")
-
-            notification_title.textContent = title
-            notification_content.textContent = description
-
-            notification.classList.toggle("active")
-            setTimeout(() => notification.classList.toggle("active"), 3000)
-        }
-    </script>
     {% include 'messages.html' %}
     {% load static %}
     {% block body %} {% endblock %}
