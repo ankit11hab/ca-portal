@@ -169,5 +169,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'schedulerevent9@gmail.com'
 EMAIL_HOST_PASSWORD = 'qigpglvkwjrldryy'
 
-
+SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
