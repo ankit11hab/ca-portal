@@ -4,9 +4,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 # making admin non accessible my non staff users
-# from .admin import admin_view
-# admin.site.admin_view = admin_view
-
+from .admin import admin_view
+admin.site.admin_view = admin_view
+#login, go to left navbar to access admin
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
