@@ -16,7 +16,7 @@ class UserAdminConfig(UserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'username', 'firstname', 'id', 'alcherid')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
-        ('Personal', {'fields': ('about', 'phone', 'college_state', 'graduation_year', 'college_city', 'college_name', 'position_of_responsibility', 'interested_modules' ,'referred_by','referrals', 'provider')}),
+        ('Personal', {'fields': ('about', 'phone', 'college_state', 'graduation_year', 'college_city', 'college_name', 'position_of_responsibility', 'interested_modules' ,'referred_by','referrals', 'provider','points')}),
     )
     formfield_overrides = {
         NewUser.about: {'widget': Textarea(attrs={'rows': 10, 'cols': 40})},

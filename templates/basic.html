@@ -5,7 +5,15 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
+    <meta property="og:url"
+        content="http://www.nytimes.com/2015/02/19/arts/international/when-great-minds-dont-think-alike.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="When Great Minds Don’t Think Alike" />
+    <meta property="og:description" content="How much does culture influence creative thinking?" />
+    <meta property="og:image"
+        content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <!-- JS ANIMATE ON SCROLL LIBRARY -->
@@ -13,7 +21,7 @@
     <!-- FONT AWESOME CDN -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    
+
     <!-- BOOTRAP ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <!-- GOOGLE FONTS -->
@@ -32,11 +40,25 @@
 
 
     <title>{% block title %} {% endblock %}</title>
-    
-    
+
+
 </head>
 
 <body>
+    {% include 'notifications.html' %}
+    <script type="text/javascript">
+        function notifySuccess(title, description) {
+            let notification = document.querySelector("#success_notification")
+            let notification_title = document.querySelector("#success_notification #notification_title")
+            let notification_content = document.querySelector("#success_notification #notification_content")
+
+            notification_title.textContent = title
+            notification_content.textContent = description
+
+            notification.classList.toggle("active")
+            setTimeout(() => notification.classList.toggle("active"), 3000)
+        }
+    </script>
     {% include 'messages.html' %}
     {% load static %}
     {% block body %} {% endblock %}
@@ -46,4 +68,3 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 {% block script %}{% endblock %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
-

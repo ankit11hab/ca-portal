@@ -5,5 +5,4 @@ from .models import POC,Submission,Idea,Media
 
 admin.site.register(POC)
 admin.site.register(Idea)
-admin.site.register(Submission)
 admin.site.register(Media)

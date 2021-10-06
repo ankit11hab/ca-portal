@@ -1,27 +1,83 @@
 {% extends '../basic.html'%}
 {%block title%}Dashboard | Alcheringa {%endblock%}
 {% block body %}
+
 <body>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '3748249885284314',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v12.0'
+            });
+        };
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function postShared(response, postId) {
+            if (response) {
+                let csrftoken = getCookie("csrftoken");
+                fetch("/submissions/media/new/", {
+                    "method": "POST",
+                    "body": JSON.stringify({
+                        "shared_post": postId
+                    }),
+                    "credentials": "same-origin",
+                    "headers": { "X-CSRFToken": csrftoken, "Content-Type": "application/json" }
+                }).then(res => res.json()).then(data => {
+                    notifySuccess("Post Shared Successfully!", "Reload the page for latest post and point updates.")
+                }).catch(console.log);
+            }
+        }
+
+        function fbshare(post, postId) {
+            console.log(post)
+            return FB.ui({
+                "method": "share",
+                "href": post
+            }, function (response) {
+                return postShared(response, postId)
+            })
+        }
+
+    </script>
     <div class="bg-blue-50 flex">
         {% include "../navbar.html" %}
-            <div class="flex">
-                <div>
-                    <!-- scores -->
-                    {% include "dashboard/components/level_myprogress.html" %}
-                    <!-- recent_posts -->
-                    {% include "dashboard/components/recent_posts_for_phone.html" %}
-                    <!-- tasks -->
-                    {% include "dashboard/components/tasks.html" %}
-                    <!-- refer_and_earn -->
-                    {% include "dashboard/components/refer.html" %}
-                </div>
-                <div class="bg-white h-screen w-80 border-gray-400 rounded m-4 hidden lg:block">
-                    {% include "dashboard/components/recent_posts_for_pc.html" %}
-                </div>
+        <div class="flex">
+            <div>
+                <!-- scores -->
+                {% include "dashboard/components/level_myprogress.html" %}
+                <!-- recent_posts -->
+                {% include "dashboard/components/recent_posts_for_phone.html" %}
+                <!-- tasks -->
+                {% include "dashboard/components/tasks.html" %}
+                <!-- refer_and_earn -->
+                {% include "dashboard/components/refer.html" %}
+            </div>
+            <div class="bg-white h-screen w-80 border-gray-400 rounded m-4 hidden lg:block">
+                {% include "dashboard/components/recent_posts_for_pc.html" %}
             </div>
         </div>
     </div>
-    
+    </div>
+
 </body>
 {%endblock%}
 {% block script %}
@@ -128,4 +184,5 @@
         }
     });
 </script>
+
 {% endblock %}

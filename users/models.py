@@ -65,7 +65,9 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     about = models.TextField(_('about'), max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
+    points = models.IntegerField(default=0)
     objects = CustomAccountManager()
+    
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['firstname']

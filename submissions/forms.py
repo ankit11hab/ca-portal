@@ -1,7 +1,7 @@
 from django.db.models import fields
 from django.forms import ModelForm
 from django.forms import Textarea
-from .models import POC,Idea
+from .models import POC,Idea,Media
 from django import forms
 
 
@@ -26,3 +26,7 @@ class POCForm(ModelForm):
         }
         
       
+class MediaForm(ModelForm):
+    class Meta:
+        model = Media
+        fields = ["shared_post"]
