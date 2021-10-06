@@ -12,7 +12,7 @@
                         <div class="container">
                             <img src="{{request.user.img.url}}" width="80px" id="dp-set"class="justify-self-start"
                                 alt="profile pic" border="0" class="mx-auto" style="border-radius:9999px;" />
-                            <button class="mx-6 bg-gray-200 rounded-full border-black" onclick="dpupload()">
+                            <button class="mx-6 bg-gray-200 rounded-full border-black" onclick="dpupload()" style = "transform:translate(30px,-18px) scale(1.5,1.5)">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path
@@ -24,6 +24,7 @@
                         <form method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-2 place-content-end md:place-content-center">{% csrf_token %}
                         <div style="height:0px;overflow:hidden">
                             {{ u_form.img }}
+                            
                         </div>
 
                         <br>
@@ -31,6 +32,7 @@
                             <div>
                                 <div class="font-medium text-xs text-gray-500 text-left">Full name</div>
                                 {{ u_form.firstname }}
+                                <hr style = "width: 180px">
                             </div>
 
 
@@ -38,53 +40,63 @@
                             <div>
                                 <div class="font-medium text-xs text-gray-500 text-left ">College</div>
                                 {{ u_form.college_name }}
+                                <hr style = "width: 180px">
                             </div>
 
 
                             <div>
                                 <div class="pt-6 font-medium text-xs text-gray-500 text-left">Contact number</div>
                                 {{ u_form.phone }}
+                                <hr style = "width: 180px">
                             </div>
 
                             <div>
                                 <div class="pt-6 font-medium text-xs text-gray-500 text-left">Email ID</div>
                                 {{ request.user.email }}
+                                <hr style = "width: 180px">
                             </div>
 
                             <div>
                                 <div class="pt-6 font-medium text-xs text-gray-500 text-left">College State</div>
                                 {{ u_form.college_state }}
+                                <hr style = "width: 180px">
                             </div>
                             <div>
                                 <div class="pt-6 font-medium text-xs text-gray-500 text-left">College City</div>
                                 {{ u_form.college_city }}
+                                <hr style = "width: 180px">
                             </div>
 
                             <div>
                                 <div class="pt-6 font-medium text-xs text-gray-500 text-left">Graduation Year
                                 </div>
                                 {{ u_form.graduation_year }}
+                                <hr style = "width: 180px">
                             </div>
                             
                             <div>
                                 <div class="pt-6 font-medium text-xs text-gray-500 text-left">Position of Responsibility
                                 </div>
                                 {{ u_form.position_of_responsibility }}
+                                <hr style = "width: 180px">
                             </div>
                             <div>
                                 <div class="pt-6 font-medium text-xs text-gray-500 text-left">Interested Modules
                                 </div>
                                 {{ u_form.interested_modules }}
+                                <hr style = "width: 180px">
                             </div>
                             <div>
                                 <div class="pt-6 font-medium text-xs text-gray-500 text-left">ALCHERID
                                 </div>
                                 {{ request.user.alcherid }}
+                                <hr style = "width: 180px">
                             </div>
                             <div>
                                 <div class="pt-6 font-medium text-xs text-gray-500 text-left">Referrals
                                 </div>
                                 {{ request.user.referrals }}
+                                <hr style = "width: 180px">
                             </div>
                             <br/>
                             <ul class="errorlist" style="color:red">
