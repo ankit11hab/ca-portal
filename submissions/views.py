@@ -1,15 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
-from .models import POC,Idea,Media,Submission
+from .models import POC,Idea,Media,POCBulk,Submission
 from django.http import JsonResponse
 import json
-from .forms import POCForm,IdeaForm,MediaForm
+from .forms import POCBulkForm, POCForm,IdeaForm,MediaForm
 from django.contrib import messages
-import csv,io
-# Create your views here.
 from django import forms
-
+from django.conf import settings
 
 
 class IdeaCreateView(CreateView):
@@ -28,6 +26,15 @@ class POCCreateView(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         messages.warning(self.request, f'Your POC has been submitted! Verification - Pending')
+        return super().form_valid(form)
+
+class POCBulkCreateView(CreateView):
+    model=POCBulk
+    form_class = POCBulkForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        messages.warning(self.request, f'Your POCs has been submitted! Verification - Pending')
         return super().form_valid(form)
 
 class MediaCreateView(CreateView):
@@ -71,7 +78,7 @@ def tasks(request):
 def ideas(request):
     userNow = request.user
     context = {
-        'ideas': userNow.idea_subissions.all()
+        'ideas': userNow.idea_submissions.all()
     }
     return render(request,'submissions/ideas.html',context)
 
@@ -82,3 +89,5 @@ def pocs(request):
         'pocs': userNow.poc_submissions.all()
     }
     return render(request,'submissions/pocs.html',context)
+
+

@@ -1,5 +1,5 @@
 
-  <div class="sform">
+
     <div class="subpocbody">
       <div class=" bg-gray-50 flex  ">
 
@@ -12,6 +12,7 @@
               <p class=" font-small text-xl m-5  ">Tell us your ideas on how we can make Alcheringa bigger and better
                 than ever! </p>
               <br>
+              <div class="sform">
               <form action="#" method="post" id="contact_form" width:50%>
                 {% csrf_token %}
                 <div class="name m-5 my-8 text-m border-b-2 border-gray-300">
@@ -45,7 +46,12 @@
                   <input type="submit" value="Submit" id="form_button" />
                 </div>
             </div>
-
+            <br>
+            <br>
+            <a href="{% url 'poc-csv-create' %}">
+              <p class=" font-small text-xl m-5  ">You can also submit Multiple POCs </p>
+              <br>
+            </a>
             <br>
             <br>
 

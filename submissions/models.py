@@ -32,7 +32,17 @@ class POC(Submission):
             return 25
         else:
             return 0
-        
+    
+class POCBulk(Submission):
+    csv_file = models.FileField(upload_to='image-uploads')
+    correct_poc = models.IntegerField(default=0)
+
+    @property
+    def points(self):
+        if self.is_verified:
+            return 25*self.correct_poc
+        else:
+            return 0
 
 class Idea(Submission):
     title = models.CharField(max_length=200)
@@ -77,6 +87,14 @@ def update_points(sender,instance,*args,**kwargs):
 @receiver(post_save,sender=POC)
 def update_points(sender,instance,*args,**kwargs):
     if instance.name:
+        instance.user.points+=(instance.points) 
+        print(instance)
+        print(instance.points)
+        instance.user.save()
+
+@receiver(post_save,sender=POCBulk)
+def update_points(sender,instance,*args,**kwargs):
+    if instance.csv_file:
         instance.user.points+=(instance.points) 
         print(instance)
         print(instance.points)
