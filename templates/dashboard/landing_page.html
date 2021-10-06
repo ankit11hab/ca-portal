@@ -8,10 +8,10 @@
             <div class="nav-links" id="navLinks">
                 <i class="fa fa-times" onclick="hideMenu()"></i>
                 <ul>
-                    <li><a href="#" id="navlink1">About</a></li>
-                    <li><a href="#" id="navlink2">Benefits</a></li>
-                    <li><a href="#" id="navlink3">Responsibilities</a></li>
-                    <li><a href="#" id="navlink4">FAQs</a></li>
+                    <li><a href="#about" id="navlink1">About</a></li>
+                    <li><a href="#benefits" id="navlink2">Benefits</a></li>
+                    <li><a href="#responsibility" id="navlink3">Responsibilities</a></li>
+                    <li><a href="#faq" id="navlink4">FAQs</a></li>
                     <li id="join-button">
                         <a href="{% url 'login' %}" id="join-button-text">Join Now</a>
                     </li>
@@ -30,7 +30,7 @@
         </div>
     </section>
 
-    <section>
+    <section id="about">
         <div class="iframe-container">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/xSDlUEJ22vU"
                 title="YouTube video player" frameborder="0"
@@ -43,7 +43,7 @@
         </div>
     </section>
 
-    <section>
+    <section id="benefits">
         <div>
             <p class="joining">Why should you join?</p>
         </div>
@@ -69,7 +69,7 @@
         </div>
     </section>
 
-    <section>
+    <section id="responsibility">
         <div id="blue">
             <p id="res">What will be your responsibilities?</p>
             <div id="man">
@@ -134,7 +134,7 @@
         </div>
     </section>
 
-    <section>
+    <section id="faq">
         <div>
             <p class="joining">Past offers</p>
         </div>
