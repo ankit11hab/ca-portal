@@ -1,15 +1,519 @@
-{% extends '../basic.html'%}
-
+{% extends '../basicbootstrap.html'%}
+{% load static %}
 {%block title%}Alcheringa{%endblock%}
 {% block body %}
+    <section class="header">
+        <nav style="width:100%;">
+            <a href="#"><img src="{% static 'images/logo.png' %}" alt="Logo" /></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="#" id="navlink1">About</a></li>
+                    <li><a href="#" id="navlink2">Benefits</a></li>
+                    <li><a href="#" id="navlink3">Responsibilities</a></li>
+                    <li><a href="#" id="navlink4">FAQs</a></li>
+                    <li id="join-button">
+                        <a href="{% url 'login' %}" id="join-button-text">Join Now</a>
+                    </li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <div class="text-box">
+            <h2>Alcheringa 2022</h2>
+            <h1>Campus Ambassador</h1>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu
+                orci, scelerisque consequat aenean massa lobortis pretium.
+            </p>
+            <a href="{% url 'login' %}" class="hero-btn">Join Now</a>
+        </div>
+    </section>
 
-{% if user.is_authenticated %}
-<a href="{% url 'logout' %}"><button type="button"  class="">Logout</button></a>
-<a href="{% url 'profile' %}"><button type="button"  class="">Profile</button></a>
-{% else %}
-<a href="{% url 'login' %}" ><button type="button" class="">Login</button></a>
-<a href="{% url 'register_single' %}" ><button type="button" class="">Register Single</button></a>
-<a href="{% url 'register_group' %}" ><button type="button" class="">Register Group</button></a>
-{% endif %}
+    <section>
+        <div class="iframe-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/xSDlUEJ22vU"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+
+        <div class="video-text">
+            <p>Aftermovie, Alcheringa 2020</p>
+        </div>
+    </section>
+
+    <section>
+        <div>
+            <p class="joining">Why should you join?</p>
+        </div>
+        <div class="join">
+            <div>
+                <img src="{% static 'images/perspaleta1_0016.png' %}" />
+                <h2>Level-wise Certification</h2>
+                <p>Platinum Certificate (Top 5 CAs)</p>
+            </div>
+            <div>
+                <img src="{% static 'images\perspaleta1.png' %}" />
+                <h2>Level-wise Certification</h2>
+                <p>Feel the pride and honor of being<br />the leader of champions</p>
+            </div>
+            <div>
+                <img src="{% static 'images\perspaleta1_0003.png' %}" />
+                <h2>Level-wise Certification</h2>
+                <p>
+                    Prizes worth 2.2 lakhs to be won<br />Certified Internships and
+                    Workshops.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div id="blue">
+            <p id="res">What will be your responsibilities?</p>
+            <div id="man">
+                <img src="{% static 'images\marketing-campaign-3025712-2526910.png' %}" alt="Man" />
+                <div class="box-text">
+                    <div>
+                        <h2>College Branding</h2>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                            enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        </p>
+                    </div>
+                    <div>
+                        <h2>City Eliminations</h2>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                            enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        </p>
+                    </div>
+                    <div>
+                        <h2>Increasing Reach</h2>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                            enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="join">
+                <div>
+                    <img src="{% static 'images\perspaleta1_0008.png' %}" />
+                    <h2 style="color: #ffffff">Complete Tasks</h2>
+                    <p style="color: #ffffff">Platinum Certificate (Top 5 CAs)</p>
+                </div>
+                <div>
+                    <img src="{% static 'images\perspaleta1_0031.png' %}" />
+                    <h2 style="color: #ffffff">Share Posts</h2>
+                    <p style="color: #ffffff">
+                        Feel the pride and honor of being<br />the leader of champions
+                    </p>
+                </div>
+                <div>
+                    <img src="{% static 'images\perspaleta1_0015.png' %}" />
+                    <h2 style="color: #ffffff">Get Registrations</h2>
+                    <p style="color: #ffffff">
+                        Prizes worth 2.2 lakhs to be won<br />Certified Internships and
+                        Workshops.
+                    </p>
+                </div>
+                <div>
+                    <img src="{% static 'images\perspaleta1_0037.png' %}" />
+                    <h2 style="color: #ffffff">Suggest Ideas</h2>
+                    <p style="color: #ffffff">
+                        Prizes worth 2.2 lakhs to be won<br />Certified Internships and
+                        Workshops.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div>
+            <p class="joining">Past offers</p>
+        </div>
+        <div class="join">
+            <div>
+                <img src="{% static 'images/perspaleta1_0016.png' %}" />
+                <h2>Level-wise Certification</h2>
+                <p>Platinum Certificate (Top 5 CAs)</p>
+            </div>
+            <div>
+                <img src="{% static 'images\perspaleta1.png' %}" />
+                <h2>Level-wise Certification</h2>
+                <p>Feel the pride and honor of being<br />the leader of champions</p>
+            </div>
+            <div>
+                <img src="{% static 'images\perspaleta1_0003.png' %}" />
+                <h2>Level-wise Certification</h2>
+                <p>
+                    Prizes worth 2.2 lakhs to be won<br />Certified Internships and
+                    Workshops.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        var navLinks = document.getElementById("navLinks");
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+    </script>
+    <script src="{% static 'js/home_main.js' %}"></script>
+</body>
 
 {%endblock%}
+
+{% block style %}
+<style>
+* {
+margin: 0;
+padding: 0;
+font-family: "Poppins", sans-serif;
+}
+
+.header {
+background: linear-gradient(
+0deg,
+rgba(0, 17, 38, 0.22),
+rgba(0, 17, 38, 0.22)
+),
+url(/static/images/bg.png);
+min-height: 100vh;
+width: 100%;
+background-size: cover;
+background-position: center;
+position: relative;
+}
+
+nav {
+position: fixed;
+display: flex;
+opacity: 100%;
+padding: 1% 6%;
+justify-content: space-between;
+align-items: center;
+width: 90%;
+transition: background 0.5s;
+z-index: 5;
+}
+
+nav.scrolled {
+background: #ffffff;
+z-index: 5;
+}
+
+nav img {
+width: 209px;
+}
+
+.nav-links {
+flex: 1;
+text-align: right;
+}
+
+.nav-links ul li {
+list-style: none;
+display: inline-block;
+padding: 8px 28px;
+position: relative;
+}
+
+.nav-links ul li a {
+color: #ffffff;
+text-decoration: none;
+}
+
+#navlink1.scroll,
+#navlink2.scroll,
+#navlink3.scroll,
+#navlink4.scroll,
+#navlink5.scroll {
+color: #334d6e;
+}
+
+.nav-links ul li a:hover,
+#navlink1.scroll:hover,
+#navlink2.scroll:hover,
+#navlink3.scroll:hover,
+#navlink4.scroll:hover,
+#navlink5.scroll:hover {
+color: #109cf1;
+transition: 0.5s;
+}
+
+#join-button {
+border: 1px solid #109cf1;
+box-sizing: border-box;
+border-radius: 4px;
+background-color: #ffffff;
+}
+
+#join-button.scroll {
+border: 1px solid #ffffff;
+box-sizing: border-box;
+border-radius: 4px;
+background-color: #109cf1;
+}
+
+#join-button a {
+font-weight: 600;
+color: #109cf1;
+}
+
+#join-button-text.scroll {
+color: #ffffff;
+}
+
+#join-button a:hover {
+color: #334d6e;
+transition: 0.5s;
+}
+
+.text-box {
+width: 90%;
+left: 55%;
+top: 50%;
+color: #ffffff;
+position: absolute;
+transform: translate(-50%, -50%);
+}
+
+.text-box h2 {
+font-weight: normal;
+font-size: 40px;
+padding-bottom: 10px;
+}
+
+.text-box h1 {
+font-weight: 600;
+font-size: 60px;
+padding-bottom: 10px;
+}
+
+.text-box p {
+width: 38%;
+font-weight: 400;
+padding-bottom: 20px;
+}
+
+.hero-btn {
+border: 1px solid #109cf1;
+display: inline-block;
+text-decoration: none;
+padding: 8px 28px;
+box-sizing: border-box;
+border-radius: 4px;
+background-color: #109cf1;
+color: #ffffff;
+position: relative;
+cursor: pointer;
+}
+
+.hero-btn:hover {
+color: #334d6e;
+transition: 0.5s;
+}
+
+.iframe-container {
+position: relative;
+margin-top: 5%;
+margin-left: 17%;
+padding-bottom: 56.25%;
+height: 0;
+}
+
+.iframe-container iframe {
+position: absolute;
+top: 0;
+left: 0;
+width: 80%;
+height: 80%;
+}
+
+.video-text p {
+margin-top: -10%;
+text-align: center;
+}
+
+.joining {
+text-align: center;
+color: #109cf1;
+font-size: 22px;
+margin-top: 100px;
+margin-bottom: 60px;
+font-weight: 500;
+}
+
+.join {
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+align-items: center;
+padding-bottom: 5%;
+}
+
+.join div {
+justify-content: space-around;
+align-items: center;
+}
+
+.join div img {
+text-align: center;
+}
+
+.join div h2 {
+text-align: center;
+color: #334d6e;
+font-weight: 500;
+}
+
+.join div p {
+text-align: center;
+color: #707683;
+font-weight: 400;
+}
+
+#blue {
+background-color: #109cf1;
+margin: 60px 0px 60px 0px;
+}
+
+#res {
+color: white;
+text-align: center;
+padding: 100px 0px 0px 0px;
+font-size: 32px;
+}
+
+#man {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+}
+
+#man img {
+width: 30%;
+height: 30%;
+margin-top: 7%;
+margin-left: 9%;
+margin-bottom: 9%;
+}
+
+.box-text {
+background-color: #f3f6f8;
+padding: 4% 4%;
+border-radius: 4px;
+margin: 7%;
+}
+
+.box-text div h2 {
+margin-bottom: 2%;
+color: #334d6e;
+}
+
+.box-text div p {
+margin-bottom: 4%;
+color: #707683;
+}
+
+nav .fa {
+display: none;
+}
+
+@media only screen and (max-width: 600px) {
+html,
+body {
+overflow-x: hidden;
+}
+
+.nav-links ul li {
+display: block;
+}
+
+.nav-links ul li a:hover {
+color: #334d6e;
+transition: 0.5s;
+}
+
+.nav-links {
+position: absolute;
+background-color: #109cf1;
+height: 100vh;
+width: 200px;
+top: 0;
+right: -200px;
+text-align: left;
+z-index: 2;
+transition: 0.5s;
+}
+
+nav .fa {
+display: block;
+margin: 10px;
+font-size: 22px;
+cursor: pointer;
+color: #334d6e;
+}
+
+.nav-links ul {
+padding: 30px;
+}
+
+.joining {
+font-size: 30px;
+}
+.join {
+flex-direction: column;
+}
+
+.join div img {
+width: 60%;
+height: 60%;
+margin-left: 20%;
+}
+
+.text-box h2 {
+font-size: 30px;
+text-align: center;
+margin-left: -60%;
+}
+.text-box h1 {
+font-size: 30px;
+text-align: center;
+margin-left: -60%;
+}
+
+.text-box p {
+text-align: center;
+}
+
+.text-box {
+left: 40%;
+transform: translate(-10%, -60%);
+}
+
+#man {
+flex-direction: column;
+}
+
+#man img {
+width: 50%;
+height: 50%;
+margin-left: 0%;
+}
+}
+</style>
+{% endblock %}

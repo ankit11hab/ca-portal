@@ -8,7 +8,7 @@ urlpatterns = [
     path('register-group/', user_views.register_group_user, name='register_group'),
     path('login/', user_views.loginPage, name='login'),
     path('profile/', user_views.profile, name='profile'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='dashboard/landing_page.html'), name='logout'),
     path('activate/<uidb64>/<token>', VerificationView.as_view(), name="activate"),
     # Password reset urls
     path("password_reset", user_views.password_reset_request, name="password_reset"),
