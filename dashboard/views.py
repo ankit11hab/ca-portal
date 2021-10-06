@@ -17,6 +17,7 @@ def dashboard(request):
         ).exclude(is_shared=True)
         context = {
             'post_list': post_list,
+            'heading':'Dashboard'
         }
         return render(request, 'dashboard/dashboard_page.html',context)
     else:

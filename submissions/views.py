@@ -61,11 +61,11 @@ class MediaCreateView(CreateView):
     
 @login_required(login_url='login')
 def home(request):
-    return render(request,'submissions/home.html')
+    return render(request,'submissions/home.html',{'heading':'Submissions'})
 
 @login_required(login_url='login')
 def tasks(request):
-    return render(request,'submissions/tasks.html')
+    return render(request,'submissions/tasks.html',{'heading':'Tasks'})
 
 @login_required(login_url='login')
 def ideas(request):
