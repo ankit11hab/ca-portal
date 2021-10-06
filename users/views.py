@@ -31,7 +31,7 @@ def register_single_user(request):
 
                 if(request.POST.get('referred_by')):
                     user = NewUser.objects.get(
-                    alcherid=request.POST.get('referred_by'))
+                        alcherid=request.POST.get('referred_by'))
                     # result.referred_by_user=user
                     result.save()
                     user.referrals += 1
@@ -115,7 +115,6 @@ def register_group_user(request):
                 group_form_result = group_user_form.save(commit=False)
                 group_form_result.leader = user_1
                 group_form_result.executive = user_2
-               
 
                 if(request.POST.get('referred_by')):
                     user = NewUser.objects.get(
@@ -227,14 +226,16 @@ class VerificationView(View):
 @login_required
 def profile(request):
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
+        u_form = UserUpdateForm(
+            request.POST, request.FILES, instance=request.user)
         if u_form.is_valid():
             u_form.save()
             messages.success(request, f'Your Profile has been updated!')
             return redirect('profile')
+        print(u_form.errors)
     else:
         u_form = UserUpdateForm(instance=request.user)
-    return render(request, 'users/profile.html', {'title': 'profile', 'u_form': u_form})
+    return render(request, 'users/profile.html', {'heading': 'Profile', 'u_form': u_form})
 
 
 def password_reset_request(request):

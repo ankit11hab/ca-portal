@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from phonenumber_field.modelfields import PhoneNumberField
 from .utils import create_new_ref_number
+from PIL import Image
 
 
 class CustomAccountManager(BaseUserManager):
@@ -40,6 +41,9 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     id = models.SlugField(primary_key=True, default=uuid.uuid4)
     alcherid = models.CharField(
         max_length=9, blank=True, unique=True, default=create_new_ref_number)
+
+    img = models.ImageField(
+        upload_to="image-uploads/", default='image-uploads/user.png')
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(max_length=150, unique=False, default="user")
     firstname = models.CharField(max_length=150, blank=True)
@@ -65,15 +69,44 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     about = models.TextField(_('about'), max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
-    points = models.IntegerField(default=0)
     objects = CustomAccountManager()
-    
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['firstname']
 
     def __str__(self):
         return str(self.id)
+
+    def save(self, *args, **kwargs):
+        super().save()
+        img = Image.open(self.img.path)
+        width, height = img.size  # Get dimensions
+
+        if width > 300 and height > 300:
+            # keep ratio but shrink down
+            img.thumbnail((width, height))
+
+        # check which one is smaller
+        if height < width:
+            # make square by cutting off equal amounts left and right
+            left = (width - height) / 2
+            right = (width + height) / 2
+            top = 0
+            bottom = height
+            img = img.crop((left, top, right, bottom))
+
+        elif width < height:
+            # make square by cutting off bottom
+            left = 0
+            right = width
+            top = 0
+            bottom = width
+            img = img.crop((left, top, right, bottom))
+
+        if width > 300 and height > 300:
+            img.thumbnail((300, 300))
+
+        img.save(self.img.path)
 
 
 class UserSingle(models.Model):
