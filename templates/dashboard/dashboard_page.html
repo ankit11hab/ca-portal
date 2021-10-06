@@ -51,7 +51,8 @@
             console.log(post)
             return FB.ui({
                 "method": "share",
-                "href": post
+                "href": post,
+                "hashtag": "Alcheringa2022"
             }, function (response) {
                 return postShared(response, postId)
             })
