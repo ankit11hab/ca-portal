@@ -19,6 +19,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.db.models.query_utils import Q
 from .models import UserSingle
 
+User = get_user_model()
 
 def register_single_user(request):
     if request.user.is_authenticated:

@@ -109,6 +109,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
             img.thumbnail((300, 300))
 
         img.save(self.img.path)
+        
 
 
 class UserSingle(models.Model):

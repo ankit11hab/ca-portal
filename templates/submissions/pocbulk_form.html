@@ -43,18 +43,7 @@
 
             <div class="subpbody">
                 <div class=" bg-gray-50 flex  ">
-                  <div class="mx-4 flex-grow">
-                    <nav class=" px-6 py-5 flex justify-between bg-gray-50  sm:bg-none -mx-4 mx-0">
-                      <a href="#" class=" block sm:hidden">
-                        <img src="https://i.ibb.co/jhNQdns/image.png" width="38px" alt="profile pic" border="0" />
-                      </a>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                      </svg>
-              
-                      <a href="#" class="items-centre font-medium text-2xl">Submissions</a>
-                      </nav>
-                      </div>
+                  
 
             
                   <div class="mx-4 flex-grow">
@@ -64,20 +53,20 @@
                         <div>
                           <div class="py-3 pl-6 font-medium text-xl border-b-2 font-semibold">Submit Multiple POCS </div>
                           <br>
-                          <p class=" font-small text-xl m-5  ">Add a CSV file with columns as Name,Designation,College,Contact </p>
+                          <p class=" font-small text-xl ml-5 " style="font-size: 17px;color:rgb(109, 109, 109)">Add a CSV file with columns as Name,Designation,College,Contact </p>
             
                           <br>
             
-                          <div class="pform">
+                          <div class="pform ml-5">
                             <form action="" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
-                               <label for="file1">Upload a file</label>
+                               <label for="file1" style = "font-weight: 400;font-size: 18px;">Upload a file</label><br><hr style = "margin-bottom: 15px;">
                                 {{form.csv_file}}
-                                <small>Only accepts CSV files</small>
+                                <small style = "color: red;">* Only accepts CSV files</small>
                                 
                                 
             
-                              <div class="submit m-4 mx-6 p-1 ">
+                              <div class="submit mt-6 p-1 ">
                                 <input type="submit" value="Submit" id="form_button" />
                               </div>
                             </form>

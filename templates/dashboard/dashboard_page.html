@@ -137,7 +137,7 @@
     });
 
     const tasksdone = {{ request.user.tasks }}
-    const tasksCompletedPoints = [tasksdone, 5];
+    const tasksCompletedPoints = [tasksdone, 10];
     if (tasksdone<10)
         document.getElementById('tasks-completed-value').innerText ='0'+ tasksCompletedPoints[0]
     else
@@ -166,7 +166,10 @@
 
 
 
-    const referralsPoints = [16, 3];
+    const referralsPoints = [{{ request.user.referrals }}, 3];
+    if ({{ request.user.referrals }} < 10)
+        document.getElementById('referrals-value').innerText = '0'+referralsPoints[0];
+    else
     document.getElementById('referrals-value').innerText = referralsPoints[0]
 
     // class initialization(myChat)
