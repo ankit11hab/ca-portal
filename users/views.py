@@ -18,7 +18,8 @@ from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.db.models.query_utils import Q
 from .models import UserSingle
-
+from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags
 User = get_user_model()
 
 def register_single_user(request):
@@ -49,7 +50,7 @@ def register_single_user(request):
                 link = reverse('activate', kwargs={
                                'uidb64': uidb64, 'token': token_generator.make_token(user)})
                 subject = "Activate your account"
-                email_template_name = "users/email_verify_mail.txt"
+                email_template_name = "users/email_verify_mail.html"
                 firstname = request.POST.get('firstname')
                 c = {
                     "firstname": firstname,
@@ -57,13 +58,22 @@ def register_single_user(request):
                 }
                 email = render_to_string(email_template_name, c)
                 try:
-                    send_mail(subject, email, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
-                              user.email], fail_silently=False)
+                    message = EmailMultiAlternatives(
+                        subject=subject,
+                        body="mail testing",
+                        from_email='Alcheringa Campus Ambassador <schedulerevent9@gmail.com>',
+                        to=[user.email]
+                    )
+                    message.attach_alternative(email, "text/html")
+                    message.send(fail_silently=False)
+
+                    # send_mail(subject, email, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
+                    #           user.email], fail_silently=False)
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
                 messages.success(
                     request, ('Registration successful. Check your mail for the link to activate your account.'))
-                return redirect('login')
+                return redirect('register_single')
         else:
             single_user_form = SingleUserRegisterForm()
         return render(request, 'users/register_single.html', {'single_user_register_form': single_user_form, })
@@ -135,7 +145,7 @@ def register_group_user(request):
                 link = reverse('activate', kwargs={
                                'uidb64': uidb64, 'token': token_generator.make_token(user_1)})
                 subject = "Activate your account"
-                email_template_name = "users/email_verify_mail.txt"
+                email_template_name = "users/email_verify_mail.html"
                 firstname = user_1.firstname
                 c = {
                     "firstname": firstname,
@@ -150,7 +160,7 @@ def register_group_user(request):
                 link = reverse('activate', kwargs={
                                'uidb64': uidb64, 'token': token_generator.make_token(user_2)})
                 subject = "Activate your account"
-                email_template_name = "users/email_verify_mail.txt"
+                email_template_name = "users/email_verify_mail.html"
                 firstname = user_2.firstname
                 c = {
                     "firstname": firstname,
@@ -158,15 +168,31 @@ def register_group_user(request):
                 }
                 email2 = render_to_string(email_template_name, c)
                 try:
-                    send_mail(subject, email1, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
-                              user_1.email], fail_silently=False)
-                    send_mail(subject, email2, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
-                              user_2.email], fail_silently=False)
+                    message = EmailMultiAlternatives(
+                        subject=subject,
+                        body="mail testing",
+                        from_email='Alcheringa Campus Ambassador <schedulerevent9@gmail.com>',
+                        to=[user_1.email]
+                    )
+                    message2 = EmailMultiAlternatives(
+                        subject=subject,
+                        body="mail testing",
+                        from_email='Alcheringa Campus Ambassador <schedulerevent9@gmail.com>',
+                        to=[user_2.email]
+                    )
+                    message.attach_alternative(email1, "text/html")
+                    message.send(fail_silently=False)
+                    message2.attach_alternative(email2, "text/html")
+                    message2.send(fail_silently=False)
+                    # send_mail(subject, email1, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
+                    #           user_1.email], fail_silently=False)
+                    # send_mail(subject, email2, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
+                    #           user_2.email], fail_silently=False)
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
                 messages.success(
                     request, ('Registration successful. Check your mail for the link to activate your account.'))
-                return redirect('login')
+                return redirect('register_group')
         # else:
         #     group_user_form = GroupUserRegisterForm()
         #     single_user_form_1 = GroupUserRegisterFormForSingle()

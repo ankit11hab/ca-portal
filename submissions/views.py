@@ -66,15 +66,17 @@ class MediaCreateView(CreateView):
     
         
     
-@login_required(login_url='login')
+@login_required(login_url='dashboard_page')
 def home(request):
     return render(request,'submissions/home.html',{'heading':'Submissions'})
 
-@login_required(login_url='login')
+
+@login_required(login_url='dashboard_page')
 def tasks(request):
     return render(request,'submissions/tasks.html',{'heading':'Tasks'})
 
-@login_required(login_url='login')
+
+@login_required(login_url='dashboard_page')
 def ideas(request):
     userNow = request.user
     context = {
@@ -82,7 +84,8 @@ def ideas(request):
     }
     return render(request,'submissions/ideas.html',context)
 
-@login_required(login_url='login')
+
+@login_required(login_url='dashboard_page')
 def pocs(request):
     userNow = request.user
     context = {

@@ -18,3 +18,14 @@ class ShareablePost(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+class Notifications(models.Model):
+    id = models.SlugField(primary_key=True, default=uuid.uuid4)
+    message = models.CharField(max_length=200)
+    user = models.ForeignKey('users.NewUser', null=True,
+                             blank=True, default=None, on_delete=models.CASCADE)
+    created_on = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.id)
