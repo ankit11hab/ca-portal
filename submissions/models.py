@@ -71,6 +71,8 @@ class Media(Submission):
 @receiver(post_save,sender=Media)
 def update_points(sender,instance,*args,**kwargs):
     if instance.shared_post.is_facebook:
+        if instance.points > 0:
+            instance.user.tasks+=1
         instance.user.points+=instance.points 
         print(instance.points)
         instance.user.save()
@@ -78,6 +80,8 @@ def update_points(sender,instance,*args,**kwargs):
 @receiver(post_save,sender=Idea)
 def update_points(sender,instance,*args,**kwargs):
     if instance.title:
+        if instance.points > 0:
+            instance.user.tasks+=1
         instance.user.points+=(instance.points) 
         print(instance)
         print(instance.points)
@@ -87,6 +91,8 @@ def update_points(sender,instance,*args,**kwargs):
 @receiver(post_save,sender=POC)
 def update_points(sender,instance,*args,**kwargs):
     if instance.name:
+        if instance.points > 0:
+            instance.user.tasks+=1
         instance.user.points+=(instance.points) 
         print(instance)
         print(instance.points)
@@ -95,6 +101,8 @@ def update_points(sender,instance,*args,**kwargs):
 @receiver(post_save,sender=POCBulk)
 def update_points(sender,instance,*args,**kwargs):
     if instance.csv_file:
+        if instance.points > 0:
+            instance.user.tasks+=1
         instance.user.points+=(instance.points) 
         print(instance)
         print(instance.points)
