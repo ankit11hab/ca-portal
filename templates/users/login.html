@@ -165,6 +165,7 @@
 	const login_form = document.getElementById('form-login')
 	login_form.addEventListener('submit', loginemail)
 	async function loginemail(event) {
+        event.preventDefault()
 		$.ajax({
 			url: "{% url 'login' %}",
 			type: "POST",
