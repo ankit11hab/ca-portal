@@ -174,10 +174,11 @@
 			},
 			data: $(login_form).serialize(),
 			success: function (data) {
-				window.location.replace(`/`);
+                location.replace(location.href);
+                
 			},
 			error: function () {
-				window.location.replace(`/`);
+				location.replace(location.href);
 			}
 		});
 	}
