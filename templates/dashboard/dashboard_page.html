@@ -83,6 +83,8 @@
 {%endblock%}
 {% block script %}
 <script>
+    
+     
     const btn = document.querySelector(".mobile");
     const sidebar = document.querySelector(".navbar");
     const arrow = document.querySelector(".side");
@@ -109,7 +111,7 @@
 
 
 
-    const levelPoints = [185, 14];
+    const levelPoints = [{{ request.user.points }}, 200];
     document.getElementById('level-value').innerText = levelPoints[0]
 
     // class initialization(myChat)
@@ -134,9 +136,12 @@
         }
     });
 
-
-    const tasksCompletedPoints = [23, 5];
-    document.getElementById('tasks-completed-value').innerText = tasksCompletedPoints[0]
+    const tasksdone = {{ request.user.tasks }}
+    const tasksCompletedPoints = [tasksdone, 5];
+    if (tasksdone<10)
+        document.getElementById('tasks-completed-value').innerText ='0'+ tasksCompletedPoints[0]
+    else
+    document.getElementById('tasks-completed-value').innerText =tasksCompletedPoints[0]
 
     // class initialization(myChat)
     var tasksCompletedChart = new Chart(document.getElementById('tasks-completed-pie').getContext('2d'), {
