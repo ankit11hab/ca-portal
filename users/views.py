@@ -180,6 +180,7 @@ def loginPage(request):
         if request.method == 'POST':
             email = request.POST.get('email')
             password = request.POST.get('password')
+            print(email)
             user = NewUser.objects.filter(email=email)
             if(user):
                 user = NewUser.objects.filter(email=email, provider="email")
@@ -198,9 +199,9 @@ def loginPage(request):
                         request, 'This email is registered with another provider')
             else:
                 messages.error(request, 'Email is not registered')
-        return render(request, 'users/login.html')
+        return HttpResponse("ok")
 
-# authentication with google
+
 
 
 class VerificationView(View):

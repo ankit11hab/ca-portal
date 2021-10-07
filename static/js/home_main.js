@@ -1,3 +1,8 @@
+
+
+
+
+
 var navbar = document.querySelector("nav");
 var navbarlink1 = document.getElementById("navlink1");
 var navbarlink2 = document.getElementById("navlink2");
