@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('is_verified', models.BooleanField(default=False)),
                 ('submit_date', models.DateField(default=django.utils.timezone.now)),
-                ('csv_file', models.FileField(upload_to='')),
+                ('csv_file', models.FileField(upload_to='image-uploads')),
                 ('correct_poc', models.IntegerField(default=0)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='pocbulk_submissions', to=settings.AUTH_USER_MODEL)),
             ],
