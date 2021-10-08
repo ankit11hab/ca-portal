@@ -82,6 +82,11 @@ nav img {
     box-sizing: border-box;
     border-radius: 4px;
     background-color: #ffffff;
+    padding: 7px 0px;
+}
+
+#join-button-text {
+    padding: 10px 25px;
 }
 
 #join-button.scroll {
@@ -272,6 +277,11 @@ nav .fa {
         color: #334d6e;
         transition: 0.5s;
     }
+
+    #join-button {
+        padding: 7px 8px;
+    }
+
     .nav-links {
         position: absolute;
         background-color: #109cf1;
