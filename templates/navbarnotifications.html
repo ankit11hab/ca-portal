@@ -1,86 +1,53 @@
-<style>
-    .notifdown {
-        position: relative;
-        display: inline-block;
-    }
+<button @click="dropdownOpen = !dropdownOpen" style="z-index:100;">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M26 24V24.4142L26.2929 24.7071L29 27.4142V27.5H7V27.4142L9.70711 24.7071L10 24.4142V24V16.5C10 12.2287 12.2294 8.88184 15.9806 7.99306L16.75 7.81075V7.02V6C16.75 5.30728 17.3073 4.75 18 4.75C18.6927 4.75 19.25 5.30728 19.25 6V7.02V7.81011L20.0187 7.99288C23.7562 8.88153 26 12.2446 26 16.5V24ZM19.7292 31C19.3814 31.5961 18.7344 32 18 32C17.2571 32 16.6124 31.5969 16.2674 31H19.7292Z"
+            stroke="#90A0B7" stroke-width="2" />
+        <circle cx="25.5" cy="9" r="6.5" fill="#FF4433" stroke="white" />
+    </svg>
+</button>
 
-    .notifdown-content {
-        display: none;
-        position: absolute;
-        right: 10px;
-        background-color: #f1f1f1;
-        min-width: 500px;
-        overflow: auto;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-    }
+<div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
 
-    .notifdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-
-    .notifdown a:hover {
-        background-color: #ddd;
-    }
-
-    .show {
-        display: block;
-    }
-
-    @media only screen and (max-width: 600px) {
-        .notifdown-content {
-            min-width: 78vw;
-
-        }
-    }
-</style>
-
-
-
-<div class="notifdown" id="notifdown-div">
-    <button onclick="toggleview()" class="notifbtn"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M26 24V24.4142L26.2929 24.7071L29 27.4142V27.5H7V27.4142L9.70711 24.7071L10 24.4142V24V16.5C10 12.2287 12.2294 8.88184 15.9806 7.99306L16.75 7.81075V7.02V6C16.75 5.30728 17.3073 4.75 18 4.75C18.6927 4.75 19.25 5.30728 19.25 6V7.02V7.81011L20.0187 7.99288C23.7562 8.88153 26 12.2446 26 16.5V24ZM19.7292 31C19.3814 31.5961 18.7344 32 18 32C17.2571 32 16.6124 31.5969 16.2674 31H19.7292Z"
-                stroke="#90A0B7" stroke-width="2" />
-            <circle cx="25.5" cy="9" r="6.5" fill="#FF4433" stroke="white" />
-        </svg></button>
-    <div id="mynotifdown" class="notifdown-content">
-        <a>🔔</a>
-        {% for notification in notification_list %}
-        <a>{{notification.message}}</a>
-        {% endfor %}
+<div x-show="dropdownOpen" class="absolute right-0 mt-2 bg-white rounded-md shadow-lg overflow-hidden z-20"
+    style="width:20rem;">
+    
+    <div class="py-2">
+        <a href="#" class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+            <img class="h-8 w-8 rounded-full object-cover mx-1"
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+                alt="avatar">
+            <p class="text-gray-600 text-sm mx-2">
+                <span class="font-bold" href="#">Sara Salah</span> replied on the <span class="font-bold text-blue-500"
+                    href="#">Upload Image</span> artical . 2m
+            </p>
+        </a>
+        <a href="#" class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+            <img class="h-8 w-8 rounded-full object-cover mx-1"
+                src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                alt="avatar">
+            <p class="text-gray-600 text-sm mx-2">
+                <span class="font-bold" href="#">Slick Net</span> start following you . 45m
+            </p>
+        </a>
+        <a href="#" class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+            <img class="h-8 w-8 rounded-full object-cover mx-1"
+                src="https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+                alt="avatar">
+            <p class="text-gray-600 text-sm mx-2">
+                <span class="font-bold" href="#">Jane Doe</span> Like Your reply on <span
+                    class="font-bold text-blue-500" href="#">Test with TDD</span> artical . 1h
+            </p>
+        </a>
+        <a href="#" class="flex items-center px-4 py-3 hover:bg-gray-100 -mx-2">
+            <img class="h-8 w-8 rounded-full object-cover mx-1"
+                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=398&q=80"
+                alt="avatar">
+            <p class="text-gray-600 text-sm mx-2">
+                <span class="font-bold" href="#">Abigail Bennett</span> start following you . 3h
+            </p>
+        </a>
     </div>
+    <a href="#" class="block bg-blue-700 text-white text-center font-bold py-2">See all notifications</a>
 </div>
-
-
-<script>
-    /* When the user clicks on the button, 
-    toggle between hiding and showing the notifdown content */
-    var x = document.getElementById("mynotifdown");
-    // Close the notifdown if the user clicks outside of it
-    document.addEventListener("click", (evt) => {
-        const flyoutElement = document.getElementById("notifdown-div");
-        let targetElement = evt.target; // clicked element
-
-        do {
-            if (targetElement == flyoutElement) {
-                // This is a click inside. Do nothing, just return.
-                return;
-            }
-            targetElement = targetElement.parentNode;
-        } while (targetElement);
-        // This is a click outside.
-        x.style.display = "none";
-    });
-    function toggleview() {
-        if (x.style.display === "block") {
-            x.style.display = "none";
-        } else {
-            x.style.display = "block";
-        }
-    }
-</script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>

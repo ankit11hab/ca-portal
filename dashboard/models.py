@@ -21,11 +21,15 @@ class ShareablePost(models.Model):
 
 
 class Notifications(models.Model):
+    TYPECHOICES = [
+        ('Success', 'Success'),
+        ('Warning', 'Warning'),
+        ('Info', 'Info'),
+    ]
     id = models.SlugField(primary_key=True, default=uuid.uuid4)
     message = models.CharField(max_length=200)
-    user = models.ForeignKey('users.NewUser', null=True,
-                             blank=True, default=None, on_delete=models.CASCADE)
+    user = models.ManyToManyField('users.NewUser')
     created_on = models.DateTimeField(default=timezone.now)
-
+    type = models.CharField(max_length=200,choices=TYPECHOICES)
     def __str__(self):
         return str(self.id)
