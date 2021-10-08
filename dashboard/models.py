@@ -28,7 +28,8 @@ class Notifications(models.Model):
     ]
     id = models.SlugField(primary_key=True, default=uuid.uuid4)
     message = models.CharField(max_length=200)
-    user = models.ManyToManyField('users.NewUser')
+    user = models.OneToOneField(
+        'users.NewUser', default=None, null=True, on_delete=models.CASCADE)
     created_on = models.DateTimeField(default=timezone.now)
     type = models.CharField(max_length=200,choices=TYPECHOICES)
     def __str__(self):
