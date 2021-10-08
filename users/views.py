@@ -35,6 +35,7 @@ def register_single_user(request):
                     user = NewUser.objects.get(
                         alcherid=request.POST.get('referred_by'))
                     # result.referred_by_user=user
+                    result.points = 25
                     result.save()
                     user.referrals += 1
                     user.save()
