@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from dashboard.models import Notifications
 
 @receiver(pre_save, sender=NewUser)
-def album_pre_save(sender, instance, **kwargs):
+def user_pre_save(sender, instance, **kwargs):
     if instance.id is None:
         pass
 
