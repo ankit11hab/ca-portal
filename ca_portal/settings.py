@@ -142,11 +142,11 @@ USE_L10N = True
 USE_TZ = True
 
 MESSAGE_TAGS = {
-        messages.DEBUG: 'secondary',
-        messages.INFO: 'info',
-        messages.SUCCESS: 'success',
-        messages.WARNING: 'warning',
-        messages.ERROR: 'error',
+    messages.DEBUG: 'secondary',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'error',
 }
 
 STATIC_URL = '/static/'
@@ -154,9 +154,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 MEDIA_URL = '/image-uploads/'
-MEDIAFILES_DIRS = [
-    os.path.join(BASE_DIR, 'image-uploads')
-]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'image-uploads')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
@@ -170,4 +168,4 @@ EMAIL_HOST_USER = 'schedulerevent9@gmail.com'
 EMAIL_HOST_PASSWORD = 'qigpglvkwjrldryy'
 
 SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
-DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

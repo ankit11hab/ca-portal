@@ -1,3 +1,4 @@
+
 <button @click="dropdownOpen = !dropdownOpen" style="z-index:100;">
     <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -10,44 +11,41 @@
 <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
 
 <div x-show="dropdownOpen" class="absolute right-0 mt-2 bg-white rounded-md shadow-lg overflow-hidden z-20"
-    style="width:20rem;">
-    
+    style="width:20rem;" id="dropdown" style="display:none;">
+    {% for notification in notification_list %}
+    {% if notification.type == 'Info' %}
     <div class="py-2">
         <a href="#" class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
-            <img class="h-8 w-8 rounded-full object-cover mx-1"
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
-                alt="avatar">
+            <i class="fas fa-exclamation h-8 w-8 rounded-full object-cover circleicon"></i>
             <p class="text-gray-600 text-sm mx-2">
-                <span class="font-bold" href="#">Sara Salah</span> replied on the <span class="font-bold text-blue-500"
-                    href="#">Upload Image</span> artical . 2m
-            </p>
-        </a>
-        <a href="#" class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
-            <img class="h-8 w-8 rounded-full object-cover mx-1"
-                src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                alt="avatar">
-            <p class="text-gray-600 text-sm mx-2">
-                <span class="font-bold" href="#">Slick Net</span> start following you . 45m
-            </p>
-        </a>
-        <a href="#" class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
-            <img class="h-8 w-8 rounded-full object-cover mx-1"
-                src="https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
-                alt="avatar">
-            <p class="text-gray-600 text-sm mx-2">
-                <span class="font-bold" href="#">Jane Doe</span> Like Your reply on <span
-                    class="font-bold text-blue-500" href="#">Test with TDD</span> artical . 1h
-            </p>
-        </a>
-        <a href="#" class="flex items-center px-4 py-3 hover:bg-gray-100 -mx-2">
-            <img class="h-8 w-8 rounded-full object-cover mx-1"
-                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=398&q=80"
-                alt="avatar">
-            <p class="text-gray-600 text-sm mx-2">
-                <span class="font-bold" href="#">Abigail Bennett</span> start following you . 3h
+                <span class="font-bold" href="#">{{notification.message}}</span>
             </p>
         </a>
     </div>
+    {% elif notification.type == 'Success' %}
+    <div class="py-2">
+        <a href="#" class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+            <i class="fas fa-check h-8 w-8 rounded-full object-cover circleicon"></i>
+            <p class="text-gray-600 text-sm mx-2">
+                <span class="font-bold" href="#">{{notification.message}}</span>
+            </p>
+        </a>
+    </div>
+    {% elif notification.type == 'Warning' %}
+    <div class="py-2">
+        <a href="#" class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
+            <i class="fas fa-exclamation-triangle h-8 w-8 rounded-full object-cover circleicon"></i>
+            <p class="text-gray-600 text-sm mx-2">
+                <span class="font-bold" href="#">{{notification.message}}</span>
+            </p>
+        </a>
+    </div>
+    {% endif %}
+    {% endfor %}
     <a href="#" class="block bg-blue-700 text-white text-center font-bold py-2">See all notifications</a>
 </div>
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<!-- <script>
+    $(document).ready(function () {
+        $('#dropdown').show();
+    });
+</script> -->
