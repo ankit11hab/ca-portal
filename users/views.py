@@ -38,6 +38,7 @@ def register_single_user(request):
                     result.points = 25
                     result.save()
                     user.referrals += 1
+                    user.points += 25
                     user.save()
                 else:
                     result.save()

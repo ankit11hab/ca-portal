@@ -10,8 +10,8 @@ class IdeaForm(ModelForm):
         model = Idea
         fields = ["title","description"]
         widgets = {
-            'title': Textarea(attrs={'cols':30, 'rows':1,'placeholder': 'Your Idea *'}),
-            'description': Textarea(attrs={'cols':40, 'rows':10,'placeholder': 'Tell us more about your idea*'}),
+            'title': Textarea(attrs={'cols':30, 'rows':1,'placeholder': 'Your Idea *', 'class':'form-input'}),
+            'description': Textarea(attrs={'cols':40, 'rows':10,'placeholder': 'Tell us more about your idea*', 'class':'form-input'}),
         }
 
 class POCForm(ModelForm):
@@ -19,10 +19,10 @@ class POCForm(ModelForm):
         model = POC
         fields = ['name','design','college','contact']
         widgets = {
-            'name': Textarea(attrs={'cols':30, 'rows':1,'placeholder': 'POC Name *'}),
-            'design': Textarea(attrs={'cols':30, 'rows':1,'placeholder': 'POC Designation *'}),
-            'college': Textarea(attrs={'cols':30, 'rows':1,'placeholder': 'POC College *'}),
-            'contact': Textarea(attrs={'cols':30, 'rows':1,'placeholder': 'POC Contact *'}),
+            'name': Textarea(attrs={'cols':30, 'rows':1,'placeholder': 'POC Name *', 'class':'form-input'}),
+            'design': Textarea(attrs={'cols':30, 'rows':1,'placeholder': 'POC Designation *', 'class':'form-input'}),
+            'college': Textarea(attrs={'cols':30, 'rows':1,'placeholder': 'POC College *', 'class':'form-input'}),
+            'contact': Textarea(attrs={'cols':30, 'rows':1,'placeholder': 'POC Contact *', 'class':'form-input'}),
         }
         
 class POCBulkForm(ModelForm):

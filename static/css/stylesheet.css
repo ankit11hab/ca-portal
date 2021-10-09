@@ -1,4 +1,8 @@
-body {
+input[type=text] {
+  border: none;
+  background-color: transparent;
+  resize: none;
+  outline: none;
 }
 .popup_box {
   position: fixed;
