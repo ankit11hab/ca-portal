@@ -271,6 +271,10 @@ def profile(request):
             Q(user=request.user) | Q(user=None)).order_by('-created_on')
     return render(request, 'users/profile.html', {'heading': 'Profile', 'u_form': u_form, 'notification_list': notification_list})
 
+    def logout_request(request):
+        logout(request)
+        messages.info(request, "Logged out successfully!")
+        return redirect("dashboard/landing_pae.html")
 
 def password_reset_request(request):
     User = get_user_model()
