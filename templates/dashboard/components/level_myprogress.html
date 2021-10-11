@@ -1,3 +1,4 @@
+{% load mathfilters %}
 <div class=" flex flex-col md:flex-row my-2 md:space-x-4">
     <div class=" bg-white rounded-md shadow-md-1 my-2">
         <div class="py-3 pl-6 font-medium text-lg border-b-2">Level</div>
@@ -15,9 +16,24 @@
                     <canvas id="level-pie"></canvas>
                 </div>
                 <div class=" my-2">
-                    <div class=" text-gray-600 text-xl font-medium text-center">Bronze</div>
-                    <div class=" text-gray-600 text-center whitespace-nowrap">50 more points to
-                        Silver</div>
+                    <div class=" text-gray-600 text-xl font-medium text-center">
+                        {%if request.user.points >= 1000 %}
+                        Gold
+                        {%elif request.user.points >= 250 %}
+                        Silver
+                        {% else %}
+                        Bronze
+                        {% endif %}
+                    </div>
+                    <div class=" text-gray-600 text-center whitespace-nowrap">
+                        {%if request.user.points >= 1000 %}
+                        You are at Gold level
+                        {%elif request.user.points >= 250 %}
+                        {{1000|sub:request.user.points}} more points to Gold
+                        {% else %}
+                        {{250|sub:request.user.points}} more points to Silver
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

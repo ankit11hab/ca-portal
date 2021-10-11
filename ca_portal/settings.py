@@ -26,16 +26,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '1x$%_n-6&+^ch=_6j)0kg+5*1p0=ri#*b)g1=ge8f8#-(8)9rb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = False
+# ALLOWED_HOSTS = ["localhost"]
+
 DEBUG = True
-
 ALLOWED_HOSTS = ["*"]
-
 
 # Application definition
 
 INSTALLED_APPS = [
     'crispy_forms',
     'phonenumber_field',
+    'mathfilters',
+    'ca_portal',
     'dashboard.apps.DashboardConfig',
     'users.apps.UsersConfig',
     'submissions.apps.SubmissionsConfig',
