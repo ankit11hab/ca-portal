@@ -27,3 +27,16 @@ def dashboard(request):
     else:
         return render(request, 'dashboard/landing_page.html')
 
+
+def contactus(request):
+    if request.user.is_authenticated:
+        # Notifications List
+        notification_list = Notifications.objects.filter(
+            Q(user=request.user) | Q(user=None)).order_by('-created_on')
+        context = {
+            'heading': 'Contact us',
+            'notification_list': notification_list
+        }
+        return render(request, 'dashboard/contactus.html', context)
+    else:
+        return render(request, 'dashboard/landing_page.html')
