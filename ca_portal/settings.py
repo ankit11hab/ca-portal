@@ -152,6 +152,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'error',
 }
 
+LOGOUT_REDIRECT_URL = 'dashboard_page'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
