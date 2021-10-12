@@ -140,12 +140,12 @@
 				<input type="password" name="password" id="password" placeholder="Enter password" required/>
 			</div>
 			<div class="form-element">
-				<a href="#">Forgot password?</a>
+				<a href="{% url 'password_reset'%}">Forgot password?</a>
 			</div>
 			<div class="form-element">
 				<a><button>Login</button></a>
 			</div>
-			<div class="form-element">
+			<div class="form-element" style="display:inline;">
 				<p>Don't have an account yet?<a href="{% url 'register_single' %}">Register Now</a></p>
 			</div>
 		</form>

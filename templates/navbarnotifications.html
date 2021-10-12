@@ -2,15 +2,15 @@
 {% load static %}
 <button @click="dropdownOpen = !dropdownOpen" id="notif_unread" style="z-index:100;">
     {% if isread %}
-    <img src="{% static 'icons/notifications-read.png' %}" />
+    <img src="{% static 'icons/notifications-read.png' %}" id="notif_unread_img"/>
     {% else %}
-    <img src="{% static 'icons/notifications-unread.png' %}" />
+    <img src="{% static 'icons/notifications-unread.png' %}" id="notif_unread_img"/>
     {% endif %}
 </button>
 
 <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
 
-<div x-show="dropdownOpen" class="absolute right-0 bg-white rounded-md shadow-lg overflow-y-scroll max-h-96 z-20 mx-5"
+<div x-show="dropdownOpen" class="absolute right-0 bg-white rounded-md shadow-lg overflow-y-scroll max-h-96 z-20 lg:mx-5"
     style="width:20rem;" id="dropdown" style="display:none;">
     {% for notification in notification_list %}
     {% if notification.type == 'Info' %}
@@ -37,6 +37,7 @@
                 <span class="font-bold" href="#">{{notification.message}}</span>
                 <br /><span class="font-thin float-right" href="#">{{notification.created_on}}</span>
             </div>
+
         </a>
     </div>
     {% elif notification.type == 'Warning' %}
@@ -69,17 +70,20 @@
 <script>
 	//LOGIN FORM GOOD
 	const notif_unread = document.getElementById('notif_unread')
-	notif_unread.addEventListener('submit', notifunread)
+	notif_unread.addEventListener('click', notifunread)
 	async function notifunread(event) {
-        event.preventDefault()
+
 		$.ajax({
 			url: "{% url 'notif_unread' %}",
-			type: "GET",
+			type: 'PUT',
+            headers: {
+                "X-CSRFTOKEN": "{{ csrf_token }}"
+            },
 			success: function (data) {
-                // window.location.reload()
+                document.getElementById('notif_unread_img').src="{% static 'icons/notifications-read.png' %}"
 			},
 			error: function () {
-				// location.replace(location.href);
+				
 			}
 		});
 	}

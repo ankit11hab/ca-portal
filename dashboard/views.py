@@ -113,11 +113,11 @@ def verify_like(request):
 
 @login_required
 def notif_unread(request):
-    if request.method == 'GET':
+    if request.method == 'PUT':
         notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
         for notif in notification_list:
             if not notif.isread:
                 notif.isread=True
                 notif.save()
-    return HttpResponse("OK")
+        return HttpResponse("OK")
