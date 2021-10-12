@@ -111,4 +111,4 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['firstname', 'phone', 'graduation_year', 'college_state',
-                  'college_city', 'college_name',  'position_of_responsibility', 'interested_modules', 'img']
+                  'college_city', 'college_name',  'position_of_responsibility', 'interested_modules', 'img','instahandle']
