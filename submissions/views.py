@@ -28,6 +28,14 @@ class IdeaCreateView(CreateView):
         ctx = super(IdeaCreateView, self).get_context_data(**kwargs)
         notification_list = Notifications.objects.filter(
             Q(user=self.request.user) | Q(user=None)).order_by('-created_on')
+        isread = True
+        notification_list = Notifications.objects.filter(
+            Q(user=self.request.user) | Q(user=None)).order_by('-created_on')
+        for notif in notification_list:
+            if not notif.isread:
+                isread = False
+                break
+        ctx['isread'] = isread
         ctx['notification_list'] = notification_list
         ctx['heading'] = 'Submissions'
         return ctx
@@ -47,6 +55,14 @@ class POCCreateView(CreateView):
         ctx = super(POCCreateView, self).get_context_data(**kwargs)
         notification_list = Notifications.objects.filter(
             Q(user=self.request.user) | Q(user=None)).order_by('-created_on')
+        isread = True
+        notification_list = Notifications.objects.filter(
+            Q(user=self.request.user) | Q(user=None)).order_by('-created_on')
+        for notif in notification_list:
+            if not notif.isread:
+                isread = False
+                break
+        ctx['isread'] = isread
         ctx['notification_list'] = notification_list
         ctx['heading'] = 'Submissions'
         return ctx
@@ -66,6 +82,14 @@ class POCBulkCreateView(CreateView):
         ctx = super(POCBulkCreateView, self).get_context_data(**kwargs)
         notification_list = Notifications.objects.filter(
             Q(user=self.request.user) | Q(user=None)).order_by('-created_on')
+        isread = True
+        notification_list = Notifications.objects.filter(
+            Q(user=self.request.user) | Q(user=None)).order_by('-created_on')
+        for notif in notification_list:
+            if not notif.isread:
+                isread = False
+                break
+        ctx['isread'] = isread
         ctx['notification_list'] = notification_list
         ctx['heading'] = 'Submissions'
         return ctx
@@ -103,6 +127,14 @@ class MediaCreateView(CreateView):
         ctx = super(MediaCreateView, self).get_context_data(**kwargs)
         notification_list = Notifications.objects.filter(
             Q(user=self.request.user) | Q(user=None)).order_by('-created_on')
+        isread = True
+        notification_list = Notifications.objects.filter(
+            Q(user=self.request.user) | Q(user=None)).order_by('-created_on')
+        for notif in notification_list:
+            if not notif.isread:
+                isread = False
+                break
+        ctx['isread'] = isread
         ctx['notification_list'] = notification_list
         ctx['heading'] = 'Submissions'
         return ctx
@@ -112,14 +144,30 @@ class MediaCreateView(CreateView):
 def home(request):
     notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
-    return render(request, 'submissions/home.html', {'heading': 'Submissions', 'notification_list': notification_list})
+    # Notifications List
+    isread = True
+    notification_list = Notifications.objects.filter(
+        Q(user=request.user) | Q(user=None)).order_by('-created_on')
+    for notif in notification_list:
+        if not notif.isread:
+            isread = False
+            break
+    return render(request, 'submissions/home.html', {'heading': 'Submissions', 'notification_list': notification_list,'isread': isread})
 
 
 @login_required(login_url='dashboard_page')
 def tasks(request):
     notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
-    return render(request, 'submissions/tasks.html', {'heading': 'Tasks', 'notification_list': notification_list})
+    # Notifications List
+    isread = True
+    notification_list = Notifications.objects.filter(
+        Q(user=request.user) | Q(user=None)).order_by('-created_on')
+    for notif in notification_list:
+        if not notif.isread:
+            isread = False
+            break
+    return render(request, 'submissions/tasks.html', {'heading': 'Tasks', 'notification_list': notification_list, 'isread': isread})
 
 
 @login_required(login_url='dashboard_page')
@@ -127,8 +175,16 @@ def ideas(request):
     userNow = request.user
     notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
+    # Notifications List
+    isread = True
+    notification_list = Notifications.objects.filter(
+        Q(user=request.user) | Q(user=None)).order_by('-created_on')
+    for notif in notification_list:
+        if not notif.isread:
+            isread = False
+            break
     context = {
-        'ideas': userNow.idea_submissions.all(), 'notification_list': notification_list
+        'ideas': userNow.idea_submissions.all(), 'notification_list': notification_list, 'isread': isread
     }
     return render(request, 'submissions/ideas.html', context)
 
@@ -138,7 +194,15 @@ def pocs(request):
     userNow = request.user
     notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
+    # Notifications List
+    isread = True
+    notification_list = Notifications.objects.filter(
+        Q(user=request.user) | Q(user=None)).order_by('-created_on')
+    for notif in notification_list:
+        if not notif.isread:
+            isread = False
+            break
     context = {
-        'pocs': userNow.poc_submissions.all(), 'notification_list': notification_list
+        'pocs': userNow.poc_submissions.all(), 'notification_list': notification_list, 'isread': isread
     }
     return render(request, 'submissions/pocs.html', context)

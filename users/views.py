@@ -258,7 +258,14 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user)
         notification_list = Notifications.objects.filter(
             Q(user=request.user) | Q(user=None)).order_by('-created_on')
-    return render(request, 'users/profile.html', {'heading': 'Profile', 'u_form': u_form, 'notification_list': notification_list})
+        isread = True
+        notification_list = Notifications.objects.filter(
+        Q(user=request.user) | Q(user=None)).order_by('-created_on')
+        for notif in notification_list:
+            if not notif.isread:
+                isread = False
+                break
+    return render(request, 'users/profile.html', {'heading': 'Profile', 'u_form': u_form, 'notification_list': notification_list, 'isread': isread})
 
 
 def password_reset_request(request):
