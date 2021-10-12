@@ -35,5 +35,6 @@ class Notifications(models.Model):
         'users.NewUser', default=None, null=True,blank=True, on_delete=models.CASCADE)
     created_on = models.DateTimeField(default=timezone.now)
     type = models.CharField(max_length=200,choices=TYPECHOICES)
+    isread=models.BooleanField(default=False)
     def __str__(self):
         return str(self.id)

@@ -1,4 +1,5 @@
 from logging import currentframe
+from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import ShareablePost
@@ -13,11 +14,10 @@ from instagram_private_api import Client
 import _datetime
 
 
-
 start_time = _datetime.datetime.now().date()
-user_name = 'fun_tas_tic_12'
-password = 'Qwerty@123'
-api = Client(user_name, password)
+# user_name = 'fun_tas_tic_12'
+# password = 'Qwerty@123'
+# api = Client(user_name, password)
 
 def dashboard(request):
     if request.user.is_authenticated:
@@ -29,11 +29,18 @@ def dashboard(request):
             ))
         ).exclude(is_shared=True)
         # Notifications List
+        isread=True;
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
+        for notif in notification_list:
+            if not notif.isread:
+                isread=False
+                break
+
         context = {
             'post_list': post_list,
             'heading':'Dashboard',
-            'notification_list': notification_list
+            'notification_list': notification_list,
+            'isread':isread
         }
         
 
@@ -43,6 +50,7 @@ def dashboard(request):
         return render(request, 'dashboard/landing_page.html')
 
 
+@login_required
 def contactus(request):
     if request.user.is_authenticated:
         # Notifications List
@@ -57,6 +65,7 @@ def contactus(request):
         return render(request, 'dashboard/landing_page.html')
 
 
+@login_required
 def verify_like(request):
 
     
@@ -102,3 +111,13 @@ def verify_like(request):
             messages.warning(request,"Looks like you havent liked this post yet!")
     return redirect('dashboard_page') 
 
+@login_required
+def notif_unread(request):
+    if request.method == 'GET':
+        notification_list = Notifications.objects.filter(
+        Q(user=request.user) | Q(user=None)).order_by('-created_on')
+        for notif in notification_list:
+            if not notif.isread:
+                notif.isread=True
+                notif.save()
+    return HttpResponse("OK")

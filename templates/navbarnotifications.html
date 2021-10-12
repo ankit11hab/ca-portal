@@ -1,11 +1,11 @@
 
-<button @click="dropdownOpen = !dropdownOpen" style="z-index:100;">
-    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M26 24V24.4142L26.2929 24.7071L29 27.4142V27.5H7V27.4142L9.70711 24.7071L10 24.4142V24V16.5C10 12.2287 12.2294 8.88184 15.9806 7.99306L16.75 7.81075V7.02V6C16.75 5.30728 17.3073 4.75 18 4.75C18.6927 4.75 19.25 5.30728 19.25 6V7.02V7.81011L20.0187 7.99288C23.7562 8.88153 26 12.2446 26 16.5V24ZM19.7292 31C19.3814 31.5961 18.7344 32 18 32C17.2571 32 16.6124 31.5969 16.2674 31H19.7292Z"
-            stroke="#90A0B7" stroke-width="2" />
-        <circle cx="25.5" cy="9" r="6.5" fill="#FF4433" stroke="white" />
-    </svg>
+{% load static %}
+<button @click="dropdownOpen = !dropdownOpen" id="notif_unread" style="z-index:100;">
+    {% if isread %}
+    <img src="{% static 'icons/notifications-read.png' %}" />
+    {% else %}
+    <img src="{% static 'icons/notifications-unread.png' %}" />
+    {% endif %}
 </button>
 
 <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
@@ -15,28 +15,41 @@
     {% for notification in notification_list %}
     {% if notification.type == 'Info' %}
     <div>
-        <a class="flex items-center px-4 py-3 border-b hover:bg-gray-100">
-            <i class="fas fa-exclamation h-8 w-8 rounded-full object-cover circleicon"></i>
-            <p class="text-gray-600 text-sm mx-1">
+        <a class="flex items-center px-4 py-3 border-b hover:bg-blue-300 bg-blue-100 rounded-b text-blue-900">
+            <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                </svg>
+            </div>
+            <p class="text-gray-600 text-sm mx-1 flex-grow">
                 <span class="font-bold" href="#">{{notification.message}}</span>
+                <br /><span class="font-thin float-right" href="#">{{notification.created_on}}</span>
             </p>
         </a>
     </div>
     {% elif notification.type == 'Success' %}
     <div>
-        <a class="flex items-center px-4 py-3 border-b hover:bg-gray-100">
-            <i class="fas fa-check h-8 w-8 rounded-full object-cover circleicon"></i>
-            <p class="text-gray-600 text-sm mx-1">
+        <a class="flex items-center px-4 py-3 border-b hover:bg-green-300 bg-green-100 rounded-b text-green-900">
+            <div class="py-1"><svg  class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.25 8.891l-1.421-1.409-6.105 6.218-3.078-2.937-1.396 1.436 4.5 4.319 7.5-7.627z"/></svg>
+            </div>
+            <div class="text-gray-600 text-sm mx-1 flex-grow">
                 <span class="font-bold" href="#">{{notification.message}}</span>
-            </p>
+                <br /><span class="font-thin float-right" href="#">{{notification.created_on}}</span>
+            </div>
         </a>
     </div>
     {% elif notification.type == 'Warning' %}
     <div>
-        <a class="flex items-center px-4 py-3 border-b hover:bg-gray-100">
-            <i class="fas fa-exclamation-triangle h-8 w-8 rounded-full object-cover circleicon"></i>
-            <p class="text-gray-600 text-sm mx-1">
+        <a class="flex items-center px-4 py-3 border-b hover:bg-red-300 bg-red-100 rounded-b text-red-900">
+            <div class="py-1"><svg xmlns="http://www.w3.org/2000/svg" class="fill-current h-6 w-6 text-teal-500 mr-4"  viewBox="0 0 24 24">
+                <path
+                    d="M12 2.829l9.171 9.171-9.171 9.171-9.171-9.171 9.171-9.171zm0-2.829l-12 12 12 12 12-12-12-12zm3.787 14.462l-2.463-2.462 2.463-2.463-1.324-1.323-2.463 2.462-2.463-2.463-1.324 1.324 2.463 2.463-2.463 2.463 1.323 1.324 2.464-2.464 2.463 2.463 1.324-1.324z" />
+            </svg>
+            </div>
+            <p class="text-gray-600 text-sm mx-1 flex-grow">
                 <span class="font-bold" href="#">{{notification.message}}</span>
+                <br /><span class="font-thin float-right" href="#">{{notification.created_on}}</span>
             </p>
         </a>
     </div>
@@ -53,8 +66,21 @@
     {% endif %}
     <!-- <a href="#" class="block bg-blue-700 text-white text-center font-bold py-2">See all notifications</a> -->
 </div>
-<!-- <script>
-    $(document).ready(function () {
-        $('#dropdown').show();
-    });
-</script> -->
+<script>
+	//LOGIN FORM GOOD
+	const notif_unread = document.getElementById('notif_unread')
+	notif_unread.addEventListener('submit', notifunread)
+	async function notifunread(event) {
+        event.preventDefault()
+		$.ajax({
+			url: "{% url 'notif_unread' %}",
+			type: "GET",
+			success: function (data) {
+                // window.location.reload()
+			},
+			error: function () {
+				// location.replace(location.href);
+			}
+		});
+	}
+</script>
