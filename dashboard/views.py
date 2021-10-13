@@ -1,4 +1,5 @@
 from logging import currentframe
+from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import ShareablePost
@@ -29,6 +30,7 @@ def dashboard(request):
             ))
         ).exclude(is_shared=True)
         # Notifications List
+        isread=True;
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
         if list(UserGroup.objects.filter(leader=request.user)):
             grp_points = request.user.points + UserGroup.objects.filter(leader=request.user).first().executive.points
@@ -42,14 +44,20 @@ def dashboard(request):
              grp_points = request.user.points
              grp_tasks = request.user.tasks
              grp_referrals = request.user.referrals
+        for notif in notification_list:
+            if not notif.isread:
+                isread=False
+                break
+
         context = {
             'post_list': post_list,
             'heading':'Dashboard',
             'notification_list': notification_list,
             'grp_points':grp_points,
             'grp_tasks':grp_tasks,
-            'grp_referrals':grp_referrals
+            'grp_referrals':grp_referrals,
 
+            'isread':isread
         }
         
 
@@ -59,20 +67,29 @@ def dashboard(request):
         return render(request, 'dashboard/landing_page.html')
 
 
+@login_required
 def contactus(request):
     if request.user.is_authenticated:
         # Notifications List
         notification_list = Notifications.objects.filter(
             Q(user=request.user) | Q(user=None)).order_by('-created_on')
+        isread = True
+        notification_list = Notifications.objects.filter(
+            Q(user=request.user) | Q(user=None)).order_by('-created_on')
+        for notif in notification_list:
+            if not notif.isread:
+                isread = False
+                break
         context = {
             'heading': 'Contact us',
-            'notification_list': notification_list
+            'notification_list': notification_list, 'isread': isread
         }
         return render(request, 'dashboard/contactus.html', context)
     else:
         return render(request, 'dashboard/landing_page.html')
 
 
+@login_required
 def verify_like(request):
 
     
@@ -119,3 +136,13 @@ def verify_like(request):
             messages.warning(request,"Looks like you have not liked this post yet!")
     return redirect('dashboard_page') 
 
+@login_required
+def notif_unread(request):
+    if request.method == 'PUT':
+        notification_list = Notifications.objects.filter(
+        Q(user=request.user) | Q(user=None)).order_by('-created_on')
+        for notif in notification_list:
+            if not notif.isread:
+                notif.isread=True
+                notif.save()
+        return HttpResponse("OK")

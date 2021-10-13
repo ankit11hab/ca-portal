@@ -65,14 +65,11 @@ def register_single_user(request):
                     message = EmailMultiAlternatives(
                         subject=subject,
                         body="mail testing",
-                        from_email='Alcheringa Campus Ambassador <schedulerevent9@gmail.com>',
+                        from_email='Alcheringa Campus Ambassador <noreply.spiritiitg@gmail.com>',
                         to=[user.email]
                     )
                     message.attach_alternative(email, "text/html")
                     message.send(fail_silently=False)
-
-                    # send_mail(subject, email, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
-                    #           user.email], fail_silently=False)
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
                 messages.success(
@@ -175,32 +172,24 @@ def register_group_user(request):
                     message = EmailMultiAlternatives(
                         subject=subject,
                         body="mail testing",
-                        from_email='Alcheringa Campus Ambassador <schedulerevent9@gmail.com>',
+                        from_email='Alcheringa Campus Ambassador <noreply.spiritiitg@gmail.com>',
                         to=[user_1.email]
                     )
                     message2 = EmailMultiAlternatives(
                         subject=subject,
                         body="mail testing",
-                        from_email='Alcheringa Campus Ambassador <schedulerevent9@gmail.com>',
+                        from_email='Alcheringa Campus Ambassador <noreply.spiritiitg@gmail.com>',
                         to=[user_2.email]
                     )
                     message.attach_alternative(email1, "text/html")
                     message.send(fail_silently=False)
                     message2.attach_alternative(email2, "text/html")
                     message2.send(fail_silently=False)
-                    # send_mail(subject, email1, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
-                    #           user_1.email], fail_silently=False)
-                    # send_mail(subject, email2, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
-                    #           user_2.email], fail_silently=False)
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
                 messages.success(
                     request, ('Registration successful. Check your mail for the link to activate your account.'))
                 return redirect('register_group')
-        # else:
-        #     group_user_form = GroupUserRegisterForm()
-        #     single_user_form_1 = GroupUserRegisterFormForSingle()
-        #     single_user_form_2 = GroupUserRegisterFormForSingle()
         return render(request, 'users/register_group.html', {'group_user_register_form': group_user_form, 'single_user_register_form_1': single_user_form_1, 'single_user_register_form_2': single_user_form_2})
 
 
@@ -269,12 +258,15 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user)
         notification_list = Notifications.objects.filter(
             Q(user=request.user) | Q(user=None)).order_by('-created_on')
-    return render(request, 'users/profile.html', {'heading': 'Profile', 'u_form': u_form, 'notification_list': notification_list})
+        isread = True
+        notification_list = Notifications.objects.filter(
+        Q(user=request.user) | Q(user=None)).order_by('-created_on')
+        for notif in notification_list:
+            if not notif.isread:
+                isread = False
+                break
+    return render(request, 'users/profile.html', {'heading': 'Profile', 'u_form': u_form, 'notification_list': notification_list, 'isread': isread})
 
-    def logout_request(request):
-        logout(request)
-        messages.info(request, "Logged out successfully!")
-        return redirect("dashboard/landing_pae.html")
 
 def password_reset_request(request):
     User = get_user_model()
@@ -299,7 +291,7 @@ def password_reset_request(request):
                     }
                     email = render_to_string(email_template_name, c)
                     try:
-                        send_mail(subject, email, 'Alcheringa Campus Ambassador <schedulerevent9@gmail.com>', [
+                        send_mail(subject, email, 'Alcheringa Campus Ambassador <noreply.spiritiitg@gmail.com>', [
                                   user.email], fail_silently=False)
                     except BadHeaderError:
                         return HttpResponse('Invalid header found.')

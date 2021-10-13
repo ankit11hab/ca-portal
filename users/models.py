@@ -72,7 +72,8 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManager()
     points = models.IntegerField(default=50)
     tasks = models.IntegerField(default=0)
-    instahandle = models.CharField(max_length=200, unique=False, default="")
+    instahandle = models.CharField(
+        max_length=200, blank=True, null=True, unique=True, )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['firstname']
