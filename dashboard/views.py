@@ -15,10 +15,10 @@ from instagram_private_api import Client
 import _datetime
 
 
-start_time = _datetime.datetime.now().date()
+""" start_time = _datetime.datetime.now().date()
 user_name = 'a64guha'
 password = 'Ankit@123#'
-api = Client(user_name, password)
+api = Client(user_name, password) """
 
 def dashboard(request):
     if request.user.is_authenticated:
@@ -93,7 +93,7 @@ def contactus(request):
 def verify_like(request):
 
     
-    print(start_time)
+    """ print(start_time)
     post = ShareablePost.objects.get(id=str(list(request.GET.keys())[0]))
     check = 1
     if post.likedusers != '':
@@ -133,7 +133,7 @@ def verify_like(request):
             post.likedusers+=request.user.instahandle+' '
             post.save()
         else:
-            messages.warning(request,"Looks like you have not liked this post yet!")
+            messages.warning(request,"Looks like you have not liked this post yet!") """
     return redirect('dashboard_page') 
 
 @login_required
