@@ -30,7 +30,7 @@ def dashboard(request):
             ))
         ).exclude(is_shared=True)
         # Notifications List
-        isread=True;
+        isread=True
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
         if list(UserGroup.objects.filter(leader=request.user)):
             grp_points = request.user.points + UserGroup.objects.filter(leader=request.user).first().executive.points

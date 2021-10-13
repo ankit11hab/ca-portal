@@ -246,6 +246,9 @@ class VerificationView(View):
 
 @login_required
 def profile(request):
+    isread = True
+    notification_list = Notifications.objects.filter(
+        Q(user=request.user) | Q(user=None)).order_by('-created_on')
     if request.method == 'POST':
         u_form = UserUpdateForm(
             request.POST, request.FILES, instance=request.user)
@@ -256,8 +259,6 @@ def profile(request):
         print(u_form.errors)
     else:
         u_form = UserUpdateForm(instance=request.user)
-        notification_list = Notifications.objects.filter(
-            Q(user=request.user) | Q(user=None)).order_by('-created_on')
         isread = True
         notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
