@@ -2,6 +2,7 @@ from logging import currentframe
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import ShareablePost
+from users.models import UserGroup
 from submissions.models import Media
 from datetime import datetime
 from django.db.models import Exists,OuterRef
@@ -13,10 +14,9 @@ from instagram_private_api import Client
 import _datetime
 
 
-
 start_time = _datetime.datetime.now().date()
-user_name = 'fun_tas_tic_12'
-password = 'Qwerty@123'
+user_name = 'a64guha'
+password = 'Ankit@123#'
 api = Client(user_name, password)
 
 def dashboard(request):
@@ -30,10 +30,26 @@ def dashboard(request):
         ).exclude(is_shared=True)
         # Notifications List
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
+        if list(UserGroup.objects.filter(leader=request.user)):
+            grp_points = request.user.points + UserGroup.objects.filter(leader=request.user).first().executive.points
+            grp_tasks = request.user.tasks + UserGroup.objects.filter(leader=request.user).first().executive.tasks
+            grp_referrals = request.user.referrals + UserGroup.objects.filter(leader=request.user).first().executive.referrals
+        elif list(UserGroup.objects.filter(executive=request.user)):
+            grp_points = request.user.points + UserGroup.objects.filter(executive=request.user).first().executive.points
+            grp_tasks = request.user.tasks + UserGroup.objects.filter(executive=request.user).first().executive.tasks
+            grp_referrals = request.user.referrals + UserGroup.objects.filter(executive=request.user).first().executive.referrals
+        else:
+             grp_points = request.user.points
+             grp_tasks = request.user.tasks
+             grp_referrals = request.user.referrals
         context = {
             'post_list': post_list,
             'heading':'Dashboard',
-            'notification_list': notification_list
+            'notification_list': notification_list,
+            'grp_points':grp_points,
+            'grp_tasks':grp_tasks,
+            'grp_referrals':grp_referrals
+
         }
         
 
@@ -76,12 +92,13 @@ def verify_like(request):
         
         curr_time=_datetime.datetime.now().date()
         delta = curr_time-start_time
-        print("Lalalala",delta.total_seconds())
-        if delta.total_seconds()<5 or delta.days >50:
-            user_name = 'fun_tas_tic_12'
-            password = 'Qwerty@123'
-            api = Client(user_name, password)
-        results = api.media_likers_chrono(post.media_id)
+        if delta.days >50:
+            user_name = 'a64guha'
+            password = 'Ankit@123#'
+            api2 = Client(user_name, password)
+            results = api2.media_likers_chrono(post.media_id)
+        else:
+            results = api.media_likers_chrono(post.media_id)
         items = results['users']
         flag=0
         
@@ -99,6 +116,6 @@ def verify_like(request):
             post.likedusers+=request.user.instahandle+' '
             post.save()
         else:
-            messages.warning(request,"Looks like you havent liked this post yet!")
+            messages.warning(request,"Looks like you have not liked this post yet!")
     return redirect('dashboard_page') 
 

@@ -17,21 +17,21 @@
                 </div>
                 <div class=" my-2">
                     <div class=" text-gray-600 text-xl font-medium text-center">
-                        {%if request.user.points >= 1000 %}
+                        {%if grp_points >= 1000 %}
                         Gold
-                        {%elif request.user.points >= 250 %}
+                        {%elif grp_points >= 250 %}
                         Silver
                         {% else %}
                         Bronze
                         {% endif %}
                     </div>
                     <div class=" text-gray-600 text-center whitespace-nowrap">
-                        {%if request.user.points >= 1000 %}
+                        {%if grp_points >= 1000 %}
                         You are at Gold level
-                        {%elif request.user.points >= 250 %}
-                        {{1000|sub:request.user.points}} more points to Gold
+                        {%elif grp_points >= 250 %}
+                        {{1000|sub:grp_points}} more points to Gold
                         {% else %}
-                        {{250|sub:request.user.points}} more points to Silver
+                        {{250|sub:grp_points}} more points to Silver
                         {% endif %}
                     </div>
                 </div>
@@ -68,8 +68,9 @@
     </div>
 </div>
 <script>
-    referral_points = {{request.user.referrals}}
-    task_points = {{request.user.points}} - 25*referral_points
+    
+    referral_points = {{grp_referrals}}
+    task_points = {{grp_points}} - 25*referral_points
     document.getElementById('referral-points').innerText = 25*referral_points
     document.getElementById('task-points').innerText = task_points
 </script>
