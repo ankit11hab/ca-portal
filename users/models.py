@@ -4,9 +4,16 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from phonenumber_field.modelfields import PhoneNumberField
-from .utils import create_new_ref_number
 from PIL import Image
+import random
 
+def create_new_ref_number():
+    alcherid = "ALC"+str(random.randint(100000, 999999))
+    alc=NewUser.objects.filter(alcherid=alcherid)
+    if alc:
+        create_new_ref_number()
+    else:
+        return alcherid
 
 class CustomAccountManager(BaseUserManager):
     def create_superuser(self, email, firstname, password, **other_fields):

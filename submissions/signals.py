@@ -11,13 +11,7 @@ def media_save(sender, instance, created, *args, **kwargs):
             instance.user.tasks += 1
             instance.user.tasks += 1
             notif = Notifications()
-            notif.message = "Your media submission has been validated"
-            notif.user = instance.user
-            notif.type = "Success"
-            notif.save()
-        else:
-            notif = Notifications()
-            notif.message = "Your submission of a media was successful"
+            notif.message = "Post shared to facebook successfully"
             notif.user = instance.user
             notif.type = "Success"
             notif.save()
