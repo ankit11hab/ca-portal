@@ -24,6 +24,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 User = get_user_model()
 
+
 def register_single_user(request):
     if request.user.is_authenticated:
         return redirect('dashboard_page')
@@ -37,11 +38,13 @@ def register_single_user(request):
                     user = NewUser.objects.get(
                         alcherid=request.POST.get('referred_by'))
                     # result.referred_by_user=user
-                    result.points = 25
-                    result.save()
+                    # result.points = 25
+                    # result.save()
                     user.referrals += 1
                     user.points += 25
                     user.save()
+                    result.points = 75
+                    result.save()  # who uses referral code gets 25 points
                 else:
                     result.save()
 
@@ -103,7 +106,7 @@ def register_group_user(request):
                 single_form_1_result.set_password(
                     request.POST.get('password1'))
                 single_form_1_result.username = "Groupuser"
-                single_form_1_result.save()
+
                 # 2nd form
                 single_form_2_result = single_user_form_2.save(commit=False)
                 single_form_2_result.college_state = request.POST.get(
@@ -117,16 +120,11 @@ def register_group_user(request):
                 single_form_2_result.set_password(
                     request.POST.get('password1'))
                 single_form_2_result.username = "Groupuser"
-                single_form_2_result.save()
 
-                user_1 = NewUser.objects.get(
-                    email=request.POST.get('form_1-email'))
-                user_2 = NewUser.objects.get(
-                    email=request.POST.get('form_2-email'))
+                
 
                 group_form_result = group_user_form.save(commit=False)
-                group_form_result.leader = user_1
-                group_form_result.executive = user_2
+                
 
                 if(request.POST.get('referred_by')):
                     user = NewUser.objects.get(
@@ -135,12 +133,24 @@ def register_group_user(request):
                     group_form_result.referred_by = request.POST.get(
                         'referred_by')
                     user.referrals += 1
+                    user.points += 25
                     user.save()
-                    group_form_result.save()
+                    single_form_1_result.points = 75
+                    single_form_2_result.points = 75
+                    single_form_1_result.save()
+                    single_form_2_result.save()
                 else:
-                    group_form_result.save()
+                    single_form_1_result.save()
+                    single_form_2_result.save()
+                    
                 # SEnding mail to leader
-
+                user_1 = NewUser.objects.get(
+                    email=request.POST.get('form_1-email'))
+                user_2 = NewUser.objects.get(
+                    email=request.POST.get('form_2-email'))
+                group_form_result.leader = user_1
+                group_form_result.executive = user_2
+                group_form_result.save()
                 uidb64 = urlsafe_base64_encode(force_bytes(user_1.pk))
                 domain = get_current_site(request).domain
                 link = reverse('activate', kwargs={
@@ -222,8 +232,6 @@ def loginPage(request):
         return HttpResponse("ok")
 
 
-
-
 class VerificationView(View):
 
     def get(self, request, uidb64, token, *args, **kwargs):
@@ -261,7 +269,7 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user)
         isread = True
         notification_list = Notifications.objects.filter(
-        Q(user=request.user) | Q(user=None)).order_by('-created_on')
+            Q(user=request.user) | Q(user=None)).order_by('-created_on')
         for notif in notification_list:
             if not notif.isread:
                 isread = False

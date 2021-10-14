@@ -62,7 +62,8 @@
 					{{ single_user_register_form.password1 }}
 					{{ single_user_register_form.password2 }}
 				
-					<input type="submit" class="bg-blue-600 hover:bg-blue-700 text-white inline-block py-2 px-4 rounded shadow-sm font-semibold text-base"/>
+					<input type="submit" id="form-submit-btn" class="bg-blue-600 hover:bg-blue-700 text-white inline-block py-2 px-4 rounded shadow-sm font-semibold text-base"/>
+					<p style="color:green; display:none;" id="showload">Please Wait, don't refresh the page...</p>
 				</form>
 				Registered already? <a id="navlink5" style="cursor:pointer; color:#109cf1;">Login</a>
 				<br /><br />
@@ -75,5 +76,11 @@
 	</div>
 </div>
 <br/><br/><br/>
+<script>
+	document.getElementById("form-submit-btn").addEventListener("click", showloading);
+	function showloading(){
+document.getElementById("showload").style.display="block"
+	}
+</script>
 {% include 'users/login.html' %}
 {% endblock %}
