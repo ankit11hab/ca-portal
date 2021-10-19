@@ -23,6 +23,17 @@ class ShareablePost(models.Model):
         return str(self.id)
 
 
+class Promotions(models.Model):
+    id = models.SlugField(primary_key=True, default=uuid.uuid4)
+    link = models.CharField(max_length=500, blank=True, null=True)
+    image = models.ImageField(upload_to="image-uploads/")
+    description = models.TextField(default = '', null=True,blank=True)
+    created_on = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.id)
+
+
 class Notifications(models.Model):
     TYPECHOICES = [
         ('Success', 'Success'),

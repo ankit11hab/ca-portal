@@ -1,45 +1,87 @@
-<div class="py-3 pl-6 font-medium text-lg border-b-2">Recent Posts</div>
-<div class=" bg-white rounded-md shadow-md my-2 pb-1 h-full overflow-x-scroll">
 
-    <!-- horizontal_scroll -->
 
-    {% for post in post_list %}
-    <div class="">
-        <div class=" bg-white shadow-md w-full h-full flex flex-col">
-            <img src="{{ post.image.url }}" alt="image" border="0" class="my-4 w-full h-1/2">
-            <center><div class=" py-3 px-4 font-medium" style="word-wrap: break-word;">
-                {{ post.caption }}
-            </div></center>
+    
+        <div class="py-3 pl-6 font-medium text-lg border-b-2">Recent Posts</div>
+        <div class=" bg-white rounded-md shadow-md my-2 pb-1 h-full overflow-x-scroll">
             
-            <div class="mt-auto">
-                <center><div class=" py-3 px-4 font-medium text-gray-600">SHARE ON</div></center>
-                
-                <div class=" my-2 px-4 flex justify-center space-x-4">
-                    {% if post.is_facebook %}
-                    <div class=" inline-block bg-gray-200 rounded shadow p-4"
-                        onclick='fbshare("{{ post.link_facebook}}","{{post.id}}")'>
-                        <svg width="44" height="45" viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M1.22217 22.616C1.22217 32.946 8.72468 41.5359 18.537 43.2778V28.271H13.3425V22.5H18.537V17.8821C18.537 12.6877 21.8839 9.80305 26.6178 9.80305C28.1173 9.80305 29.7345 10.0333 31.2339 10.2636V15.5741H28.5796C26.0395 15.5741 25.4629 16.8433 25.4629 18.4605V22.5H31.0037L30.0808 28.271H25.4629V43.2778C35.2752 41.5359 42.7777 32.9478 42.7777 22.616C42.7777 11.1242 33.4277 1.72223 21.9999 1.72223C10.5722 1.72223 1.22217 11.1242 1.22217 22.616Z"
-                                fill="#1877F2" />
-                        </svg>
+
+            <!-- horizontal_scroll -->
+
+            {% for post in post_list %}
+                <div class=" bg-white shadow-md w-full h-full flex flex-col">
+                    <img src="{{ post.image.url }}" alt="image" border="0" class="my-4 w-full h-1/2">
+                    <center>
+                        <div class=" py-3 px-4 font-medium" style="word-wrap: break-word;">
+                            {{ post.caption }}
+                        </div>
+                    </center>
+
+                    <div class="mt-auto">
+                        <center>
+                            <div class=" py-3 px-4 font-medium text-gray-600">SHARE ON</div>
+                        </center>
+
+                        <div class=" my-2 px-4 flex justify-center space-x-4">
+                            {% if post.is_facebook %}
+                            <div class=" inline-block bg-gray-200 rounded shadow p-4"
+                                onclick='fbshare("{{ post.link_facebook}}","{{post.id}}")'>
+                                <svg width="44" height="45" viewBox="0 0 44 45" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M1.22217 22.616C1.22217 32.946 8.72468 41.5359 18.537 43.2778V28.271H13.3425V22.5H18.537V17.8821C18.537 12.6877 21.8839 9.80305 26.6178 9.80305C28.1173 9.80305 29.7345 10.0333 31.2339 10.2636V15.5741H28.5796C26.0395 15.5741 25.4629 16.8433 25.4629 18.4605V22.5H31.0037L30.0808 28.271H25.4629V43.2778C35.2752 41.5359 42.7777 32.9478 42.7777 22.616C42.7777 11.1242 33.4277 1.72223 21.9999 1.72223C10.5722 1.72223 1.22217 11.1242 1.22217 22.616Z"
+                                        fill="#1877F2" />
+                                </svg>
+                            </div>
+                            {% endif %}
+                            {% if post.is_instagram %}
+                            <a href="{{ post.link_instagram }}" target="_blank">
+                                <div class=" inline-block bg-gray-200 rounded shadow p-4">
+                                    <svg class="instagram" fill="#000000" height="44" viewBox="0 0 24 24" width="45"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" />
+                                    </svg>
+                                </div>
+                            </a>
+                            {% endif %}
+                        </div>
+                        <center>
+                            <form action='checkLike' method='GET'><input type="submit" class="px-4 font-medium"
+                                    name="{{post.id}}" value='Verify your Like'></form>
+                        </center>
+                        <center>
+                            <div class=" py-3 px-4 font-medium text-gray-600">DEADLINE- {{ post.last_date }}</div>
+                        </center>
+
                     </div>
-                    {% endif %}
-                    {% if post.is_instagram %}
-                    <a href = "{{ post.link_instagram }}" target = "_blank">
-                    <div class=" inline-block bg-gray-200 rounded shadow p-4">
-                        <svg class="instagram" fill="#000000" height="44" viewBox="0 0 24 24" width="45" xmlns="http://www.w3.org/2000/svg"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /></svg>
-                    </div></a>
-                    {% endif %}
+                    <hr />
                 </div>
-                <center><form action='checkLike' method='GET'><input type ="submit" class="px-4 font-medium" name="{{post.id}}" value='Verify your Like'></form></center>
-                <center><div class=" py-3 px-4 font-medium text-gray-600">DEADLINE- {{ post.last_date }}</div></center>
+                {% endfor%}
+
+
+            
+    </div>
+    <div class="bg-white">
+        <div class=" py-3 pl-6 font-medium text-lg border-b-2">Latest Release</div>
+        <div class=" bg-white rounded-md shadow-md my-2 pb-1 h-full overflow-x-scroll" style = "min-height: 300px;">
+            
+
+            {% for promotion in promotions %}
+            <div class="">
+                <div class=" bg-white shadow-md w-full h-full flex flex-col">
+                    <img src="{{ promotion.image.url }}" alt="image" border="0" class="my-4 w-full h-1/2">
+                    <center><a href="{{ promotion.link }}" target="_blank" class=" py-3 px-4 font-medium"
+                            style="word-wrap: break-word;">
+                            Visit Link
+                        </a></center>
+
+
+                    <hr />
+                </div>
+                {% endfor%}
+
 
             </div>
-            <hr />
         </div>
-        {% endfor%}
-
-
     </div>
 </div>

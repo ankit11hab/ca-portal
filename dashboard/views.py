@@ -2,7 +2,7 @@ from logging import currentframe
 from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .models import ShareablePost
+from .models import Promotions, ShareablePost
 from users.models import UserGroup
 from submissions.models import Media
 from datetime import datetime
@@ -29,6 +29,7 @@ def dashboard(request):
             user=request.user,
             ))
         ).exclude(is_shared=True)
+        promotions = Promotions.objects.all().order_by('-created_on')
         # Notifications List
         isread=True
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -51,6 +52,7 @@ def dashboard(request):
 
         context = {
             'post_list': post_list,
+            'promotions': promotions,
             'heading':'Dashboard',
             'notification_list': notification_list,
             'grp_points':grp_points,
