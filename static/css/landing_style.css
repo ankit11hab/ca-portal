@@ -265,6 +265,16 @@ nav .fa {
     display: none;
 }
 
+.image-sponsor{
+    display: flex;
+    flex-direction: row;
+}
+
+.hover-text:hover{
+    color: #334d6e;
+    transition: 0.5s;
+}
+
 @media only screen and (max-width: 600px) {
     html,
     body {
