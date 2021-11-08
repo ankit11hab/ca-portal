@@ -51,14 +51,17 @@ nav img {
     color: #ffffff;
     text-decoration: none;
 }
-#navlink5{
+
+#navlink5 {
     color: #ffffff;
     text-decoration: none;
 }
-#navlink5:hover{
+
+#navlink5:hover {
     color: #109cf1;
     transition: 0.5s;
 }
+
 #navlink1.scroll,
 #navlink2.scroll,
 #navlink3.scroll,
@@ -113,6 +116,7 @@ nav img {
 .backdrop {
     background-color: blue;
 }
+
 .text-box {
     width: 90%;
     left: 55%;
@@ -186,6 +190,12 @@ nav img {
     margin-top: 100px;
     margin-bottom: 60px;
     font-weight: 500;
+}
+
+.text {
+    text-align: center;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
 .join {
@@ -265,6 +275,19 @@ nav .fa {
     display: none;
 }
 
+#man #fly {
+    width: 823px;
+    height: 823px;
+    align-items: left;
+    margin-left: 0px;
+}
+
+#man #choose {
+    position: relative;
+    display: inline-block;
+    margin-right: 40px;
+}
+
 @media only screen and (max-width: 600px) {
     html,
     body {
@@ -277,11 +300,9 @@ nav .fa {
         color: #334d6e;
         transition: 0.5s;
     }
-
     #join-button {
         padding: 7px 8px;
     }
-
     .nav-links {
         position: absolute;
         background-color: #109cf1;
@@ -344,5 +365,4 @@ nav .fa {
         height: 50%;
         margin-left: 0%;
     }
-    
 }
