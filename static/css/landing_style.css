@@ -275,6 +275,7 @@ nav .fa {
     display: none;
 }
 
+<<<<<<< HEAD
 #man #fly {
     width: 823px;
     height: 823px;
@@ -286,6 +287,16 @@ nav .fa {
     position: relative;
     display: inline-block;
     margin-right: 40px;
+=======
+.image-sponsor{
+    display: flex;
+    flex-direction: row;
+}
+
+.hover-text:hover{
+    color: #334d6e;
+    transition: 0.5s;
+>>>>>>> f512db893c93dd2889094247744b4d40386619fa
 }
 
 @media only screen and (max-width: 600px) {
