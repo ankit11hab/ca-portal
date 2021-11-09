@@ -160,23 +160,38 @@
 
     </section>-->
 
-<section>
+<section id="faq">
     <div>
         <p class="joining">
             Join as a Team or Solo
         </p>
-        <p class="text">
-            For the first time ever, you can now work as a team of two to make your CA experience even better. You can still join solo as well.
+        <p class="text" style="color: #707683;">
+            For the first time ever, you can now work as a team of two to make your CA<br/>experience even better. You can still join solo as well.
         </p>
     </div>
 
-    <div id="man">
-        <img id="fly" src="{% static 'images/Graphic2.png' %}" />
+    <div class="join flex sm:flex-row" style="justify-content: flex-start;">
+        <img class="ml-0.5 mr-0.5" id="fly" src="{% static 'images/Graphic2.png' %}" />
         <div>
-            <div id="choose">
-                <h2>Team</h2>
-                <h2>Solo</h2>
-            </div>
+            
+                 <div class="flex mx-auto rounded overflow-hidden mt-6 -ml-10 mb-8">
+                    <button class="py-1 px-4 border-b-4 focus:outline-none" style="border-color: #334D6E; color: #334D6E;">Team</button>
+                    <button class="py-1 px-4 focus:outline-none" style="color: #90A0B7;">Solo</button>
+                </div>
+        <ul class="list-disc">
+            <li class="mb-4" style="color: #707683;">
+                Play as a team to increase collaborations and allows for brainstorming. As a consequence, develop more ideas which increase productivity.
+            </li>
+            <li class="mb-4" style="color: #707683;">
+                Working as a Team gives a chance to look at a problem from multiple angles, thus creating a greater      multitude of solutions. Teamwork makes members more open and enables learning of different cultures.
+            </li>
+            <li class="mb-4" style="color: #707683;">
+                Teamwork encourages communication among the team, enhances socialising traits, and helps to build your rapport skills.
+            </li>
+            <li class="mb-4" style="color: #707683;">
+                Working as a team makes you learn faster.
+            </li>
+        </ul>
         </div>
     </div>
 
