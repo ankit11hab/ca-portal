@@ -11,7 +11,7 @@
                 value="{{request.user.alcherid}}"id="alcherid" size="35" disabled>
             <button onclick="copytext()"
                 class=" bg-blue-600 hover:bg-blue-700 active:bg-blue-700 text-white inline-block py-1 px-3 rounded shadow-sm font-semibold text-base m-2">
-                copy id
+                Copy ID
             </button>
             
         </div>
@@ -55,7 +55,7 @@
             copyText.setSelectionRange(0, 99999); 
             navigator.clipboard.writeText(copyText.value);
 
-            document.getElementById("copied").innerHTML="Copied id successfully"
+            document.getElementById("copied").innerHTML="Copied ID successfully"
         }
 </script>
 {% endblock %}

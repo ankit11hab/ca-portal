@@ -90,6 +90,26 @@ def contactus(request):
     else:
         return render(request, 'dashboard/landing_page.html')
 
+@login_required
+def guidelines(request):
+    if request.user.is_authenticated:
+        # Notifications List
+        notification_list = Notifications.objects.filter(
+            Q(user=request.user) | Q(user=None)).order_by('-created_on')
+        isread = True
+        notification_list = Notifications.objects.filter(
+            Q(user=request.user) | Q(user=None)).order_by('-created_on')
+        for notif in notification_list:
+            if not notif.isread:
+                isread = False
+                break
+        context = {
+            'heading': 'Guidelines',
+            'notification_list': notification_list, 'isread': isread
+        }
+        return render(request, 'dashboard/guidelines.html', context)
+    else:
+        return render(request, 'dashboard/landing_page.html')
 
 @login_required
 def verify_like(request):

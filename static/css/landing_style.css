@@ -31,7 +31,8 @@ nav {
 }
 
 nav.scrolled {
-  background: #ffffff;
+  background:  linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5));
+
   z-index: 5;
 }
 
