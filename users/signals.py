@@ -19,21 +19,37 @@ def user_pre_save(sender, instance, **kwargs):
                 notif.type="Success"
                 notif.save()
 
-                if current.points>=250 and previous.points<250:
+                if current.points>=900 and previous.points<900:
                 # Reached silver
+                    notif = Notifications()
+                    notif.message = "Congratualations, you reached Bronze level"
+                    notif.user = instance
+                    notif.type = "Success"
+                    notif.save()
+
+                if current.points >= 1500 and previous.points < 1500:
+                #Reached Gold
                     notif = Notifications()
                     notif.message = "Congratualations, you reached Silver level"
                     notif.user = instance
                     notif.type = "Success"
                     notif.save()
-
-                if current.points >= 1000 and previous.points < 1000:
-                #Reached Gold
+                    
+                if current.points >= 3000 and previous.points < 3000:
+                    #Reached Gold
                     notif = Notifications()
                     notif.message = "Congratualations, you reached Gold level"
                     notif.user = instance
                     notif.type = "Success"
                     notif.save()
+                    
+                # if current.points >= 1500 and previous.points < 1500:
+                #     #Reached Gold
+                #     notif = Notifications()
+                #     notif.message = "Congratualations, you reached Silver level"
+                #     notif.user = instance
+                #     notif.type = "Success"
+                #     notif.save()
         # Referral
                 if previous.referrals != current.referrals:
                     notif = Notifications()
