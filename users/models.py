@@ -55,6 +55,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=150, unique=False, default="user")
     firstname = models.CharField(max_length=150, blank=True)
     phone = PhoneNumberField(unique=False, blank=True)
+    
     graduation_year = models.CharField(max_length=200, unique=False)
     college_state = models.CharField(max_length=200, unique=False)
     college_city = models.CharField(max_length=200, unique=False)

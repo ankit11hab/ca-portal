@@ -12,6 +12,10 @@ from django import forms
 from django.conf import settings
 
 from django.db.models import Q
+from dashboard.models import Promotions, ShareablePost
+from users.models import UserGroup
+from datetime import datetime
+from django.db.models import Exists,OuterRef
 
 
 class IdeaCreateView(CreateView):
@@ -157,6 +161,45 @@ def home(request):
 
 @login_required(login_url='dashboard_page')
 def tasks(request):
+    post_list = ShareablePost.objects.all().order_by('-created_on'
+    ).exclude(last_date__lt=datetime.now().date()
+    ).annotate(is_shared=Exists(Media.objects.filter(
+        shared_post__id=OuterRef('id'),
+        user=request.user,
+        ))
+    ).exclude(is_shared=True)
+    promotions = Promotions.objects.all().order_by('-created_on')
+    # Notifications List
+    isread=True
+    notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
+    if list(UserGroup.objects.filter(leader=request.user)):
+        grp_points = request.user.points + UserGroup.objects.filter(leader=request.user).first().executive.points
+        grp_tasks = request.user.tasks + UserGroup.objects.filter(leader=request.user).first().executive.tasks
+        grp_referrals = request.user.referrals + UserGroup.objects.filter(leader=request.user).first().executive.referrals
+    elif list(UserGroup.objects.filter(executive=request.user)):
+        grp_points = request.user.points + UserGroup.objects.filter(executive=request.user).first().executive.points
+        grp_tasks = request.user.tasks + UserGroup.objects.filter(executive=request.user).first().executive.tasks
+        grp_referrals = request.user.referrals + UserGroup.objects.filter(executive=request.user).first().executive.referrals
+    else:
+            grp_points = request.user.points
+            grp_tasks = request.user.tasks
+            grp_referrals = request.user.referrals
+    for notif in notification_list:
+        if not notif.isread:
+            isread=False
+            break
+
+    context = {
+        'post_list': post_list,
+        'promotions': promotions,
+        'heading':'Tasks',
+        'notification_list': notification_list,
+        'grp_points':grp_points,
+        'grp_tasks':grp_tasks,
+        'grp_referrals':grp_referrals,
+
+        'isread':isread
+    }
     notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
     # Notifications List
@@ -167,7 +210,7 @@ def tasks(request):
         if not notif.isread:
             isread = False
             break
-    return render(request, 'submissions/tasks.html', {'heading': 'Tasks', 'notification_list': notification_list, 'isread': isread})
+    return render(request, 'submissions/tasks.html', context)
 
 
 @login_required(login_url='dashboard_page')
