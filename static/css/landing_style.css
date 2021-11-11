@@ -338,7 +338,7 @@ nav .fa {
     -o-transition: all 0.5 ease;
 }
 
-[id^=btn]:checked+p {
+[id^=btn]:hover+p {
     display: block;
     visibility: visible;
     opacity: 1;
@@ -352,7 +352,7 @@ nav .fa {
 }*/
 
 .que input {
-    background: white;
+    background: lightblue;
     display: inline;
     position: relative;
     left: 97%;
