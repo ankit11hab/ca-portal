@@ -3,7 +3,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Promotions, ShareablePost
-from users.models import UserGroup
+from users.models import UserGroup, NewUser
 from submissions.models import Media
 from datetime import datetime
 from django.db.models import Exists,OuterRef
@@ -11,9 +11,6 @@ from submissions.models import Idea
 from .models import Notifications
 from django.db.models import Q
 from django.contrib import messages
-from instagram_private_api import Client
-import _datetime
-
 
 """ start_time = _datetime.datetime.now().date()
 user_name = 'a64guha'
@@ -30,6 +27,8 @@ def dashboard(request):
             ))
         ).exclude(is_shared=True)
         promotions = Promotions.objects.all().order_by('-created_on')
+        # Leaderboard
+        top_users = NewUser.objects.all().order_by('points')[:10]
         # Notifications List
         isread=True
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -58,7 +57,7 @@ def dashboard(request):
             'grp_points':grp_points,
             'grp_tasks':grp_tasks,
             'grp_referrals':grp_referrals,
-
+            'top_users': top_users,
             'isread':isread
         }
         

@@ -1,0 +1,29 @@
+<style>
+    table.roundedCorners {
+        border-radius: 13px;
+        border-spacing: 0;
+    }
+</style>
+<div class="bg-white rounded-md shadow-md my-2 pb-1">
+    <div class="py-3 pl-6 font-medium text-lg border-b-2">Leaderboard</div>
+
+    <div style="width: 100%;padding: 20px;">
+        <table class="roundedCorners" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th class="border border-slate-300" style="padding:5px; font-weight: 500;">Name</th>
+                    <th class="border border-slate-300" style="padding:5px; font-weight: 500;">Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in top_users %}
+                <tr>
+                    <td class="border border-slate-300" style="text-align:center;padding:5px">{{ user.firstname }}</td>
+                    <td class="border border-slate-300" style="text-align:center;padding:5px">{{ user.points }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>

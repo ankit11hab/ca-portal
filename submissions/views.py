@@ -16,6 +16,43 @@ from dashboard.models import Promotions, ShareablePost
 from users.models import UserGroup
 from datetime import datetime
 from django.db.models import Exists,OuterRef
+from django.core.mail import EmailMultiAlternatives
+from django.core.mail import BadHeaderError
+from django.template.loader import render_to_string
+
+
+def sendNotification(type):
+    subject = "New submission"
+    email_template_name = "submissions/notification_mail.html"
+    poc = {
+        'type': "POC",
+        'link': 'https://ambassador.alcheringa.in/admin65G9fKjL/submissions/poc/'
+    }
+    pocbulk = {
+        'type': "POC",
+        'link': 'https://ambassador.alcheringa.in/admin65G9fKjL/submissions/pocbulk/'
+    }
+    idea = {
+        'type': "idea",
+        'link': 'https://ambassador.alcheringa.in/admin65G9fKjL/submissions/idea/'
+    }
+    if(type==1):
+        email = render_to_string(email_template_name, poc)
+    elif(type==2):
+        email = render_to_string(email_template_name, pocbulk)
+    else:
+        email = render_to_string(email_template_name, idea)
+    try:
+        message = EmailMultiAlternatives(
+            subject=subject,
+            body="mail testing",
+            from_email='Alcheringa Campus Ambassador',
+            to=["ankit11hab@outlook.com"]
+        )
+        message.attach_alternative(email, "text/html")
+        message.send(fail_silently=False)
+    except BadHeaderError:
+        return
 
 
 class IdeaCreateView(CreateView):
@@ -26,6 +63,7 @@ class IdeaCreateView(CreateView):
         form.instance.user = self.request.user
         messages.success(
             self.request, f'Your idea has been submitted! Verification - Pending')
+        sendNotification(3)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -53,6 +91,7 @@ class POCCreateView(CreateView):
         form.instance.user = self.request.user
         messages.success(
             self.request, f'Your POC has been submitted! Verification - Pending')
+        sendNotification(1)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -80,6 +119,7 @@ class POCBulkCreateView(CreateView):
         form.instance.user = self.request.user
         messages.success(
             self.request, f'Your POCs has been submitted! Verification - Pending')
+        sendNotification(2)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):

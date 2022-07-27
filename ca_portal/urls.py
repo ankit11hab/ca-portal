@@ -8,7 +8,7 @@ from .admin import admin_view
 admin.site.admin_view = admin_view
 #login, go to left navbar to access admin
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin65G9fKjL/', admin.site.urls),
     path('users/', include('users.urls')),
     path('', include('dashboard.urls')),
     path('submissions/', include('submissions.urls')),
