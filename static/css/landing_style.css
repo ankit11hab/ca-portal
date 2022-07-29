@@ -281,6 +281,7 @@ nav .fa {
     height: 700px;
     align-items: left;
     margin-left: 0px;
+    
 }
 
 #man #choose {
@@ -362,6 +363,31 @@ nav .fa {
     padding: 0px;
 }
 
+@media only screen and (max-width: 1100px){
+    .join{
+     padding: 0px 15% 0px 15%;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-around;
+     align-items: center;
+     padding-bottom: 5%;
+     flex-wrap: wrap;
+    }
+ 
+ }
+@media only screen and (max-width: 890px){
+    #man {
+        flex-direction: column;
+    }
+    #man img {
+        width: 50%;
+        height: 50%;
+        margin-left: 0%;
+    } 
+   .join{
+    padding: 5%;
+   }
+}
 @media only screen and (max-width: 600px) {
     html,
     body {
@@ -431,12 +457,12 @@ nav .fa {
         top: 50%;
         transform: translate(-10%, -60%);
     }
-    #man {
+    /* #man {
         flex-direction: column;
     }
     #man img {
         width: 50%;
         height: 50%;
         margin-left: 0%;
-    }
+    } */
 }
