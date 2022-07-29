@@ -3,7 +3,67 @@
         border-radius: 13px;
         border-spacing: 0;
     }
+    .podium{
+    display: flex;
+justify-content: center;
+margin-top: 40px;
+font-size: 12p100;
+align-items:flex-end;
+}
+.third{margin-top: 40px;
+    
+}
+.second{
+    margin-top: 20px;
+
+}
+
+.tpod{
+    display: flex;
+    justify-content: center;
+    height: 90px;
+    width: 100px;
+    border-radius: 4px;
+    background: rgb(240,247,255);
+background: linear-gradient(0deg, rgba(240,247,255,0.5) 0%, rgba(230,207,185,1) 39%, rgba(205,127,50,1) 100%);
+
+}
+.fpod{
+    display: flex;
+    justify-content: center;
+    height: 130px;
+    width: 100px;
+    
+    background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgba(240,247,255,.5) 0%, rgba(255,230,183,1) 49%, rgba(255,186,54,1) 100%);
+ border-radius: 4px;
+ 
+  
+}
+.spod{
+    display: flex;
+    justify-content: center;
+    height: 110px;
+    width: 100px;
+    background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgba(240,247,255,.5) 0%, rgba(234,234,234,1) 39%, rgba(201,201,201,1) 100%);
+    border-radius: 4px; 
+   
+}
+.name{
+text-align: center;
+width: 100px;
+
+
+}
 </style>
+<div class="podium">   
+    <div class="third"><p class="name">{{top_users[2].firstname}} </p>
+     <p class="tpod"></p> </div>
+     <div class="first"><p class="name">{{top_users[0].firstname}}</p><p class="fpod"></p></div>
+     <div class="second"><p class="name">{{top_users[1].firstname}}</p><p class="spod"></p></div>
+     </div>
+     
 <div class="bg-white rounded-md shadow-md my-2 pb-1">
     <div class="py-3 pl-6 font-medium text-lg border-b-2">Leaderboard</div>
 
@@ -25,5 +85,3 @@
             </tbody>
         </table>
     </div>
-
-</div>
