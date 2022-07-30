@@ -3,27 +3,84 @@
         border-radius: 13px;
         border-spacing: 0;
     }
+
+    .podium {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+        font-size: 15px;
+        align-items: flex-end;
+    }
+
+    .third {
+        margin-top: 40px;
+
+    }
+
+    .second {
+        margin-top: 20px;
+
+    }
+
+    .tpod {
+        display: flex;
+        justify-content: center;
+        height: 90px;
+        width: 100px;
+        border-radius: 4px;
+        background: rgb(240, 247, 255);
+        background: linear-gradient(0deg, rgba(240, 247, 255, 0.5) 0%, rgba(230, 207, 185, 1) 39%, rgba(205, 127, 50, 1) 100%);
+        border: 1px solid rgba(205, 127, 50, 1) ;
+
+    }
+
+    .fpod {
+        display: flex;
+        justify-content: center;
+        height: 130px;
+        width: 100px;
+
+        background: rgb(255, 255, 255);
+        background: linear-gradient(0deg, rgba(240, 247, 255, .5) 0%, rgba(255, 230, 183, 1) 49%, rgba(255, 186, 54, 1) 100%);
+        border-radius: 4px;
+        border: 1px solid rgba(255, 186, 54, 1) ;
+
+
+    }
+
+    .spod {
+        display: flex;
+        justify-content: center;
+        height: 110px;
+        width: 100px;
+        background: rgb(255, 255, 255);
+        background: linear-gradient(0deg, rgba(240, 247, 255, .5) 0%, rgba(234, 234, 234, 1) 39%, rgba(201, 201, 201, 1) 100%);
+        border-radius: 4px;
+        border: 1px solid rgba(201, 201, 201, 1) ;
+
+    }
+
+    .name {
+        text-align: center;
+        width: 100px;
+    }
 </style>
 <div class="bg-white rounded-md shadow-md my-2 pb-1">
     <div class="py-3 pl-6 font-medium text-lg border-b-2">Leaderboard</div>
 
-    <div style="width: 100%;padding: 20px;">
-        <table class="roundedCorners" style="width: 100%;">
-            <thead>
-                <tr>
-                    <th class="border border-slate-300" style="padding:5px; font-weight: 500;">Name</th>
-                    <th class="border border-slate-300" style="padding:5px; font-weight: 500;">Points</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in top_users %}
-                <tr>
-                    <td class="border border-slate-300" style="text-align:center;padding:5px">{{ user.firstname }}</td>
-                    <td class="border border-slate-300" style="text-align:center;padding:5px">{{ user.points }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="podium pb-6">
+        <div class="third">
+            <p class="name">{{top_users.2.firstname}} </p>
+            <p class="tpod"></p>
+        </div>
+        <div class="first">
+            <p class="name">{{top_users.0.firstname}}</p>
+            <p class="fpod"></p>
+        </div>
+        <div class="second">
+            <p class="name">{{top_users.1.firstname}}</p>
+            <p class="spod"></p>
+        </div>
     </div>
 
 </div>

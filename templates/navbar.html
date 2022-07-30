@@ -13,7 +13,7 @@
     </a>
     <!-- tasks -->
     <a href="{% url 'tasks' %}">
-        <div class="py-6 pl-8 rounded-full">
+        <div class="py-6 pl-8 rounded-full" style="transform: translate(3px,0)">
             {% if heading == 'Tasks' %}
             <img src="{% static 'icons/tasks-active.png' %}" />
             {% else %}
@@ -22,7 +22,7 @@
         </div>
     </a>
     <!-- Group c put POC url here like profile uurl is added -->
-    <a href="{% url 'submissionhome' %}">
+    <!-- <a href="{% url 'submissionhome' %}">
         <div class="py-6 pl-8 rounded-full">
             {% if heading == 'Submissions' %}
             <img src="{% static 'icons/submission-active.png' %}" />
@@ -30,7 +30,7 @@
             <img src="{% static 'icons/submission.png' %}" />
             {% endif %}
         </div>
-    </a>
+    </a> -->
     <!-- profile -->
     <a href="{% url 'profile' %}">
         <div class="py-6 pl-8 rounded-full">
@@ -89,11 +89,11 @@
                 {% else %}
                 <img src="{% static 'icons/dashboard.png' %}" />
                 {% endif %}
-                <p class="pl-4 hover:no-underline">Dashboard</p>
+                <p class="pl-4 hover:no-underline" style="transform: translate(-2px,0)">Dashboard</p>
             </a>
             <!-- tasks -->
             <a href="{% url 'tasks' %}"
-                class="rounded-full flex flex-nowrap pl-6 w-60 hover:border-0 hover:bg-gray-100 hover:no-underline" style="padding-top:1vh;padding-bottom:1vh">
+                class="rounded-full flex flex-nowrap pl-6 w-60 hover:border-0 hover:bg-gray-100 hover:no-underline" style="padding-top:1vh;padding-bottom:1vh; transform: translate(3px,0)">
                 {% if heading == 'Tasks' %}
                 <img src="{% static 'icons/tasks-active.png' %}" />
                 {% else %}
@@ -103,7 +103,7 @@
             </a>
 
             <!-- Group c put POC url here like profile uurl is added -->
-            <a href="{% url 'submissionhome' %}"
+            <!-- <a href="{% url 'submissionhome' %}"
                 class="rounded-full flex flex-nowrap w-60 pl-6 hover:border-0 hover:bg-gray-100 hover:no-underline" style="padding-top:1vh;padding-bottom:1vh">
                 {% if heading == 'Submissions' %}
                 <img src="{% static 'icons/submission-active.png' %}" />
@@ -111,7 +111,7 @@
                 <img src="{% static 'icons/submission.png' %}" />
                 {% endif %}
                 <p class="pl-3 no-underline">Submissions</p>
-            </a>
+            </a> -->
             <!-- profile -->
             <a href="{% url 'profile' %}"
                 class="rounded-full flex flex-nowrap w-60 pl-6 hover:border-0 hover:bg-gray-100 mb-3 hover:no-underline"
