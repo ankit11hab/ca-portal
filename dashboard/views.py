@@ -110,6 +110,26 @@ def guidelines(request):
     else:
         return render(request, 'dashboard/landing_page.html')
 
+
+@login_required
+def leaderboard(request):
+    notification_list = Notifications.objects.filter(
+            Q(user=request.user) | Q(user=None)).order_by('-created_on')
+    isread = True
+    notification_list = Notifications.objects.filter(
+        Q(user=request.user) | Q(user=None)).order_by('-created_on')
+    for notif in notification_list:
+        if not notif.isread:
+            isread = False
+            break
+    users = NewUser.objects.all().order_by('-points')
+    context = {
+        'heading': "Leaderboard",
+        'users': users,
+        'notification_list': notification_list, 'isread': isread
+    }
+    return render(request, 'dashboard/complete_leaderboard.html', context)
+
 @login_required
 def verify_like(request):
 
