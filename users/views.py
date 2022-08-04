@@ -6,7 +6,7 @@ from .forms import SingleUserRegisterForm, GroupUserRegisterForm, GroupUserRegis
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from .models import NewUser
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from .utils import token_generator
@@ -236,7 +236,7 @@ class VerificationView(View):
 
     def get(self, request, uidb64, token, *args, **kwargs):
         try:
-            uid = force_text(urlsafe_base64_decode(uidb64))
+            uid = force_str(urlsafe_base64_decode(uidb64))
             user = NewUser.objects.get(pk=uid)
         except (TypeError, ValueError, OverflowError, NewUser.DoesNotExist):
             user = None

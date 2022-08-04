@@ -11,6 +11,8 @@ from submissions.models import Idea
 from .models import Notifications
 from django.db.models import Q
 from django.contrib import messages
+from django.core.paginator import Paginator
+
 
 """ start_time = _datetime.datetime.now().date()
 user_name = 'a64guha'
@@ -123,10 +125,14 @@ def leaderboard(request):
             isread = False
             break
     users = NewUser.objects.all().order_by('-points')
+    paginator = Paginator(users,5)
+    page_number = request.GET.get('page')
+    page_obj= paginator.get_page(page_number)
     context = {
         'heading': "Leaderboard",
         'users': users,
-        'notification_list': notification_list, 'isread': isread
+        'notification_list': notification_list, 'isread': isread,
+        'index': page_obj
     }
     return render(request, 'dashboard/complete_leaderboard.html', context)
 
