@@ -192,11 +192,13 @@ nav img {
     text-align: center;
     color: #109cf1;
     font-size: 22px;
-    margin-top: 100px;
+    {% comment %} margin-top: 100px; {% endcomment %}
     margin-bottom: 60px;
     font-weight: 500;
 }
-
+#about,#faq{
+    padding-top:130px;
+}
 .text {
     text-align: center;
     margin-left: 100px;
@@ -369,7 +371,7 @@ nav .fa {
 
 @media only screen and (max-width: 1100px){
     .join{
-     padding: 0px 15% 0px 15%;
+     padding: 0px 100px 0px 100px;
      display: flex;
      flex-direction: row;
      justify-content: space-around;
@@ -506,7 +508,7 @@ nav .fa {
     </div>
 </section>
 
-<section id="about">
+<section >
 
     
 </section>
@@ -561,7 +563,7 @@ nav .fa {
     </button>
 </div>
 
-<section>
+<section id="about">
     <div>
         <p class="joining">
             Who is an Alcheringa Campus Ambassador?
@@ -700,7 +702,7 @@ nav .fa {
 
     </section>-->
 
-<section id="faq">
+<section>
     <div>
         <p class="joining">
             Join as a Team or Solo
@@ -743,7 +745,7 @@ nav .fa {
 </section>
 
 
-<section>
+<section id="faq">
     <div>
         <p class="joining">FAQs</p>
     </div>
@@ -814,19 +816,19 @@ nav .fa {
                 <h2 class="title-font font-medium text-white text-sm mb-3 ml-6 text-xl ">Links</h2>
                 <ul class="list-none mb-10 ">
                     <li class="text-left " style="margin-bottom: 0.6rem; ">
-                        <a class="text-white no-underline hover:text-gray-800 hover-text ">About</a>
+                        <a href='#about' class="text-white no-underline hover:text-gray-800 hover-text ">About</a>
                     </li>
                     <li class="text-left " style="margin-bottom: 0.6rem; ">
-                        <a class="text-white no-underline hover:text-gray-800 ">Benefits</a>
+                        <a href='#benefits' class="text-white no-underline hover:text-gray-800 ">Benefits</a>
                     </li>
                     <li class="text-left " style="margin-bottom: 0.6rem; ">
-                        <a class="text-white no-underline hover:text-gray-800 ">Responsibilities</a>
+                        <a href='#responsibility' class="text-white no-underline hover:text-gray-800 ">Responsibilities</a>
                     </li>
                     <li class="text-left " style="margin-bottom: 0.6rem; ">
-                        <a class="text-white no-underline hover:text-gray-800 ">FAQs</a>
+                        <a href='#faq' class="text-white no-underline hover:text-gray-800 ">FAQs</a>
                     </li>
                     <li class="text-left " style="margin-bottom: 0.6rem; ">
-                        <a class="text-white no-underline hover:text-gray-800 ">alcheringa.in</a>
+                        <a href="https://alcheringa.in/" class="text-white no-underline hover:text-gray-800 ">alcheringa.in</a>
                     </li>
                 </ul>
             </div>
