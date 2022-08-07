@@ -4,7 +4,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Promotions, ShareablePost
 from users.models import UserGroup, NewUser
-from submissions.models import Media
+from submissions.models import Media, User
 from datetime import datetime
 from django.db.models import Exists,OuterRef
 from submissions.models import Idea
@@ -19,6 +19,9 @@ user_name = 'a64guha'
 password = 'Ankit@123#'
 api = Client(user_name, password) """
 
+
+
+
 def dashboard(request):
     if request.user.is_authenticated:
         post_list = ShareablePost.objects.all().order_by('-created_on'
@@ -30,7 +33,13 @@ def dashboard(request):
         ).exclude(is_shared=True)
         promotions = Promotions.objects.all().order_by('-created_on')
         # Leaderboard
-        top_users = NewUser.objects.all().order_by('points')[:10]
+
+
+        all_points=[]
+        all_points.sort(key=lambda x:x[1]) 
+
+        top_solousers = NewUser.objects.all().order_by('points')[:10]
+        top_teamusers = all_points
         # Notifications List
         isread=True
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -38,19 +47,22 @@ def dashboard(request):
             grp_points = request.user.points + UserGroup.objects.filter(leader=request.user).first().executive.points
             grp_tasks = request.user.tasks + UserGroup.objects.filter(leader=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(leader=request.user).first().executive.referrals
+            all_points.append({ 'leader':request.user.firstname,'points': grp_points})
         elif list(UserGroup.objects.filter(executive=request.user)):
             grp_points = request.user.points + UserGroup.objects.filter(executive=request.user).first().executive.points
             grp_tasks = request.user.tasks + UserGroup.objects.filter(executive=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(executive=request.user).first().executive.referrals
+            all_points.append({ 'leader':request.user.firstname,'points': grp_points})
         else:
              grp_points = request.user.points
              grp_tasks = request.user.tasks
              grp_referrals = request.user.referrals
+             all_points.append({ 'leader':request.user.firstname,'points': grp_points})
         for notif in notification_list:
             if not notif.isread:
                 isread=False
                 break
-
+        
         context = {
             'post_list': post_list,
             'promotions': promotions,
@@ -59,7 +71,8 @@ def dashboard(request):
             'grp_points':grp_points,
             'grp_tasks':grp_tasks,
             'grp_referrals':grp_referrals,
-            'top_users': top_users,
+            'top_solousers': top_solousers,
+            'top_teamusers':top_teamusers,
             'isread':isread
         }
         
