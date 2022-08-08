@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Promotions, ShareablePost
 from users.models import UserGroup, NewUser
 from submissions.models import Media
+from datetime import datetime
 from django.db.models import Exists,OuterRef
 import datetime
 from datetime import datetime
@@ -23,6 +24,9 @@ import time
 password = 'Ankit@123#'
 api = Client(user_name, password) """
 
+
+
+
 def dashboard(request):
     if request.user.is_authenticated:
         post_list = ShareablePost.objects.all().order_by('-created_on'
@@ -34,7 +38,13 @@ def dashboard(request):
         ).exclude(is_shared=True)
         promotions = Promotions.objects.all().order_by('-created_on')
         # Leaderboard
-        top_users = NewUser.objects.all().order_by('points')[:10]
+
+
+        all_points=[]
+        all_points.sort(key=lambda x:x[1]) 
+
+        top_solousers = NewUser.objects.all().order_by('points')[:10]
+        top_teamusers = all_points
         # Notifications List
         isread=True
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -42,19 +52,22 @@ def dashboard(request):
             grp_points = request.user.points + UserGroup.objects.filter(leader=request.user).first().executive.points
             grp_tasks = request.user.tasks + UserGroup.objects.filter(leader=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(leader=request.user).first().executive.referrals
+            all_points.append({ 'leader':request.user.firstname,'points': grp_points})
         elif list(UserGroup.objects.filter(executive=request.user)):
             grp_points = request.user.points + UserGroup.objects.filter(executive=request.user).first().executive.points
             grp_tasks = request.user.tasks + UserGroup.objects.filter(executive=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(executive=request.user).first().executive.referrals
+            all_points.append({ 'leader':request.user.firstname,'points': grp_points})
         else:
              grp_points = request.user.points
              grp_tasks = request.user.tasks
              grp_referrals = request.user.referrals
+             all_points.append({ 'leader':request.user.firstname,'points': grp_points})
         for notif in notification_list:
             if not notif.isread:
                 isread=False
                 break
-
+        
         context = {
             'post_list': post_list,
             'promotions': promotions,
@@ -63,7 +76,8 @@ def dashboard(request):
             'grp_points':grp_points,
             'grp_tasks':grp_tasks,
             'grp_referrals':grp_referrals,
-            'top_users': top_users,
+            'top_solousers': top_solousers,
+            'top_teamusers':top_teamusers,
             'isread':isread
         }
         
@@ -151,37 +165,35 @@ def verify_like(request):
     
     # print(start_time)
     post = ShareablePost.objects.get(id=str(list(request.GET.keys())[0]))
-    curr_time = time.localtime() 
-    curr_time1 = time.strftime("%H:%M:%S") 
-    created_on=post.created_on
-    created_on1=created_on.strftime("%H:%M:%S")
-    last_date=post.last_date.strftime("%H:%M:%S")
-    timeformat = "%H:%M:%S"
-    delta = (datetime.strptime(curr_time1, timeformat) - datetime.strptime(created_on1, timeformat))
-    diff=delta.seconds
-    # check = 1
-    # if post.likedusers != '':
-    #     arr = post.likedusers.split()
-    #     for item in arr:
-    #         if item==request.user.instahandle:
-    #             check=0
-    #             break
-    # if check == 0:
-    #     messages.error(request,"You have already liked this post!")
-    # else:
-    #     #api = auth.login_instagram('fun_tas_tic_12','Qwerty@123')
+    check = 1
+    if post.likedusers != '':
+        arr = post.likedusers.split()
+        for item in arr:
+            if item==request.user.instahandle:
+                check=0
+                break
+    if check == 0:
+        messages.error(request,"You have already liked this post!")
+    else:
+        #api = auth.login_instagram('fun_tas_tic_12','Qwerty@123')
         
-    # curr_time=datetime.now().date()
-    #     delta = curr_time-start_time
-    #     if delta.days >50:
-    #         user_name = 'a64guha'
-    #         password = 'Ankit@123#'
-    #         api2 = Client(user_name, password)
-    #         results = api2.media_likers_chrono(post.media_id)
-    #     else:
-    #         results = api.media_likers_chrono(post.media_id)
-    #     items = results['users']
-        # flag=0
+        curr_time=_datetime.datetime.now().date()
+        delta = curr_time-start_time
+        if delta.days >50:
+            user_name = 'a64guha'
+            password = 'Ankit@123#'
+            api2 = Client(user_name, password)
+            results = api2.media_likers_chrono(post.media_id)
+        else:
+            results = api.media_likers_chrono(post.media_id)
+        items = results['users']
+        flag=0
+        
+        for item in items: 
+            print(item['username'])
+            if item['username'] == request.user.instahandle:
+                flag=1
+                break
         
     #     for item in items: 
     #         print(item['username'])
