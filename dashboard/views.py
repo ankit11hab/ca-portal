@@ -1,4 +1,5 @@
 from logging import currentframe
+from time import timezone
 from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
@@ -7,17 +8,24 @@ from users.models import UserGroup, NewUser
 from submissions.models import Media
 from datetime import datetime
 from django.db.models import Exists,OuterRef
+import datetime
+from datetime import datetime
 from submissions.models import Idea
 from .models import Notifications
+from django.utils import timezone
 from django.db.models import Q
 from django.contrib import messages
 from django.core.paginator import Paginator
+import time
+  
 
-
-""" start_time = _datetime.datetime.now().date()
-user_name = 'a64guha'
+# start_time = datetime.now().date()
+"""user_name = 'a64guha'
 password = 'Ankit@123#'
 api = Client(user_name, password) """
+
+
+
 
 def dashboard(request):
     if request.user.is_authenticated:
@@ -30,7 +38,13 @@ def dashboard(request):
         ).exclude(is_shared=True)
         promotions = Promotions.objects.all().order_by('-created_on')
         # Leaderboard
-        top_users = NewUser.objects.all().order_by('points')[:10]
+
+
+        all_points=[]
+        all_points.sort(key=lambda x:x[1]) 
+
+        top_solousers = NewUser.objects.all().order_by('points')[:10]
+        top_teamusers = all_points
         # Notifications List
         isread=True
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -38,19 +52,22 @@ def dashboard(request):
             grp_points = request.user.points + UserGroup.objects.filter(leader=request.user).first().executive.points
             grp_tasks = request.user.tasks + UserGroup.objects.filter(leader=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(leader=request.user).first().executive.referrals
+            all_points.append({ 'leader':request.user.firstname,'points': grp_points})
         elif list(UserGroup.objects.filter(executive=request.user)):
             grp_points = request.user.points + UserGroup.objects.filter(executive=request.user).first().executive.points
             grp_tasks = request.user.tasks + UserGroup.objects.filter(executive=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(executive=request.user).first().executive.referrals
+            all_points.append({ 'leader':request.user.firstname,'points': grp_points})
         else:
              grp_points = request.user.points
              grp_tasks = request.user.tasks
              grp_referrals = request.user.referrals
+             all_points.append({ 'leader':request.user.firstname,'points': grp_points})
         for notif in notification_list:
             if not notif.isread:
                 isread=False
                 break
-
+        
         context = {
             'post_list': post_list,
             'promotions': promotions,
@@ -59,7 +76,8 @@ def dashboard(request):
             'grp_points':grp_points,
             'grp_tasks':grp_tasks,
             'grp_referrals':grp_referrals,
-            'top_users': top_users,
+            'top_solousers': top_solousers,
+            'top_teamusers':top_teamusers,
             'isread':isread
         }
         
@@ -68,7 +86,6 @@ def dashboard(request):
         return render(request, 'dashboard/dashboard_page.html',context)
     else:
         return render(request, 'dashboard/landing_page.html')
-
 
 @login_required
 def contactus(request):
@@ -125,14 +142,20 @@ def leaderboard(request):
             isread = False
             break
     users = NewUser.objects.all().order_by('-points')
-    paginator = Paginator(users,5)
-    page_number = request.GET.get('page')
-    page_obj= paginator.get_page(page_number)
+    groupUsers=UserGroup.objects.all().order_by('-leader')
+    paginator1 = Paginator(users,5)
+    paginator2 = Paginator(groupUsers,5)
+    page_number1 = request.GET.get('page')
+    page_number2 = request.GET.get('page')
+    page_obj1= paginator1.get_page(page_number1)
+    page_obj2= paginator2.get_page(page_number2)
     context = {
         'heading': "Leaderboard",
         'users': users,
+        'grpusers': groupUsers,
         'notification_list': notification_list, 'isread': isread,
-        'index': page_obj
+        'index': page_obj1,
+        'index1':page_obj2,
     }
     return render(request, 'dashboard/complete_leaderboard.html', context)
 
@@ -140,7 +163,7 @@ def leaderboard(request):
 def verify_like(request):
 
     
-    """ print(start_time)
+    # print(start_time)
     post = ShareablePost.objects.get(id=str(list(request.GET.keys())[0]))
     check = 1
     if post.likedusers != '':
@@ -172,15 +195,45 @@ def verify_like(request):
                 flag=1
                 break
         
-        if flag==1:
-            request.user.points+=25
-            request.user.tasks+=1
-            request.user.save()
-            messages.success(request,"Thank you for liking this post! You have gained 25 points")
-            post.likedusers+=request.user.instahandle+' '
-            post.save()
-        else:
-            messages.warning(request,"Looks like you have not liked this post yet!") """
+    #     for item in items: 
+    #         print(item['username'])
+    #         if item['username'] == request.user.instahandle:
+    #             flag=1
+    #             break
+    if flag==1:
+            # if curr_time1<last_date:
+                if(diff<3600):
+                    request.user.points+=25
+                    request.user.tasks+=1
+                    request.user.save()
+                    messages.success(request,"Thank you for liking this post! You have gained 25 points")
+                    post.likedusers+=request.user.instahandle+' '
+                    post.save()
+                elif(diff<7200):
+                    request.user.points+=15
+                    request.user.tasks+=1
+                    request.user.save()
+                    messages.success(request,"Thank you for liking this post! You have gained 15 points")
+                    post.likedusers+=request.user.instahandle+' '
+                    post.save()
+                elif(diff<9800):
+                    request.user.points+=10
+                    request.user.tasks+=1
+                    request.user.save()
+                    messages.success(request,"Thank you for liking this post! You have gained 10 points")
+                    post.likedusers+=request.user.instahandle+' '
+                    post.save()
+                else:
+                    request.user.points+=5
+                    request.user.tasks+=1
+                    request.user.save()
+                    messages.success(request,"Thank you for liking this post! You have gained 5 points")
+                    post.likedusers+=request.user.instahandle+' '
+                    post.save()
+
+
+    else:
+        messages.warning(request,f"Looks like you have not liked this post yet!")
     return redirect('dashboard_page') 
 
 @login_required
@@ -193,3 +246,4 @@ def notif_unread(request):
                 notif.isread=True
                 notif.save()
         return HttpResponse("OK")
+

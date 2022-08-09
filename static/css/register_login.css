@@ -80,3 +80,7 @@ input, select{
     color:red;
 }
 
+
+.accordion-header{
+    border: 20px blue;
+}
