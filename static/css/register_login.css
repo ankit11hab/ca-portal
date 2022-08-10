@@ -73,9 +73,14 @@ input, select{
 
 .register-top{
     text-align: center;
+    
 }
 
 .errorlist{
     color:red;
 }
 
+
+.accordion-header{
+    border: 20px blue;
+}
