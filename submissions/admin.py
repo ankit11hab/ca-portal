@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import POC, POCBulk,Submission,Idea,Media
+from .models import POC, POCBulk, Idea, Media, Quiz, Question
 # Register your models here.
 
 class POCAdmin(admin.ModelAdmin):
@@ -11,7 +11,14 @@ class POCBulkAdmin(admin.ModelAdmin):
 class IdeaAdmin(admin.ModelAdmin):
     list_display = ('title', 'is_verified')
 
+class QuestionAdmin(admin.StackedInline):
+    model = Question
+
+class QuizAdmin(admin.ModelAdmin):
+    inlines = [QuestionAdmin]
+
 admin.site.register(POC, POCAdmin)
 admin.site.register(POCBulk, POCBulkAdmin)
 admin.site.register(Idea, IdeaAdmin)
 admin.site.register(Media)
+admin.site.register(Quiz, QuizAdmin)

@@ -4,22 +4,22 @@
 <body>
     <div class="bg-blue-50 flex">
         {% include "../navbar.html" %}
-            <div class="flex">
-                <div class="flex-grow">
-                    <!-- tasks -->
-                    {% include "dashboard/components/tasks.html" %}
+        <div class="flex">
+            <div class="flex-grow">
+                <!-- tasks -->
+                {% include "dashboard/components/tasks.html" %}
 
-                    {% include "dashboard/components/recent_posts_for_phone.html" %}
-                   
-                </div>
-                <div class="bg-white w-80 border-gray-400 rounded m-4 hidden lg:block">
-                    {% include "dashboard/components/recent_posts_for_pc.html" %}
-                </div>
-                
+                {% include "dashboard/components/recent_posts_for_phone.html" %}
+
             </div>
+            <div class="bg-white w-80 border-gray-400 rounded m-4 hidden lg:block">
+                {% include "dashboard/components/recent_posts_for_pc.html" %}
+            </div>
+
         </div>
     </div>
-    
+    </div>
+
 </body>
 {%endblock%}
 {% block script %}
@@ -70,7 +70,7 @@
     });
 
 
-    const tasksCompletedPoints = [23, 5];
+    const tasksCompletedPoints = [{{grp_tasks}}, 8];
     document.getElementById('tasks-completed-value').innerText = tasksCompletedPoints[0]
 
     // class initialization(myChat)
@@ -117,6 +117,30 @@
             tooltips: {
                 enabled: false
             }
+        }
+    });
+
+    // class initialization(myChat)
+    var profileChart = new Chart(document.getElementById('profile-pie').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: tasksCompletedPoints,
+                backgroundColor: [
+                    'rgba(0, 201, 92, 1)',
+                    'rgba(243, 246, 248, 1)'
+                ],
+                borderWidth: 0,
+                cutout: 92,
+            }]
+        },
+        options: {
+            plugins: {
+                legend: false,
+                tooltip: {
+                    enabled: false
+                },
+            },
         }
     });
 </script>
