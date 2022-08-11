@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 
 from dashboard.models import Notifications
-from .models import POC, Idea, Media, POCBulk, Quiz, Submission
+from .models import POC, Idea, Media, POCBulk, Question, Quiz, Submission
 from django.http import JsonResponse
 import json
 from .forms import POCBulkForm, POCForm, IdeaForm, MediaForm
@@ -291,8 +291,12 @@ def pocs(request):
     return render(request, 'submissions/pocs.html', context)
 
 
-# @login_required(login_url='dashboard_page')
-# def quiz(request):
-#     quizes = Quiz.objects.all()
-#     for
-#     return render(request, 'submissions/ideas.html', context)
+@login_required(login_url='dashboard_page')
+def quiz(request, quiz_id):
+    quiz = Quiz.objects.get(id=quiz_id)
+    questions = Question.objects.filter(quiz=quiz)
+    context = {
+        "quiz": quiz,
+        "questions": questions
+    }
+    return render(request, 'submissions/quiz.html', context)
