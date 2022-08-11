@@ -13,4 +13,5 @@ urlpatterns = [
     path('poc/new/', POCCreateView.as_view(), name='poc-create'),
     path('poc/newcsv/',POCBulkCreateView.as_view(), name='poc-csv-create'),
     path('media/new/', MediaCreateView.as_view(), name='media-create'),
+    path('quiz/',views.quiz,name='quiz')
 ]
