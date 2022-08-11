@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 
 from dashboard.models import Notifications
-from .models import POC, Idea, Media, POCBulk, Quiz, Submission
+from .models import POC, Idea, Media, POCBulk, Quiz, Submission,Question,Answer
 from django.http import JsonResponse
 import json
 from .forms import POCBulkForm, POCForm, IdeaForm, MediaForm,AnswerForm
