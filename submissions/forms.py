@@ -35,3 +35,12 @@ class MediaForm(ModelForm):
     class Meta:
         model = Media
         fields = ["shared_post"]
+        
+class AnswerForm(ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['answer']
+        widgets = {
+            'answer': Textarea(attrs={'cols':100, 'rows':1,'placeholder': 'Type Your Answer Here *', 'class':'form-input'}),
+           
+        }
