@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 
 from dashboard.models import Notifications
-from .models import POC, Idea, Media, POCBulk, Question, Quiz, Submission
+from .models import POC, Answer, Idea, Media, POCBulk, Quiz, Submission,Question
 from django.http import JsonResponse
 import json
 from .forms import POCBulkForm, POCForm, IdeaForm, MediaForm
@@ -209,6 +209,7 @@ def tasks(request):
         ))
     ).exclude(is_shared=True)
     promotions = Promotions.objects.all().order_by('-created_on')
+    quizzes = Quiz.objects.all()
     # Notifications List
     isread=True
     notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -237,7 +238,7 @@ def tasks(request):
         'grp_points':grp_points,
         'grp_tasks':grp_tasks,
         'grp_referrals':grp_referrals,
-
+        'quizzes': quizzes,
         'isread':isread
     }
     notification_list = Notifications.objects.filter(
@@ -298,7 +299,18 @@ def idea_submitted(request):
 @login_required(login_url='dashboard_page')
 def quiz(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
+    user = request.user
+    if Submission.objects.filter(user=user):
+        return redirect('submissionhome')
     questions = Question.objects.filter(quiz=quiz)
+    if request.method=="POST":
+        submission = Submission(user = user, quiz = quiz)
+        submission.save()
+        print(request.POST)
+        for question in questions:
+            print(request.POST[str(question.id)])
+            Answer(submission = submission, question = question, answer = request.POST[str(question.id)]).save()
+        return redirect('submissionhome')
     context = {
         "quiz": quiz,
         "questions": questions

@@ -80,12 +80,19 @@ class Question(models.Model):
     def __str__(self):
         return self.question
 
-class Answer(models.Model):
-    user = models.ForeignKey(User, related_name="%(class)s_submissions",on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, related_name="_question", on_delete=models.CASCADE)
-    answer = models.TextField(blank=True)
-    is_done = models.BooleanField(default=False)
+
+class Submission(models.Model):
+    quiz = models.ForeignKey(Quiz, related_name='quiz_submission', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.answer
-    
+        return f"{self.user.firstname} - {self.quiz.name}"
+
+
+class Answer(models.Model):
+    submission = models.ForeignKey(Submission, on_delete = models.CASCADE)
+    question = models.ForeignKey(Question, on_delete = models.CASCADE)
+    answer = models.TextField(blank = True)
+
+    def __str__(self):
+        return f"{self.question.question} - {self.submission.user.firstname}"
