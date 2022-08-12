@@ -210,7 +210,7 @@ def tasks(request):
     ).exclude(is_shared=True)
     promotions = Promotions.objects.all().order_by('-created_on')
     quizzes = Quiz.objects.all()
-     submitted=Submission.objects.filter(user=request.user);
+    submitted=Submission.objects.filter(user=request.user)
     # Notifications List
     isread=True
     notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -302,7 +302,7 @@ def idea_submitted(request):
 def quiz(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
     user = request.user
-     submitted=Submission.objects.filter(user=user);
+    submitted=Submission.objects.filter(user=user)
     if submitted:
         return redirect('submissionhome')
     questions = Question.objects.filter(quiz=quiz)
