@@ -210,6 +210,7 @@ def tasks(request):
     ).exclude(is_shared=True)
     promotions = Promotions.objects.all().order_by('-created_on')
     quizzes = Quiz.objects.all()
+     submitted=Submission.objects.filter(user=request.user);
     # Notifications List
     isread=True
     notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -239,7 +240,8 @@ def tasks(request):
         'grp_tasks':grp_tasks,
         'grp_referrals':grp_referrals,
         'quizzes': quizzes,
-        'isread':isread
+        'isread':isread,
+        'submitted':submitted
     }
     notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -300,7 +302,8 @@ def idea_submitted(request):
 def quiz(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
     user = request.user
-    if Submission.objects.filter(user=user):
+     submitted=Submission.objects.filter(user=user);
+    if submitted:
         return redirect('submissionhome')
     questions = Question.objects.filter(quiz=quiz)
     if request.method=="POST":
@@ -313,6 +316,7 @@ def quiz(request, quiz_id):
         return redirect('submissionhome')
     context = {
         "quiz": quiz,
-        "questions": questions
+        "questions": questions,
+        'submitted':submitted
     }
     return render(request, 'submissions/quiz.html', context)
