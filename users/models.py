@@ -64,6 +64,8 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         max_length=200, unique=False, blank=True)
     interested_modules = models.CharField(
         max_length=200, unique=False, blank=True)
+    instahandle = models.CharField(
+        max_length=200, blank=True, null=True, unique=True, )
     # Referral fields
     referred_by = models.CharField(
         max_length=9, blank=True)
@@ -80,8 +82,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManager()
     points = models.IntegerField(default=50)
     tasks = models.IntegerField(default=0)
-    instahandle = models.CharField(
-        max_length=200, blank=True, null=True, unique=True, )
+    
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['firstname']
@@ -120,6 +121,10 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 
         img.save(self.img.path)
         
+class Profile(models.Model):
+    user = models.OneToOneField(NewUser,on_delete=models.CASCADE)
+    fb_handle = models.CharField(
+        max_length=200, blank=True, null=True, unique=True, )
 
 
 class UserSingle(models.Model):

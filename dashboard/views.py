@@ -137,8 +137,8 @@ def leaderboard(request):
         if not notif.isread:
             isread = False
             break
-    users = NewUser.objects.all().order_by('-points')
-    groupUsers=UserGroup.objects.all().order_by('-leader')
+    users = NewUser.objects.all().order_by('-points')[:30]
+    groupUsers=UserGroup.objects.all().order_by('-leader')[:10]
     paginator1 = Paginator(users,5)
     paginator2 = Paginator(groupUsers,5)
     page_number1 = request.GET.get('page')

@@ -1,7 +1,7 @@
 from typing import NewType
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import UserGroup, NewUser
+from .models import Profile, UserGroup, NewUser
 from django.contrib.auth import get_user_model
 from phonenumber_field.formfields import PhoneNumberField
 User = get_user_model()
@@ -25,6 +25,10 @@ class SingleUserRegisterForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'College State *'}))
     college_name = forms.CharField(
         label="Full Name", widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'College Name *'}))
+    instahandle = forms.CharField(
+        label="instagram-handle", widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Instagram Handle'}))
+    fb_handle = forms.CharField(
+        label="fb-handle", widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Facebook Handle'}))
 
     position_of_responsibility = forms.CharField(required=False,
                                                  widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Position of Responsibility'}))
@@ -48,7 +52,7 @@ class SingleUserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['firstname', 'email', 'phone', 'graduation_year', 'college_state', 'college_city',
-                  'college_name', 'position_of_responsibility', 'interested_modules', 'referred_by']
+                  'college_name','instahandle','fb_handle', 'position_of_responsibility', 'interested_modules', 'referred_by']
 
 
 class GroupUserRegisterFormForSingle(forms.ModelForm):
