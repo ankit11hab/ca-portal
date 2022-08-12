@@ -288,6 +288,29 @@
       }
     });
     
+    // class initialization(myChat)
+    var profileChart = new Chart(document.getElementById('profile-pie').getContext('2d'), {
+      type: 'doughnut',
+      data: {
+          datasets: [{
+          data: tasksCompletedPoints,
+          backgroundColor: [
+              'rgba(0, 201, 92, 1)',
+              'rgba(243, 246, 248, 1)'
+          ],
+          borderWidth: 0,
+          cutout: 92,
+          }]
+      },
+      options: {
+        plugins: {
+          legend: false,
+          tooltip: {
+            enabled:false
+          },
+        },
+      }
+      });
 </script>
 
 {% endblock %}

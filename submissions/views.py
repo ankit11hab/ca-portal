@@ -290,6 +290,10 @@ def pocs(request):
     }
     return render(request, 'submissions/pocs.html', context)
 
+@login_required(login_url='dashboard_page')
+def idea_submitted(request):
+    return render(request,'submissions/idea_submitted.html')
+
 
 @login_required(login_url='dashboard_page')
 def quiz(request, quiz_id):

@@ -15,7 +15,7 @@ class Submission(models.Model):
     submit_date = models.DateField(default=timezone.now)
 
     def get_absolute_url(self):
-        return reverse("submissionhome")
+        return reverse("idea-submitted")
     
     class Meta:
         abstract=True
