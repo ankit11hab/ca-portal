@@ -8,6 +8,8 @@ urlpatterns = [
     path('register-group/', user_views.register_group_user, name='register_group'),
     path('login/', user_views.loginPage, name='login'),
     path('profile/', user_views.profile, name='profile'),
+    path('scoring_system/',user_views.scoring,name='scoring'),
+    path('guidelines/',user_views.guidelines,name='guidelines'),
     path('activate/<uidb64>/<token>', VerificationView.as_view(), name="activate"),
     path('logout/', auth_views.LogoutView.as_view(template_name='dashboard/landing_page.html'), name='logout'),
     # Password reset urls

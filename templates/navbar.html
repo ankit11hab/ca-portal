@@ -159,7 +159,7 @@
                 </a>
             </div>
             <hr class="border bg-gray-200" />
-            <a href=""
+            <a href="{% url 'guidelines' %}"
                 class="rounded-full flex flex-nowrap w-60 pl-6 hover:border-0 hover:bg-gray-100 hover:no-underline mt-3"
                 style="cursor:pointer;padding-top:1vh;padding-bottom:1vh">
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -172,7 +172,7 @@
                 </svg>
                 <p class="pl-3 no-underline">Guidelines</p>
             </a>
-            <a href="{% static 'pdfs/scoring.pdf' %}" target="_blank"
+            <a href="{% url 'scoring' %}"
                 class="rounded-full flex flex-nowrap w-60 pl-6 hover:border-0 hover:bg-gray-100 hover:no-underline"
                 style="cursor:pointer;padding-top:1vh;padding-bottom:1vh">
                 <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
