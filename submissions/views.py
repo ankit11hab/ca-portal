@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 
 from dashboard.models import Notifications
-from .models import POC, Idea, Media, POCBulk, Quiz, Submission
+from .models import POC, Answer, Idea, Media, POCBulk, Quiz, Submission,Question
 from django.http import JsonResponse
 import json
 from .forms import POCBulkForm, POCForm, IdeaForm, MediaForm
@@ -209,6 +209,8 @@ def tasks(request):
         ))
     ).exclude(is_shared=True)
     promotions = Promotions.objects.all().order_by('-created_on')
+    quizzes = Quiz.objects.all()
+    submitted=Submission.objects.filter(user=request.user)
     # Notifications List
     isread=True
     notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -237,8 +239,9 @@ def tasks(request):
         'grp_points':grp_points,
         'grp_tasks':grp_tasks,
         'grp_referrals':grp_referrals,
-
-        'isread':isread
+        'quizzes': quizzes,
+        'isread':isread,
+        'submitted':submitted
     }
     notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -290,9 +293,30 @@ def pocs(request):
     }
     return render(request, 'submissions/pocs.html', context)
 
+@login_required(login_url='dashboard_page')
+def idea_submitted(request):
+    return render(request,'submissions/idea_submitted.html')
 
-# @login_required(login_url='dashboard_page')
-# def quiz(request):
-#     quizes = Quiz.objects.all()
-#     for
-#     return render(request, 'submissions/ideas.html', context)
+
+@login_required(login_url='dashboard_page')
+def quiz(request, quiz_id):
+    quiz = Quiz.objects.get(id=quiz_id)
+    user = request.user
+    submitted=Submission.objects.filter(user=user)
+    if submitted:
+        return redirect('submissionhome')
+    questions = Question.objects.filter(quiz=quiz)
+    if request.method=="POST":
+        submission = Submission(user = user, quiz = quiz)
+        submission.save()
+        print(request.POST)
+        for question in questions:
+            print(request.POST[str(question.id)])
+            Answer(submission = submission, question = question, answer = request.POST[str(question.id)]).save()
+        return redirect('submissionhome')
+    context = {
+        "quiz": quiz,
+        "questions": questions,
+        'submitted':submitted
+    }
+    return render(request, 'submissions/quiz.html', context)

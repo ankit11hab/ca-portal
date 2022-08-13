@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import NewUser
+from .models import NewUser, Profile
 from .models import UserSingle
 from .models import UserGroup
 from django.contrib.auth.admin import UserAdmin
@@ -18,7 +18,7 @@ class UserAdminConfig(UserAdmin):
         (None, {'fields': ('email', 'username', 'firstname', 'id', 'alcherid','points')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
         ('Personal', {'fields': ('img', 'about', 'phone', 'college_state', 'graduation_year', 'college_city',
-         'college_name', 'position_of_responsibility', 'interested_modules', 'referred_by', 'referrals', 'provider')}),
+         'college_name', 'position_of_responsibility', 'interested_modules','instahandle', 'referred_by', 'referrals', 'provider')}),
     )
     formfield_overrides = {
         NewUser.about: {'widget': Textarea(attrs={'rows': 10, 'cols': 40})},
@@ -34,3 +34,4 @@ class UserAdminConfig(UserAdmin):
 admin.site.register(NewUser, UserAdminConfig)
 admin.site.register(UserSingle)
 admin.site.register(UserGroup)
+admin.site.register(Profile)

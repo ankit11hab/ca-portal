@@ -5,7 +5,7 @@ from dashboard.models import Notifications
 from .forms import SingleUserRegisterForm, GroupUserRegisterForm, GroupUserRegisterFormForSingle, UserUpdateForm
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
-from .models import NewUser
+from .models import NewUser, Profile
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
@@ -47,8 +47,8 @@ def register_single_user(request):
                     result.save()  # who uses referral code gets 25 points
                 else:
                     result.save()
-
                 user = NewUser.objects.get(email=request.POST.get('email'))
+                Profile(user = user, fb_handle = request.POST['fb_handle']).save()
                 userSingle = UserSingle()
                 userSingle.user = user
                 userSingle.save()
