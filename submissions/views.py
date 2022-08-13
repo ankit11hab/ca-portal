@@ -13,7 +13,7 @@ from django.conf import settings
 
 from django.db.models import Q
 from dashboard.models import Promotions, ShareablePost
-from users.models import UserGroup
+from users.models import Profile, UserGroup
 from datetime import datetime
 from django.db.models import Exists,OuterRef
 from django.core.mail import EmailMultiAlternatives
@@ -77,6 +77,28 @@ class IdeaCreateView(CreateView):
             if not notif.isread:
                 isread = False
                 break
+        comp = []
+        sum = 0
+        profile = Profile.objects.filter(user = self.request.user).first()
+        if self.request.user.instahandle:
+            sum+=1
+        if self.request.user.position_of_responsibility:
+            sum+=1
+        if self.request.user.interested_modules:
+            sum+=1
+        if profile.fb_handle:
+            sum+=1
+        if sum==0:
+            comp = [60, 40]
+        elif sum==1:
+            comp = [70, 30]
+        elif sum==2:
+            comp = [80, 20]
+        elif sum==3:
+            comp = [90, 10]
+        else:
+            comp = [100,0]
+        ctx['comp'] = comp
         ctx['isread'] = isread
         ctx['notification_list'] = notification_list
         ctx['heading'] = 'Submissions'
@@ -105,6 +127,28 @@ class POCCreateView(CreateView):
             if not notif.isread:
                 isread = False
                 break
+        comp = []
+        sum = 0
+        profile = Profile.objects.filter(user = self.request.user).first()
+        if self.request.user.instahandle:
+            sum+=1
+        if self.request.user.position_of_responsibility:
+            sum+=1
+        if self.request.user.interested_modules:
+            sum+=1
+        if profile.fb_handle:
+            sum+=1
+        if sum==0:
+            comp = [60, 40]
+        elif sum==1:
+            comp = [70, 30]
+        elif sum==2:
+            comp = [80, 20]
+        elif sum==3:
+            comp = [90, 10]
+        else:
+            comp = [100,0]
+        ctx['comp'] = comp
         ctx['isread'] = isread
         ctx['notification_list'] = notification_list
         ctx['heading'] = 'Submissions'
@@ -133,6 +177,28 @@ class POCBulkCreateView(CreateView):
             if not notif.isread:
                 isread = False
                 break
+        comp = []
+        sum = 0
+        profile = Profile.objects.filter(user = self.request.user).first()
+        if self.request.user.instahandle:
+            sum+=1
+        if self.request.user.position_of_responsibility:
+            sum+=1
+        if self.request.user.interested_modules:
+            sum+=1
+        if profile.fb_handle:
+            sum+=1
+        if sum==0:
+            comp = [60, 40]
+        elif sum==1:
+            comp = [70, 30]
+        elif sum==2:
+            comp = [80, 20]
+        elif sum==3:
+            comp = [90, 10]
+        else:
+            comp = [100,0]
+        ctx['comp'] = comp
         ctx['isread'] = isread
         ctx['notification_list'] = notification_list
         ctx['heading'] = 'Submissions'
@@ -231,6 +297,27 @@ def tasks(request):
             isread=False
             break
 
+    comp = []
+    sum = 0
+    profile = Profile.objects.filter(user = request.user).first()
+    if request.user.instahandle:
+        sum+=1
+    if request.user.position_of_responsibility:
+        sum+=1
+    if request.user.interested_modules:
+        sum+=1
+    if profile.fb_handle:
+        sum+=1
+    if sum==0:
+        comp = [60, 40]
+    elif sum==1:
+        comp = [70, 30]
+    elif sum==2:
+        comp = [80, 20]
+    elif sum==3:
+        comp = [90, 10]
+    else:
+        comp = [100,0]
     context = {
         'post_list': post_list,
         'promotions': promotions,
@@ -241,7 +328,8 @@ def tasks(request):
         'grp_referrals':grp_referrals,
         'quizzes': quizzes,
         'isread':isread,
-        'submitted':submitted
+        'submitted':submitted,
+        'comp': comp
     }
     notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -314,9 +402,31 @@ def quiz(request, quiz_id):
             print(request.POST[str(question.id)])
             Answer(submission = submission, question = question, answer = request.POST[str(question.id)]).save()
         return redirect('submissionhome')
+    comp = []
+    sum = 0
+    profile = Profile.objects.filter(user = request.user).first()
+    if request.user.instahandle:
+        sum+=1
+    if request.user.position_of_responsibility:
+        sum+=1
+    if request.user.interested_modules:
+        sum+=1
+    if profile.fb_handle:
+        sum+=1
+    if sum==0:
+        comp = [60, 40]
+    elif sum==1:
+        comp = [70, 30]
+    elif sum==2:
+        comp = [80, 20]
+    elif sum==3:
+        comp = [90, 10]
+    else:
+        comp = [100,0]
     context = {
         "quiz": quiz,
         "questions": questions,
-        'submitted':submitted
+        'submitted':submitted,
+        'comp': comp
     }
     return render(request, 'submissions/quiz.html', context)
