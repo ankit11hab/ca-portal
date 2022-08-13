@@ -4,7 +4,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Promotions, ShareablePost
-from users.models import UserGroup, NewUser
+from users.models import Profile, UserGroup, NewUser
 from submissions.models import Media,User
 from django.db.models import Exists,OuterRef
 import datetime
@@ -34,10 +34,30 @@ def dashboard(request):
         ).exclude(is_shared=True)
         promotions = Promotions.objects.all().order_by('-created_on')
         # Leaderboard
-  
+
         all_points=[]
         all_points.sort(key=lambda x:x[1]) 
-
+        profile = Profile.objects.filter(user = request.user).first()
+        comp = []
+        sum = 0
+        if request.user.instahandle:
+            sum+=1
+        if request.user.position_of_responsibility:
+            sum+=1
+        if request.user.interested_modules:
+            sum+=1
+        if profile.fb_handle:
+            sum+=1
+        if sum==0:
+            comp = [60, 40]
+        elif sum==1:
+            comp = [70, 30]
+        elif sum==2:
+            comp = [80, 20]
+        elif sum==3:
+            comp = [90, 10]
+        else:
+            comp = [100,0]
         top_solousers = NewUser.objects.all().order_by('points')[:10]
         top_teamusers = all_points
 
@@ -74,9 +94,12 @@ def dashboard(request):
             'grp_referrals':grp_referrals,
             'top_solousers': top_solousers,
             'top_teamusers':top_teamusers,
-            'isread':isread
+            'isread':isread,
+            'comp': comp
         }
         
+        if sum<4 and profile.update_status==1:
+            context['show_popup'] = 1
 
         
         return render(request, 'dashboard/dashboard_page.html',context)

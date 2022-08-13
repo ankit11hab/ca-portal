@@ -48,7 +48,7 @@ def register_single_user(request):
                 else:
                     result.save()
                 user = NewUser.objects.get(email=request.POST.get('email'))
-                Profile(user = user, fb_handle = request.POST['fb_handle']).save()
+                Profile(user = user).save()
                 userSingle = UserSingle()
                 userSingle.user = user
                 userSingle.save()

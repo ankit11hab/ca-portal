@@ -199,13 +199,13 @@
 
             {
             % comment %
-            }
+        }
 
         margin-top: 100px;
 
             {
             % endcomment %
-            }
+        }
 
         margin-bottom: 60px;
         font-weight: 500;
@@ -486,22 +486,34 @@
             transform: translate(-10%, -60%);
         }
 
-        {% comment %} #man {
-        flex-direction: column;
+            {
+            % comment %
+        }
+
+        #man {
+            flex-direction: column;
+        }
+
+        #man img {
+            width: 50%;
+            height: 50%;
+            margin-left: 0%;
+        }
+
+            {
+            % endcomment %
+        }
+
     }
-    #man img {
-        width: 50%;
-        height: 50%;
-        margin-left: 0%;
-    }  {% endcomment %}
-    
-    }
-    .benefit{
-        display:grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr) ) ;
+
+    .benefit {
+        display: flex;
+        flex-wrap: wrap;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
         justify-items: center;
         text-align: center;
     }
+
     .benefit div h2 {
         color: #334d6e;
         font-weight: 500;
@@ -511,13 +523,12 @@
         color: #707683;
         font-weight: 400;
     }
-    .benefit img{
-        display:inline;
-        width:240px;
-        height:240px;
-    }
 
-    
+    .benefit img {
+        display: inline;
+        width: 240px;
+        height: 240px;
+    }
 </style>
 
 
@@ -545,7 +556,7 @@
         <i class="fa fa-bars" onclick="showMenu()"></i>
     </nav>
     <div class="text-box">
-        <h2>Alcheringa 2022</h2>
+        <h2>Alcheringa 2023</h2>
         <h1>Campus Ambassador</h1>
         <p>
             With the vision to bring out the essential Leadership traits in you, Alcheringa IIT Guwahati presents the
@@ -631,41 +642,34 @@
     <div>
         <p class="joining">Why should you join?</p>
     </div>
-    <div class="benefit" >
-        <div>
+    <div class="benefit" style="justify-content: center">
+        <div style="margin: 0 70px 0 70px">
             <img src="{% static 'images/perspaleta1_0016.png' %}" />
             <h2>Level-wise Certification</h2>
             <p>Platinum Certificate (Top 5 CAs)</p>
         </div>
-        <div>
+        <div style="margin: 0 70px 0 70px">
             <img src="{% static 'images\perspaleta2.png' %}" />
             <h2>Pronites Pass</h2>
             <p>Get direct entry to pronites</p>
         </div>
-        <div>
+        <div style="margin: 0 70px 0 70px">
             <img src="{% static 'images\perspaleta1_0003.png' %}" />
             <h2>Exciting Prizes</h2>
             <p>
-                Prizes worth 2.2 lakhs to be won<br />Certified Internships and Workshops.
+                Prizes worth 1.85 lakhs to be won<br />Certified Internships and Workshops.
             </p>
         </div>
-        <div>
-            <img src="{% static 'images\perspaleta4.png' %}" />
-            <h2>Marketing Internship</h2>
-            <p>
-                Feel the pride and honor of being<br /> the leader of champions
-            </p>
-        </div>
-        <div>
+        <div style="margin: 0 70px 0 70px">
             <img src="{% static 'images\Luggage.png' %}" />
             <h2>Travel Reimbursement
             </h2>
-            <p>
-                Prizes worth 2.2 lakhs to be won<br />
-Certified Internships and Workshops
-            </p>
+            <!-- <p>
+                Prizes worth 1.85 lakhs to be won<br />
+                Certified Internships and Workshops
+            </p> -->
         </div>
-        <div>
+        <div style="margin: 0 70px 0 70px">
             <img src="{% static 'images\Frame 144.png' %}" />
             <h2>Join the Team
             </h2>
@@ -732,7 +736,7 @@ Certified Internships and Workshops
                 <img src="{% static 'images\perspaleta1_0037.png' %}" />
                 <h2 style="color: #ffffff">Suggest Ideas</h2>
                 <p style="color: #ffffff">
-                    Prizes worth 2.2 lakhs to be won<br />Certified Internships and Workshops.
+                    Prizes worth 1.85 lakhs to be won<br />Certified Internships and Workshops.
                 </p>
             </div>
         </div>
@@ -813,33 +817,69 @@ Certified Internships and Workshops
     <div>
         <p class="joining">FAQs</p>
     </div>
-    <div>
+    <div class="container">
         <ul>
             <li class="que">
-                <h4><label for="btn">What you doin'?</label></h4>
-                <input type="button" id="btn-1" value="&#9660">
-                <p class="down"> My house clean, my pool warm, just shaved (smooth like a newborn). We should be
-                    dancing, romancing, in the east wing. And the west wing of this mansion, what's happenin'? </p>
+                <h4 class="accordian"><label for="btn">Who can apply?
+                </label></h4>
+                <img class="show" id="btn-1" src="{% static 'images/chevron-down.png' %}">
+                <p class="down"> Students from all colleges across the globe are welcome to apply.
+
+                </p>
             </li>
             <li class="que">
-                <h4><label for="btn">Where are you at?</label></h4>
-                <input type="button" id="btn-2" value="&#9660">
-                <p class="down">empty</p>
+                <h4 class="accordian"><label for="btn">How and when can I apply? What happens after I apply?</label></h4>
+                <img class="show" id="btn-2" src="{% static 'images/chevron-down.png' %}">
+                <p class="down">You can apply through our website as soon as the portal is active. You will be notified after you successfully register. Then you can start contributing and working immediately on your tasks.
+                </p>
             </li>
             <li class="que">
-                <h4><label for="btn">Oh, you got plans?</label></h4>
-                <input type="button" id="btn-3" value="&#9660">
-                <p class="down">empty</p>
+                <h4 class="accordian"><label for="btn">What is my responsibility being a part of the program?
+                </label></h4>
+                <img class="show" id="btn-3" src="{% static 'images/chevron-down.png' %}">
+                <p class="down">As a part of the program, you start at Novice level and complete various tasks such as Submitting contacts of individuals or groups of participants, increasing social media engagement, strategizing and branding on campus.</p>
             </li>
             <li class="que">
-                <h4><label for="btn">Don't say that</label></h4>
-                <input type="button" id="btn-4" value="&#9660">
-                <p class="down">empty</p>
+                <h4 class="accordian"><label for="btn">What are the different levels & how does one go to the next levels?
+                </label></h4>
+                <img class="show" id="btn-4" src="{% static 'images/chevron-down.png' %}">
+                <p class="down">There are 4 levels in total (Bronze, Silver, Gold and Platinum), after successful completion of tasks in each level and earning enough points you would get upgraded to the next level.
+                </p>
             </li>
             <li class="que">
-                <h4><label for="btn">I'm sippin wine</label></h4>
-                <input type="button" id="btn-5" value="&#9660">
-                <p class="down">empty</p>
+                <h4 class="accordian"><label for="btn">Can there be multiple members from one college?
+                </label></h4>
+                <img class="show" id="btn-5" src="{% static 'images/chevron-down.png' %}">
+                <p class="down">Yes, multiple students can join the Campus Ambassador program from one college. You can join and work as a team consisting of one senior and a junior.
+                </p>
+            </li>
+            <li class="que">
+                <h4 class="accordian"><label for="btn">Is there a cost to participate?
+                </label></h4>
+                <img class="show" id="btn-6" src="{% static 'images/chevron-down.png' %}">
+                <p class="down">There is no fee to participate in the Campus Ambassador Program; it's entirely free!
+
+                </p>
+            </li>
+            <li class="que">
+                <h4 class="accordian"><label for="btn">How much time will I have to dedicate?</label></h4>
+                <img class="show" id="btn-7" src="{% static 'images/chevron-down.png' %}">
+                <p class="down">  On average, you should put in 2 hours every week. The core aspects are commitment and consistency.
+
+                </p>
+            </li>
+            <li class="que">
+                <h4 class="accordian"><label for="btn">What does being a campus ambassador imply?
+                </label></h4>
+                <img class="show" id="btn-8" src="{% static 'images/chevron-down.png' %}">
+                <p class="down"> You will be the alcheringa'22 spokesperson at your institution and the first point of contact for any concerns that your college students may have.
+                </p>
+            </li>
+            <li class="que">
+                <h4 class="accordian"><label for="btn">What advantages do I gain from this?</label></h4>
+                <img class="show" id="btn-9" src="{% static 'images/chevron-down.png' %}">
+                <p class="down"> In addition to the incentives, awards, and the certification, it aids in the expansion of your network both on and off campus, as well as the improvement of your management and communication abilities.
+                </p>
             </li>
         </ul>
     </div>
@@ -847,7 +887,7 @@ Certified Internships and Workshops
 
 
 </section>
-<section id="sponsors ">
+<!-- <section id="sponsors ">
     <div>
         <p class="joining ">Sponsors</p>
     </div>
@@ -867,7 +907,7 @@ Certified Internships and Workshops
         </div>
 
     </div>
-</section>
+</section> -->
 
 <footer class="text-gray-600 body-font " style="background-color: #109CF1; ">
     <div
