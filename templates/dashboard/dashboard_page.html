@@ -64,7 +64,9 @@
     <div class="flex">
       <div>
         <!-- complete registration -->
+        {% if show_popup %}
         {% include "dashboard/components/update_prof.html" %}
+        {% endif %}
         <!-- scores -->
         {% include "dashboard/components/level_myprogress.html" %}
         <!-- recent_posts -->
@@ -139,10 +141,12 @@
       }]
     },
     options: {
-      tooltips: {
-        enabled: false
+      plugins: {
+        legend: false,
+        tooltip: false,
       }
     }
+
   });
 
   const referralsPoints = [{{ grp_referrals }}, 5];

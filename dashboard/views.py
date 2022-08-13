@@ -98,7 +98,7 @@ def dashboard(request):
             'comp': comp
         }
         
-        if sum<4 and profile.update_status==1:
+        if sum<4:
             context['show_popup'] = 1
 
         
@@ -119,9 +119,30 @@ def contactus(request):
             if not notif.isread:
                 isread = False
                 break
+        comp = []
+        sum = 0
+        profile = Profile.objects.filter(user = request.user).first()
+        if request.user.instahandle:
+            sum+=1
+        if request.user.position_of_responsibility:
+            sum+=1
+        if request.user.interested_modules:
+            sum+=1
+        if profile.fb_handle:
+            sum+=1
+        if sum==0:
+            comp = [60, 40]
+        elif sum==1:
+            comp = [70, 30]
+        elif sum==2:
+            comp = [80, 20]
+        elif sum==3:
+            comp = [90, 10]
+        else:
+            comp = [100,0]
         context = {
             'heading': 'Contact us',
-            'notification_list': notification_list, 'isread': isread
+            'notification_list': notification_list, 'isread': isread, 'comp':comp
         }
         return render(request, 'dashboard/contactus.html', context)
     else:
@@ -140,9 +161,30 @@ def guidelines(request):
             if not notif.isread:
                 isread = False
                 break
+        comp = []
+        sum = 0
+        profile = Profile.objects.filter(user = request.user).first()
+        if request.user.instahandle:
+            sum+=1
+        if request.user.position_of_responsibility:
+            sum+=1
+        if request.user.interested_modules:
+            sum+=1
+        if profile.fb_handle:
+            sum+=1
+        if sum==0:
+            comp = [60, 40]
+        elif sum==1:
+            comp = [70, 30]
+        elif sum==2:
+            comp = [80, 20]
+        elif sum==3:
+            comp = [90, 10]
+        else:
+            comp = [100,0]
         context = {
             'heading': 'Guidelines',
-            'notification_list': notification_list, 'isread': isread
+            'notification_list': notification_list, 'isread': isread, 'comp': comp
         }
         return render(request, 'dashboard/guidelines.html', context)
     else:
@@ -168,6 +210,27 @@ def leaderboard(request):
     page_number2 = request.GET.get('page')
     page_obj1= paginator1.get_page(page_number1)
     page_obj2= paginator2.get_page(page_number2)
+    comp = []
+    sum = 0
+    profile = Profile.objects.filter(user = request.user).first()
+    if request.user.instahandle:
+        sum+=1
+    if request.user.position_of_responsibility:
+        sum+=1
+    if request.user.interested_modules:
+        sum+=1
+    if profile.fb_handle:
+        sum+=1
+    if sum==0:
+        comp = [60, 40]
+    elif sum==1:
+        comp = [70, 30]
+    elif sum==2:
+        comp = [80, 20]
+    elif sum==3:
+        comp = [90, 10]
+    else:
+        comp = [100,0]
     context = {
         'heading': "Leaderboard",
         'users': users,
@@ -175,6 +238,7 @@ def leaderboard(request):
         'notification_list': notification_list, 'isread': isread,
         'index': page_obj1,
         'index1':page_obj2,
+        'comp': comp
     }
     return render(request, 'dashboard/complete_leaderboard.html', context)
 
