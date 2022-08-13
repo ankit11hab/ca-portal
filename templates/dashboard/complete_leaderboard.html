@@ -5,22 +5,31 @@
 
 <body class="bg-blue-50 ">
     <div class="flex">
+
         {% include "../navbar.html" %}
-        <!-- Singles Leaderboard -->
-        <div class="mt-4" style="font-size: larger;font-weight: bolder;">Singles Leaderboard</div>
-        <div class="flex">
-            <div class="bg-white mt-2 rounded p-6" style="width:100%">
-                {% for user in index %}
-                <div class="px-3 my-2" style="border: 1px solid rgb(218, 218, 218); border-radius: 8px; display: flex; align-items: center;">
-                    <div class="pr-3" style="border-right: 1px solid rgb(218, 218, 218)"><img src="{% static 'images/gold.png' %}"></div>
-                    <div class="ml-4 my-2">{{ user.firstname }} {{ user.lastname }}</div>
-                    <div class="ml-auto pl-3" style="border-left: 1px solid rgb(218, 218, 218);color: rgb(82, 82, 82); width:60px; text-align: center;">{{ user.points }}</div>
+        <div style="display: flex; flex-direction: row; justify-content: space-evenly; flex-wrap: wrap;">
+            <!-- Singles Leaderboard -->
+            <div class="leaderboard1" style="display:flex; flex-direction: column;">
+                <div class="mt-4" style="font-size: larger;font-weight: bolder;">Singles Leaderboard</div>
+                <div class="flex">
+                    <div class="bg-white mt-2 rounded p-6" style="width:500px;">
+                        {% for user in users %}
+                        <div class="px-3 my-2"
+                            style="border: 1px solid rgb(218, 218, 218); border-radius: 8px; display: flex; align-items: center;">
+                            <div class="pr-3" style="border-right: 1px solid rgb(218, 218, 218)"><img
+                                    src="{% static 'images/gold.png' %}"></div>
+                            <div class="ml-4 my-2">{{ user.firstname }} {{ user.lastname }}</div>
+                            <div class="ml-auto pl-3"
+                                style="border-left: 1px solid rgb(218, 218, 218);color: rgb(82, 82, 82); width:60px; text-align: center;">
+                                {{ user.points }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
-                {% endfor %}
             </div>
-        </div>
-        <!-- Pagination -->
-        <div class="pagination" style="align-items:center">
+
+            <!-- Pagination -->
+            <!-- <div class="pagination" style="align-items:center">
             {% if index.has_previous %}
                 <a href="?page=1" class="my-2 mx-2 btn btn-outline-info btn-sm">First</a>
                 <a href="?page={{ index.previous_page_number }}" class="my-2 mx-2 btn btn-outline-info btn-sm">Previous</a>
@@ -30,23 +39,35 @@
                 <a href="?page={{ index.next_page_number }}" class="my-2 mx-2 btn btn-outline-info btn-sm">Next</a>
                 {% endif %}
             <a href="?page={{ index.paginator.num_pages }}" class="my-2 mx-2 btn btn-outline-info btn-sm">Last</a>
-        </div>
+        </div> -->
 
-        <!-- Group Leaderboard -->
-        <div class="mt-4" style="font-size: larger;font-weight: bolder;">Group Leaderboard</div>
-        <div class="flex">
-            <div class="bg-white mt-2 rounded p-6" style="width:100%;">
-                {% for user in index1 %}
-                <div class="px-3 my-2" style="border: 1px solid rgb(218, 218, 218); border-radius: 8px; display: flex; align-items: center;">
-                    <div class="pr-3" style="border-right: 1px solid rgb(218, 218, 218)"><img src="{% static 'images/gold.png' %}"></div>
-                    <div class="ml-4 my-2">{{ user.leader.firstname }} {{ user.leader.lastname }}</div>
-                    <div class="ml-auto pl-3" style="border-left: 1px solid rgb(218, 218, 218);color: rgb(82, 82, 82); width:60px; text-align: center;">{{ user.leader.points }}</div>
+            <!-- Group Leaderboard -->
+            <div class="leaderboard2" style="display:flex; flex-direction: column;">
+                <div class="mt-4" style="font-size: larger;font-weight: bolder;">Group Leaderboard</div>
+                <div class="flex">
+                    <div class="bg-white mt-2 rounded p-6" style="width:500px;">
+                        {% for user in grpusers %}
+                        <div class="px-3 my-2"
+                            style="border: 1px solid rgb(218, 218, 218); border-radius: 8px; display: flex; align-items: center;">
+                            <div class="pr-3" style="border-right: 1px solid rgb(218, 218, 218)"><img
+                                    src="{% static 'images/gold.png' %}"></div>
+                            <div class="names" style="display: flex; flex-direction: column;">
+                                <div class="ml-4 " style="margin-top:4px;">{{ user.leader.firstname }} {{ user.leader.lastname }} </div>
+                                <div class="ml-4 " style="margin-top:4px;">{{ user.executive.firstname }} {{ user.executive.lastname }}
+                                </div>
+                            </div>
+
+                            <div class="ml-auto pl-3"
+                                style="border-left: 1px solid rgb(218, 218, 218);color: rgb(82, 82, 82); width:60px; text-align: center;">
+                                {{ user.leader.points }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
-                {% endfor %}
             </div>
-        </div>
-        <!-- Pagination -->
-        <div class="pagination" style="align-items:center">
+
+            <!-- Pagination -->
+            <!-- <div class="pagination" style="align-items:center">
             {% if index1.has_previous %}
                 <a href="?page=1" class="my-2 mx-2 btn btn-outline-info btn-sm">First</a>
                 <a href="?page={{ index1.previous_page_number }}" class="my-2 mx-2 btn btn-outline-info btn-sm">Previous</a>
@@ -56,10 +77,10 @@
                 <a href="?page={{ index1.next_page_number }}" class="my-2 mx-2 btn btn-outline-info btn-sm">Next</a>
                 {% endif %}
             <a href="?page={{ index1.paginator.num_pages }}" class="my-2 mx-2 btn btn-outline-info btn-sm">Last</a>
+        </div> -->
+
         </div>
-
     </div>
-
 </body>
 {%endblock%}
 {% block script %}
