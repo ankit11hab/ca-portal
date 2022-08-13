@@ -26,8 +26,8 @@ class SingleUserRegisterForm(UserCreationForm):
     college_name = forms.CharField(
         label="Full Name", widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'College Name *'}))
     instahandle = forms.CharField(
-        label="instagram-handle", widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Instagram Handle'}))
-    fb_handle = forms.CharField(
+        label="instagram-handle", widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Instagram Handle *'}))
+    fb_handle = forms.CharField(required=False,
         label="fb-handle", widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Facebook Handle'}))
 
     position_of_responsibility = forms.CharField(required=False,

@@ -1,5 +1,5 @@
-from django.db.models.signals import pre_save
-from .models import NewUser
+from django.db.models.signals import pre_save, post_save
+from .models import NewUser, Profile
 from django.dispatch import receiver
 from dashboard.models import Notifications
 
@@ -61,4 +61,7 @@ def user_pre_save(sender, instance, **kwargs):
             pass
 
 
-        
+
+# @receiver(post_save, sender=NewUser)
+# def create_profile(sender, instance, **kwargs):
+#     instance.profile.save()

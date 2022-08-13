@@ -1,0 +1,509 @@
+{% extends '../basic.html'%}
+{% load static %}
+{%block title%}Dashboard | Alcheringa {%endblock%}
+{% block body %}
+
+<body class="bg-blue-50 ">
+    <style>
+        .-translate-x-1\/2.-translate-y-1\/2 {
+            transform: translate(-50%, -50%);
+        }
+
+        .translate-x-1\/2.translate-y-1\/2 {
+            transform: translate(50%, 50%);
+        }
+
+
+        .translate-x-1\/2.-translate-y-1\/2 {
+            transform: translate(50%, -50%);
+        }
+
+        .translate-x-3 {
+            transform: translateX(10px);
+        }
+    </style>
+    <div class="flex mb-12">
+        {% include "../navbar.html" %}
+        <!-- levels-all_screens -->
+        <div
+            class="mt-3 md:mx-6 bg-white rounded-md shadow-md flex flex-col justify-center content-center text-gray-600">
+            <div class="py-3 pl-6 font-semibold text-lg border-b-2">Levels</div>
+            <div class="p-6 text-gray-700 hidden md:block">
+            </div>
+            <!-- progress bar mobile view-->
+            <div class="block md:hidden">
+                <style>
+                    .tab-content {
+                        display: none;
+                    }
+
+                    .tab-content.active {
+                        display: block;
+                    }
+                </style>
+                <div class="bg-white text-gray-600">
+                    <div class="tabs grid grid-cols-2 grid-flow-row">
+                        <button data-target="panel-1" class="
+                  col-span-1
+                  tab
+                    text-gray-600
+                    py-4
+                    px-6
+                    block
+                    hover:text-blue-500
+                    focus:outline-none
+                    text-gray-500
+                    font-medium
+                    text-blue-500
+                     border-b-2
+                     border-blue-500
+                  ">
+                            Solo</button><button data-target="panel-2" class="
+                    col-span-1
+                    tab
+                    text-gray-600
+                    py-4
+                    px-6
+                    block
+                    hover:text-blue-500
+                    focus:outline-none
+                  ">
+                            Team</button>
+                    </div>
+                </div>
+
+                <div id="panels" class="p-2 text-gray-600">
+                    <div class="panel-1 tab-content active py-5">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus malesuada diam sit
+                            risus. Quam dignissim nam et integer facilisis lacinia imperdiet vulputate. Vel
+                            lacinia gravida convallis pharetra maecenas lorem. Sed.
+                        </p>
+                        <div class="mt-2 grid place-items-center">
+                            <img src="{% static 'images/solo_pts.png' %}" />
+                        </div>
+                    </div>
+                    <div class="panel-2 tab-content py-5">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus malesuada diam sit
+                            risus. Quam dignissim nam et integer facilisis lacinia imperdiet vulputate. Vel
+                            lacinia gravida convallis pharetra maecenas lorem. Sed.
+                        </p>
+                        <div class="mt-2 grid place-items-center">
+                            <img src="{% static 'images/team_pts.png' %}" />
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- progress_bar-large_screens -->
+            <div class="hidden md:block py-6 pr-6 mx-10">
+                <div class="flex flex-row gap-4 items-center mx-4 mt-10">
+                    <div class="flex flex-row  items-center">
+                        <img src="{% static 'images/solo_pts_h.png' %}" class="w-20 object-contain" />
+                        <p class="text-dark">Solo</p>
+                    </div>
+                    <div class="grid grid-cols-9 bg-gray-200 h-2  items-center rounded-full z-10 flex-grow">
+                        <div class="col-span-1 relative h-full rounded-full">
+                            <div class="absolute top-1/2 left-0 h-3 w-3 z-10 rounded-full -translate-x-1/2 -translate-y-1/2"
+                                style="background:conic-gradient(from 247.8deg at 50% 50%, #C6D6EC -38.25deg, #A3B4CB 11.67deg, #DAEAFF 103.65deg, #B4C1D3 153.34deg, #DCE9FA 182.81deg, #AFC2DC 213.01deg, #A3B4CB 278.62deg, #C6D6EC 321.75deg, #A3B4CB 371.67deg);">
+                                <div class="relative">
+                                    <div class="absolute -top-12 -translate-x-1/2 text-md text-gray-700">
+                                        Novice
+                                    </div>
+                                    <div class="absolute top-5 text-sm text-gray-500">
+                                        0
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-2 relative h-full  rounded-full" style="
+            background: linear-gradient(
+                to right,
+                #AE4734,
+                #E49B61,
+                #BE5C3F,
+                #F0A970,
+                #D57248,
+                #AE4734
+              );">
+                            <img class="absolute left-0 -top-6 z-0"
+                                src="data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAiCAYAAACEEVOfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACrSURBVHgB7dBNDoIwEAXgVwLRY3gFV4Sl55DEq+gN4AaQqGs8gbjElUfgCCx0aYcSICmEn86+b9FO0velyQDv8InieAIjAkVI7UilOs7wbykD9emw9F4IktIQaVggx9+7jPEC0luU6NgMDbBIHXAixa653NUioYJDmRpi+PfPMmrKhBjbb4R9VulPLqc8hdTXFGHze8yVh0jigOCawziclXfhrdwiiyyyyCA1XeBGouNu9m8AAAAASUVORK5CYII=">
+                            </img>
+                            <div class="absolute top-1/2 left-0 h-3 w-3 rounded-full -translate-x-1/2 -translate-y-1/2"
+                                style="background:conic-gradient(from 247.8deg at 50% 50%, #D57248 -42.24deg, #AE4734 11.67deg, #A85035 103.65deg, #FFBA83 153.34deg, #BE5C3F 182.81deg, #D16E47 213.01deg, #AE4734 255.22deg, #D57248 317.76deg, #AE4734 371.67deg);">
+                                <div class="relative">
+                                    <div class="absolute -top-12 -translate-x-1/2 text-md text-gray-700">
+                                        Bronze
+                                    </div>
+                                    <div class="absolute top-5 -translate-x-1/2 text-sm text-gray-500">
+                                        600
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-3 relative h-full rounded-full" style="
+                background:linear-gradient(
+                    to right,
+                    #A3B4CB,
+                    #DAEAFF,
+                   #B4C1D3,
+                    #DCE9FA,
+                   #AFC2DC,
+                    #A3B4CB
+                );
+                ">
+                            <img class="absolute left-0 -top-6 z-0"
+                                src="data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAiCAYAAACEEVOfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACrSURBVHgB7dBNDoIwEAXgVwLRY3gFV4Sl55DEq+gN4AaQqGs8gbjElUfgCCx0aYcSICmEn86+b9FO0velyQDv8InieAIjAkVI7UilOs7wbykD9emw9F4IktIQaVggx9+7jPEC0luU6NgMDbBIHXAixa653NUioYJDmRpi+PfPMmrKhBjbb4R9VulPLqc8hdTXFGHze8yVh0jigOCawziclXfhrdwiiyyyyCA1XeBGouNu9m8AAAAASUVORK5CYII=">
+                            </img>
+                            <div class="absolute top-1/2 left-0 h-3 w-3 rounded-full -translate-x-1/2 -translate-y-1/2"
+                                style="background:conic-gradient(from 247.8deg at 50% 50%, #C6D6EC -38.25deg, #A3B4CB 11.67deg, #DAEAFF 103.65deg, #B4C1D3 153.34deg, #DCE9FA 182.81deg, #AFC2DC 213.01deg, #A3B4CB 278.62deg, #C6D6EC 321.75deg, #A3B4CB 371.67deg);">
+                                <div class="relative">
+                                    <div class="absolute -top-12 -translate-x-1/2 text-md text-gray-700">
+                                        Silver
+                                    </div>
+                                    <div class="absolute top-5 -translate-x-1/2 text-sm text-gray-500">
+                                        1500
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-3 relative h-full rounded-full" style="
+             background:linear-gradient(
+                to right,
+                #EBBC16,
+               #FFEBA5,
+                #FFC700,
+                #EBBC16,
+                #FFEDAC,
+                #EBBC16,
+                #EFBC06
+              );
+             ">
+                            <img class="absolute left-0 -top-6 z-0"
+                                src="data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAiCAYAAACEEVOfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACrSURBVHgB7dBNDoIwEAXgVwLRY3gFV4Sl55DEq+gN4AaQqGs8gbjElUfgCCx0aYcSICmEn86+b9FO0velyQDv8InieAIjAkVI7UilOs7wbykD9emw9F4IktIQaVggx9+7jPEC0luU6NgMDbBIHXAixa653NUioYJDmRpi+PfPMmrKhBjbb4R9VulPLqc8hdTXFGHze8yVh0jigOCawziclXfhrdwiiyyyyCA1XeBGouNu9m8AAAAASUVORK5CYII=">
+                            </img>
+                            <img class="absolute right-0 translate-x-3 -top-6"
+                                src="data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAiCAYAAACEEVOfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACrSURBVHgB7dBNDoIwEAXgVwLRY3gFV4Sl55DEq+gN4AaQqGs8gbjElUfgCCx0aYcSICmEn86+b9FO0velyQDv8InieAIjAkVI7UilOs7wbykD9emw9F4IktIQaVggx9+7jPEC0luU6NgMDbBIHXAixa653NUioYJDmRpi+PfPMmrKhBjbb4R9VulPLqc8hdTXFGHze8yVh0jigOCawziclXfhrdwiiyyyyCA1XeBGouNu9m8AAAAASUVORK5CYII=">
+                            </img>
+                            <div class="absolute top-1/2 left-0 h-3 w-3 rounded-full -translate-x-1/2 -translate-y-1/2"
+                                style="background: conic-gradient(from 247.8deg at 50% 50%, #F8DC78 -38.25deg, #EBBC16 11.67deg, #FFEBA5 103.65deg, #FFC700 153.34deg, #EBBC16 182.81deg, #FFEDAC 213.01deg, #EBBC16 278.62deg, #F8DC78 321.75deg, #EBBC16 371.67deg);">
+                                <div class="relative">
+                                    <div class="absolute -top-12 -translate-x-1/2 text-md text-gray-700">
+                                        Gold
+                                    </div>
+                                    <div class="absolute top-5 -translate-x-1/2 text-sm text-gray-500">
+                                        3000
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-1/2 right-0 h-3 w-3 rounded-full translate-x-1/2 -translate-y-1/2"
+                                style="background:conic-gradient(from 247.8deg at 50% 50%, #C6D6EC -38.25deg, #A3B4CB 11.67deg, #DAEAFF 103.65deg, #B4C1D3 153.34deg, #DCE9FA 182.81deg, #AFC2DC 213.01deg, #A3B4CB 278.62deg, #C6D6EC 321.75deg, #A3B4CB 371.67deg);">
+                                <div class="relative">
+                                    <div class="absolute -top-12 -translate-x-1/2 text-md text-gray-700">
+                                        Platinum
+                                    </div>
+                                    <div class="absolute top-5 -translate-x-1/2 text-sm text-gray-500">
+                                        Out soon
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- second -->
+                <div class="flex flex-row gap-4 items-center mt-24 mx-4">
+                    <div class="flex flex-row  items-center">
+                        <img src="{% static 'images/team_pts_h.png' %}" class="w-20 object-contain" />
+                        <p class="text-dark">Team</p>
+                    </div>
+                    <div class="grid grid-cols-9 bg-gray-200 h-2  items-center rounded-full z-10 flex-grow">
+                        <div class="col-span-2 relative h-full bg-gray-300 rounded-full">
+                            <div class="absolute top-1/2 left-0 h-3 w-3 z-10 rounded-full -translate-x-1/2 -translate-y-1/2"
+                                style="background:conic-gradient(from 247.8deg at 50% 50%, #C6D6EC -38.25deg, #A3B4CB 11.67deg, #DAEAFF 103.65deg, #B4C1D3 153.34deg, #DCE9FA 182.81deg, #AFC2DC 213.01deg, #A3B4CB 278.62deg, #C6D6EC 321.75deg, #A3B4CB 371.67deg);">
+                                <div class="relative">
+                                    <div class="absolute -top-12 -translate-x-1/2 text-md text-gray-700">
+                                        Novice
+                                    </div>
+                                    <div class="absolute top-5 text-sm text-gray-500">
+                                        0
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-3 relative h-full  rounded-full" style="
+                background: linear-gradient(
+                    to right,
+                    #AE4734,
+                    #E49B61,
+                    #BE5C3F,
+                    #F0A970,
+                    #D57248,
+                    #AE4734
+                );">
+                            <img class="absolute left-0 -top-6 z-0"
+                                src="data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAiCAYAAACEEVOfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACrSURBVHgB7dBNDoIwEAXgVwLRY3gFV4Sl55DEq+gN4AaQqGs8gbjElUfgCCx0aYcSICmEn86+b9FO0velyQDv8InieAIjAkVI7UilOs7wbykD9emw9F4IktIQaVggx9+7jPEC0luU6NgMDbBIHXAixa653NUioYJDmRpi+PfPMmrKhBjbb4R9VulPLqc8hdTXFGHze8yVh0jigOCawziclXfhrdwiiyyyyCA1XeBGouNu9m8AAAAASUVORK5CYII=">
+                            </img>
+                            <div class="absolute top-1/2 left-0 h-3 w-3 rounded-full -translate-x-1/2 -translate-y-1/2"
+                                style="background:conic-gradient(from 247.8deg at 50% 50%, #D57248 -42.24deg, #AE4734 11.67deg, #A85035 103.65deg, #FFBA83 153.34deg, #BE5C3F 182.81deg, #D16E47 213.01deg, #AE4734 255.22deg, #D57248 317.76deg, #AE4734 371.67deg);">
+                                <div class="relative">
+                                    <div class="absolute -top-12 -translate-x-1/2 text-md text-gray-700">
+                                        Bronze
+                                    </div>
+                                    <div class="absolute top-5 -translate-x-1/2 text-sm text-gray-500">
+                                        900
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-3 relative h-full rounded-full" style="
+                background:linear-gradient(
+                    to right,
+                    #A3B4CB,
+                    #DAEAFF,
+                   #B4C1D3,
+                    #DCE9FA,
+                   #AFC2DC,
+                    #A3B4CB
+                );
+                ">
+                            <img class="absolute left-0 -top-6 z-0"
+                                src="data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAiCAYAAACEEVOfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACrSURBVHgB7dBNDoIwEAXgVwLRY3gFV4Sl55DEq+gN4AaQqGs8gbjElUfgCCx0aYcSICmEn86+b9FO0velyQDv8InieAIjAkVI7UilOs7wbykD9emw9F4IktIQaVggx9+7jPEC0luU6NgMDbBIHXAixa653NUioYJDmRpi+PfPMmrKhBjbb4R9VulPLqc8hdTXFGHze8yVh0jigOCawziclXfhrdwiiyyyyCA1XeBGouNu9m8AAAAASUVORK5CYII=">
+                            </img>
+                            <div class="absolute top-1/2 left-0 h-3 w-3 rounded-full -translate-x-1/2 -translate-y-1/2"
+                                style="background:conic-gradient(from 247.8deg at 50% 50%, #C6D6EC -38.25deg, #A3B4CB 11.67deg, #DAEAFF 103.65deg, #B4C1D3 153.34deg, #DCE9FA 182.81deg, #AFC2DC 213.01deg, #A3B4CB 278.62deg, #C6D6EC 321.75deg, #A3B4CB 371.67deg);">
+                                <div class="relative">
+                                    <div class="absolute -top-12 -translate-x-1/2 text-md text-gray-700">
+                                        Silver
+                                    </div>
+                                    <div class="absolute top-5 -translate-x-1/2 text-sm text-gray-500">
+                                        2500
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-1 relative h-full rounded-full" style="
+                background:linear-gradient(
+                    to right,
+                    #EBBC16,
+                #FFEBA5,
+                    #FFC700,
+                    #EBBC16,
+                    #FFEDAC,
+                    #EBBC16,
+                    #EFBC06
+                );
+                ">
+                            <img class="absolute left-0 -top-6 z-0"
+                                src="data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAiCAYAAACEEVOfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACrSURBVHgB7dBNDoIwEAXgVwLRY3gFV4Sl55DEq+gN4AaQqGs8gbjElUfgCCx0aYcSICmEn86+b9FO0velyQDv8InieAIjAkVI7UilOs7wbykD9emw9F4IktIQaVggx9+7jPEC0luU6NgMDbBIHXAixa653NUioYJDmRpi+PfPMmrKhBjbb4R9VulPLqc8hdTXFGHze8yVh0jigOCawziclXfhrdwiiyyyyCA1XeBGouNu9m8AAAAASUVORK5CYII=">
+                            </img>
+                            <img class="absolute right-0 translate-x-3 -top-6"
+                                src="data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAiCAYAAACEEVOfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACrSURBVHgB7dBNDoIwEAXgVwLRY3gFV4Sl55DEq+gN4AaQqGs8gbjElUfgCCx0aYcSICmEn86+b9FO0velyQDv8InieAIjAkVI7UilOs7wbykD9emw9F4IktIQaVggx9+7jPEC0luU6NgMDbBIHXAixa653NUioYJDmRpi+PfPMmrKhBjbb4R9VulPLqc8hdTXFGHze8yVh0jigOCawziclXfhrdwiiyyyyCA1XeBGouNu9m8AAAAASUVORK5CYII=">
+                            </img>
+                            <div class="absolute top-1/2 left-0 h-3 w-3 rounded-full -translate-x-1/2 -translate-y-1/2"
+                                style="background: conic-gradient(from 247.8deg at 50% 50%, #F8DC78 -38.25deg, #EBBC16 11.67deg, #FFEBA5 103.65deg, #FFC700 153.34deg, #EBBC16 182.81deg, #FFEDAC 213.01deg, #EBBC16 278.62deg, #F8DC78 321.75deg, #EBBC16 371.67deg);">
+                                <div class="relative">
+                                    <div class="absolute -top-12 -translate-x-1/2 text-md text-gray-700">
+                                        Gold
+                                    </div>
+                                    <div class="absolute top-5 -translate-x-1/2 text-sm text-gray-500">
+                                        4500
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-1/2 right-0 h-3 w-3 rounded-full translate-x-1/2 -translate-y-1/2"
+                                style="background:conic-gradient(from 247.8deg at 50% 50%, #C6D6EC -38.25deg, #A3B4CB 11.67deg, #DAEAFF 103.65deg, #B4C1D3 153.34deg, #DCE9FA 182.81deg, #AFC2DC 213.01deg, #A3B4CB 278.62deg, #C6D6EC 321.75deg, #A3B4CB 371.67deg);">
+                                <div class="relative">
+                                    <div class="absolute -top-12 -translate-x-1/2 text-md text-gray-700">
+                                        Platinum
+                                    </div>
+                                    <div class="absolute top-5 -translate-x-1/2 text-sm text-gray-500">
+                                        Out soon
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- level_rewards-all_screens -->
+            <div class="hidden md:block p-6 mx-10">
+                <div class="grid grid-cols-2 py-3 font-semibold text-lg">
+                    <div class="pl-2">Level</div>
+                    <div>Rewards</div>
+                </div>
+                <div class=" space-y-2">
+                    <!-- <div class=" sm:grid sm:grid-cols-2 p-2 border-gray-100 border-2 rounded-md">
+                        <div class=" p-3 flex text-lg font-semibold text-gray-600 items-center">Novice</div>
+                        <div class=" ml-4 text-gray-600">
+                            <li>Grab the chance to win a cash price of 75K for the top performers of Platinum and Gold
+                                Levels.
+                            </li>
+                            <li>Different levels of Certificates from Alcheringa commemorating your efforts.</li>
+                            <li>Access to Alcher’s premium content for top levels.</li>
+                            <li>Depending on the level, get a call from us to be a part of Alcher’s execution team.</li>
+                        </div>
+                    </div> -->
+                    <div class="sm:grid sm:grid-cols-2 p-2 border-yellow-600 border-2 rounded-md">
+                        <div class=" p-3 flex text-lg font-semibold text-gray-600 items-center">Bronze</div>
+                        <div class=" ml-4 text-gray-600">
+                            <li>Bronze level certificates from Alcheringa commemorating your efforts.
+
+                            </li>
+                            <!-- <li>Different levels of Certificates from Alcheringa commemorating your efforts.</li>
+                            <li>Access to Alcher’s premium content for top levels.</li>
+                            <li>Depending on the level, get a call from us to be a part of Alcher’s execution team.</li> -->
+                        </div>
+                    </div>
+                    <div class="sm:grid sm:grid-cols-2 p-2 border-gray-300 border-2 rounded-md">
+                        <div class=" p-3 flex text-lg font-semibold text-gray-600 items-center">Silver</div>
+                        <div class=" ml-4 text-gray-600">
+                            <li>Silver level Certificates from Alcheringa commemorating your efforts.
+                            </li>
+                            <li>Be a part of Alcher’s execution team.</li>
+                            <!-- <li>Access to Alcher’s premium content for top levels.</li>
+                            <li>Depending on the level, get a call from us to be a part of Alcher’s execution team.</li> -->
+                        </div>
+                    </div>
+                    <div class="sm:grid sm:grid-cols-2 p-2 border-yellow-200 border-2 rounded-md">
+                        <div class=" p-3 flex text-lg font-semibold text-gray-600 items-center">Gold</div>
+                        <div class=" ml-4 text-gray-600">
+                            <li>Exciting prizes and incentives.
+
+                            </li>
+                            <li>Gold level Certificates from Alcheringa commemorating your efforts.
+                            </li>
+                            <!-- <li>Access to Alcher’s premium content for top levels.</li>
+                            <li>Depending on the level, get a call from us to be a part of Alcher’s execution team.</li> -->
+                        </div>
+                    </div>
+                    <div class="sm:grid sm:grid-cols-2 p-2 border-gray-400 border-2 rounded-md">
+                        <div class=" p-3 flex text-lg font-semibold text-gray-600 items-center">Platinum</div>
+                        <div class=" ml-4 text-gray-600">
+                            <li>Grab the chance to win a prize worth of 75K.
+
+                            </li>
+                            <li>Platinum Certificates from Alcheringa commemorating your efforts.</li>
+                            <li>Access to Alcher’s premium content.
+                            </li>
+                            <!-- <li>Depending on the level, get a call from us to be a part of Alcher’s execution team.</li> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- tasks -->
+        <div
+            class="md:mx-3 my-6 bg-white rounded-md shadow-md flex flex-col justify-center content-center text-gray-600">
+            <p class="py-3 pl-6 font-semibold text-lg border-b-2"> Tasks </p>
+            <div class="p-2 md:p-6 text-gray-500">
+            </div>
+            <div class="md:mx-6 mx-3 mb-3">
+                <table class="w-full table-fixed text-sm border-separate rounded-sm" style="border-spacing:4px">
+                    <thead>
+                        <tr>
+                            <th class=" p-2 text-left md:w-3/4 w-3/5">Task</th>
+                            <th class=" p-2 text-left md:w-1/4 w-2/5">Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class=" bg-gray-50 p-3 rounded-md text-gray-700">Social Engagement with recent feed on
+                                Facebook
+                            </td>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700">10</td>
+                        </tr>
+                        <tr>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700 drop-shadow-sm">Social Engagement with
+                                recent
+                                feed on Instagram and tag
+                                @alcheringaiitg</td>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700">10</td>
+                        </tr>
+                        <tr>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700 drop-shadow-sm">If Referral is used for
+                                reg of
+                                the same college</td>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700">40</td>
+                        </tr>
+                        <tr>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700 drop-shadow-sm">If Referral is used for
+                                reg of
+                                the other college</td>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700">60</td>
+                        </tr>
+                        <tr>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700 drop-shadow-sm">Submission of an Idea
+                            </td>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700">20</td>
+                        </tr>
+                        <tr>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700 drop-shadow-sm">POC Submission</td>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700">30</td>
+                        </tr>
+                        <tr>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700 drop-shadow-sm">Joining Bonus (Solo)
+                            </td>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700">50</td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700 drop-shadow-sm">Joining Bonus (Team)
+                            </td>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700">100</td>
+                        </tr>
+                        <tr>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700 drop-shadow-sm">Event Organizing in your
+                                city
+                                (City Eliminations)</td>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700">Based on Performance</td>
+                        </tr>
+                        <tr>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700 drop-shadow-sm">Giving presentations in
+                                key
+                                clubs/societies</td>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700">Based on Performance</td>
+                        </tr>
+                        <tr>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700 shadow-sm">Getting participants for the
+                                Events
+                            </td>
+                            <td class=" bg-gray-50 p-3 rounded-sm text-gray-700 shadow-sm">Based on Performance</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <br />
+    <br />
+</body>
+{%endblock%}
+{% block script %}
+<script>
+    const tabs = document.querySelectorAll(".tabs");
+    const tab = document.querySelectorAll(".tab");
+    const panel = document.querySelectorAll(".tab-content");
+
+    function onTabClick(event) {
+
+        // deactivate existing active tabs and panel
+
+        for (let i = 0; i < tab.length; i++) {
+            tab[i].classList.remove("border-b-2");
+            tab[i].classList.remove("border-blue-500"); tab[i].classList.remove("text-blue-500");
+        } for (let i = 0; i <
+            panel.length; i++) { panel[i].classList.remove("active"); } // activate new tabs and panel
+        event.target.classList.add("border-b-2"); event.target.classList.add("border-blue-500");
+        event.target.classList.add("text-blue-500"); let classString = event.target.getAttribute('data-target');
+        console.log(classString);
+        document.getElementById('panels').getElementsByClassName(classString)[0].classList.add("active");
+    } for (let i = 0; i
+        < tab.length; i++) { tab[i].addEventListener('click', onTabClick, false); }
+</script>
+{% endblock %}
