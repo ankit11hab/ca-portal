@@ -111,8 +111,10 @@ class UserUpdateForm(forms.ModelForm):
     phone = PhoneNumberField(widget=forms.TextInput(
     ), label="Phone number (e.g. +12125552368)", required=False)
     img = forms.ImageField()
+    fb_handle = forms.CharField(
+        label="Facebook Handle", widget=forms.TextInput(attrs={'class': 'input_field'}))
 
     class Meta:
         model = User
         fields = ['firstname', 'phone', 'graduation_year', 'college_state',
-                  'college_city', 'college_name',  'position_of_responsibility', 'interested_modules', 'img','instahandle']
+                  'college_city', 'college_name',  'position_of_responsibility', 'interested_modules', 'img','instahandle', 'fb_handle']

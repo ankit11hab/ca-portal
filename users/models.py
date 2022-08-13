@@ -88,7 +88,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['firstname']
 
     def __str__(self):
-        return str(self.id)
+        return str(self.email)
 
     def save(self, *args, **kwargs):
         super().save()

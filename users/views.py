@@ -255,18 +255,21 @@ class VerificationView(View):
 @login_required
 def profile(request):
     isread = True
+    profile = Profile.objects.filter(user=request.user).first()
     notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
     if request.method == 'POST':
         u_form = UserUpdateForm(
-            request.POST, request.FILES, instance=request.user)
+            request.POST, request.FILES, instance=request.user, initial = {'fb_handle': profile.fb_handle})
         if u_form.is_valid():
             u_form.save()
+            profile.fb_handle = request.POST['fb_handle']
+            profile.save()
             messages.success(request, f'Your Profile has been updated!')
             return redirect('profile')
         print(u_form.errors)
     else:
-        u_form = UserUpdateForm(instance=request.user)
+        u_form = UserUpdateForm(instance=request.user, initial = {'fb_handle': profile.fb_handle})
         isread = True
         notification_list = Notifications.objects.filter(
             Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -274,7 +277,7 @@ def profile(request):
             if not notif.isread:
                 isread = False
                 break
-    return render(request, 'users/profile.html', {'heading': 'Profile', 'u_form': u_form, 'notification_list': notification_list, 'isread': isread})
+    return render(request, 'users/profile.html', {'heading': 'Profile', 'u_form': u_form, 'notification_list': notification_list, 'isread': isread, 'profile': profile})
 
 
 def password_reset_request(request):
