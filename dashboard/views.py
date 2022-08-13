@@ -60,25 +60,30 @@ def dashboard(request):
             comp = [100,0]
         top_solousers = NewUser.objects.all().order_by('points')[:10]
         top_teamusers = all_points
-
-        # Notifications List
+        groupUsers=UserGroup.objects.all().order_by('-leader')[:5]
         isread=True
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
         if list(UserGroup.objects.filter(leader=request.user)):
             grp_points = request.user.points + UserGroup.objects.filter(leader=request.user).first().executive.points
             grp_tasks = request.user.tasks + UserGroup.objects.filter(leader=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(leader=request.user).first().executive.referrals
-            all_points.append({ 'leader':request.user.firstname,'points': grp_points})
+            grp_leaderimg=request.user.img
+            grp_exeimg=UserGroup.objects.filter(leader=request.user).first().executive.img
+            all_points.append({ 'leader':request.user.firstname,'points': grp_points,'Lpimg':grp_leaderimg,'Epimg':grp_exeimg})
         elif list(UserGroup.objects.filter(executive=request.user)):
             grp_points = request.user.points + UserGroup.objects.filter(executive=request.user).first().executive.points
             grp_tasks = request.user.tasks + UserGroup.objects.filter(executive=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(executive=request.user).first().executive.referrals
-            all_points.append({ 'leader':request.user.firstname,'points': grp_points})
+            grp_leaderimg=request.user.img
+            grp_exeimg=UserGroup.objects.filter(leader=request.user).first().executive.img
+            all_points.append({ 'leader':request.user.firstname,'points': grp_points,'Lpimg':grp_leaderimg,'Epimg':grp_exeimg})
         else:
              grp_points = request.user.points
              grp_tasks = request.user.tasks
              grp_referrals = request.user.referrals
-             all_points.append({ 'leader':request.user.firstname,'points': grp_points})
+             grp_leaderimg=request.user.img
+             
+             all_points.append({ 'leader':request.user.firstname,'points': grp_points,'Lpimg':grp_leaderimg})
         for notif in notification_list:
             if not notif.isread:
                 isread=False
@@ -95,10 +100,11 @@ def dashboard(request):
             'top_solousers': top_solousers,
             'top_teamusers':top_teamusers,
             'isread':isread,
-            'comp': comp
+            'comp': comp,
+            'grpusers':groupUsers
         }
         
-        if sum<4:
+        if sum<4 and profile.update_status==1:
             context['show_popup'] = 1
 
         
@@ -119,30 +125,9 @@ def contactus(request):
             if not notif.isread:
                 isread = False
                 break
-        comp = []
-        sum = 0
-        profile = Profile.objects.filter(user = request.user).first()
-        if request.user.instahandle:
-            sum+=1
-        if request.user.position_of_responsibility:
-            sum+=1
-        if request.user.interested_modules:
-            sum+=1
-        if profile.fb_handle:
-            sum+=1
-        if sum==0:
-            comp = [60, 40]
-        elif sum==1:
-            comp = [70, 30]
-        elif sum==2:
-            comp = [80, 20]
-        elif sum==3:
-            comp = [90, 10]
-        else:
-            comp = [100,0]
         context = {
             'heading': 'Contact us',
-            'notification_list': notification_list, 'isread': isread, 'comp':comp
+            'notification_list': notification_list, 'isread': isread
         }
         return render(request, 'dashboard/contactus.html', context)
     else:
@@ -161,30 +146,9 @@ def guidelines(request):
             if not notif.isread:
                 isread = False
                 break
-        comp = []
-        sum = 0
-        profile = Profile.objects.filter(user = request.user).first()
-        if request.user.instahandle:
-            sum+=1
-        if request.user.position_of_responsibility:
-            sum+=1
-        if request.user.interested_modules:
-            sum+=1
-        if profile.fb_handle:
-            sum+=1
-        if sum==0:
-            comp = [60, 40]
-        elif sum==1:
-            comp = [70, 30]
-        elif sum==2:
-            comp = [80, 20]
-        elif sum==3:
-            comp = [90, 10]
-        else:
-            comp = [100,0]
         context = {
             'heading': 'Guidelines',
-            'notification_list': notification_list, 'isread': isread, 'comp': comp
+            'notification_list': notification_list, 'isread': isread
         }
         return render(request, 'dashboard/guidelines.html', context)
     else:
@@ -203,34 +167,13 @@ def leaderboard(request):
             isread = False
             break
     users = NewUser.objects.all().order_by('-points')[:10]
-    groupUsers=UserGroup.objects.all().order_by('-leader')[:5]
+    groupUsers=UserGroup.objects.all().order_by('-getPoints')[:5]
     paginator1 = Paginator(users,5)
     paginator2 = Paginator(groupUsers,5)
     page_number1 = request.GET.get('page')
     page_number2 = request.GET.get('page')
     page_obj1= paginator1.get_page(page_number1)
     page_obj2= paginator2.get_page(page_number2)
-    comp = []
-    sum = 0
-    profile = Profile.objects.filter(user = request.user).first()
-    if request.user.instahandle:
-        sum+=1
-    if request.user.position_of_responsibility:
-        sum+=1
-    if request.user.interested_modules:
-        sum+=1
-    if profile.fb_handle:
-        sum+=1
-    if sum==0:
-        comp = [60, 40]
-    elif sum==1:
-        comp = [70, 30]
-    elif sum==2:
-        comp = [80, 20]
-    elif sum==3:
-        comp = [90, 10]
-    else:
-        comp = [100,0]
     context = {
         'heading': "Leaderboard",
         'users': users,
@@ -238,7 +181,6 @@ def leaderboard(request):
         'notification_list': notification_list, 'isread': isread,
         'index': page_obj1,
         'index1':page_obj2,
-        'comp': comp
     }
     return render(request, 'dashboard/complete_leaderboard.html', context)
 
