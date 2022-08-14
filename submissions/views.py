@@ -415,8 +415,7 @@ def quiz(request, quiz_id):
     quiz = Quiz.objects.get(id=quiz_id)
     user = request.user
     submitted=Submission.objects.filter(user=user)
-    if submitted:
-        return redirect('submissionhome')
+  
     questions = Question.objects.filter(quiz=quiz)
     if request.method=="POST":
         submission = Submission(user = user, quiz = quiz)
