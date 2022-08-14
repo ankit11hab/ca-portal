@@ -199,13 +199,13 @@
 
             {
             % comment %
-            }
+        }
 
         margin-top: 100px;
 
             {
             % endcomment %
-            }
+        }
 
         margin-bottom: 60px;
         font-weight: 500;
@@ -486,38 +486,69 @@
             transform: translate(-10%, -60%);
         }
 
-        {% comment %} #man {
-        flex-direction: column;
+            {% comment %}#man {
+
+            flex-direction: column;
+        }
+
+        #man img {
+            width: 50%;
+            height: 50%;
+            margin-left: 0%;
+        }
+
+            {
+            % endcomment %
+        }
+
     }
-    #man img {
-        width: 50%;
-        height: 50%;
-        margin-left: 0%;
-    }  {% endcomment %}
-    
-    }
-    .benefit{
-        display:grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr) ) ;
+
+    .benefit1 {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
         justify-items: center;
         text-align: center;
     }
-    .benefit div h2 {
+
+    .benefit1 div h2 {
         color: #334d6e;
         font-weight: 500;
     }
 
-    .benefit div p {
+    .benefit1 div p {
         color: #707683;
         font-weight: 400;
     }
-    .benefit img{
-        display:inline;
-        width:240px;
-        height:240px;
+
+    .benefit1 img {
+        display: inline;
+        width: 240px;
+        height: 240px;
     }
 
-    
+    .benefit2 {
+        padding-left: 110px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        text-align: center;
+    }
+
+    .benefit2 div h2 {
+        color: #334d6e;
+        font-weight: 500;
+    }
+
+    .benefit2 div p {
+        color: #707683;
+        font-weight: 400;
+    }
+
+    .benefit2 img {
+        display: inline;
+        width: 240px;
+        height: 240px;
+    }
 </style>
 
 
@@ -545,7 +576,7 @@
         <i class="fa fa-bars" onclick="showMenu()"></i>
     </nav>
     <div class="text-box">
-        <h2>Alcheringa 2022</h2>
+        <h2>Alcheringa 2023</h2>
         <h1>Campus Ambassador</h1>
         <p>
             With the vision to bring out the essential Leadership traits in you, Alcheringa IIT Guwahati presents the
@@ -631,16 +662,11 @@
     <div>
         <p class="joining">Why should you join?</p>
     </div>
-    <div class="benefit" >
+    <div class="benefit1">
         <div>
             <img src="{% static 'images/perspaleta1_0016.png' %}" />
             <h2>Level-wise Certification</h2>
             <p>Platinum Certificate (Top 5 CAs)</p>
-        </div>
-        <div>
-            <img src="{% static 'images\perspaleta2.png' %}" />
-            <h2>Pronites Pass</h2>
-            <p>Get direct entry to pronites</p>
         </div>
         <div>
             <img src="{% static 'images\perspaleta1_0003.png' %}" />
@@ -650,20 +676,20 @@
             </p>
         </div>
         <div>
-            <img src="{% static 'images\perspaleta4.png' %}" />
-            <h2>Marketing Internship</h2>
-            <p>
-                Feel the pride and honor of being<br /> the leader of champions
-            </p>
-        </div>
-        <div>
             <img src="{% static 'images\Luggage.png' %}" />
             <h2>Travel Reimbursement
             </h2>
             <p>
                 Prizes worth 2.2 lakhs to be won<br />
-Certified Internships and Workshops
+                Certified Internships and Workshops
             </p>
+        </div>
+    </div>
+    <div class="benefit2">
+        <div>
+            <img src="{% static 'images\perspaleta2.png' %}" />
+            <h2>Pronites Pass</h2>
+            <p>Get direct entry to pronites</p>
         </div>
         <div>
             <img src="{% static 'images\Frame 144.png' %}" />
@@ -930,7 +956,8 @@ Certified Internships and Workshops
                     </a>
                 </div>
                 <div class="ml-5 ">
-                    <a href="https://www.linkedin.com/company/alcheringaiitguwahati/" target="_blank" class="text-gray-500 ">
+                    <a href="https://www.linkedin.com/company/alcheringaiitguwahati/" target="_blank"
+                        class="text-gray-500 ">
                         <img src="{% static 'images/linkedin (1).png' %} " alt="linkedin-icon " style="width:35px ;">
                     </a>
                 </div>
