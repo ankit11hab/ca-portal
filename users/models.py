@@ -65,11 +65,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     interested_modules = models.CharField(
         max_length=200, unique=False, blank=True)
     instahandle = models.CharField(
-<<<<<<< HEAD
-        max_length=200, blank=True,null=True ,unique=True, )
-=======
-        max_length=200, blank=True, null=True, unique=True, )
->>>>>>> 3fed7c663ce62369de749ecf793abdd8cd53a9e8
+        max_length=200, blank=True, unique=True, )
     # Referral fields
     referred_by = models.CharField(
         max_length=9, blank=True)
