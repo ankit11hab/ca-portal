@@ -167,7 +167,7 @@ def leaderboard(request):
             isread = False
             break
     users = NewUser.objects.all().order_by('-points')[:10]
-    groupUsers=UserGroup.objects.all().order_by('-getPoints')[:5]
+    groupUsers=UserGroup.objects.all().order_by('-leader')[:5]
     paginator1 = Paginator(users,5)
     paginator2 = Paginator(groupUsers,5)
     page_number1 = request.GET.get('page')
