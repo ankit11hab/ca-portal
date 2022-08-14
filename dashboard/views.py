@@ -104,9 +104,12 @@ def dashboard(request):
             'grpusers':groupUsers
         }
         
-        if sum<4 and profile.update_status==1:
+        if sum<4:
             context['show_popup'] = 1
 
+        if profile.update_status==1 and sum==4:
+            request.user.points+=200
+            profile.update_status=0
         
         return render(request, 'dashboard/dashboard_page.html',context)
     else:

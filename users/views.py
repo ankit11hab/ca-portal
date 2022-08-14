@@ -40,11 +40,15 @@ def register_single_user(request):
                     # result.referred_by_user=user
                     # result.points = 25
                     # result.save()
-                    user.referrals += 1
-                    user.points += 25
+                    if(user.college_name==result.college_name):
+                        user.referrals += 1
+                        user.points += 400
+                    else:
+                        user.referrals += 1
+                        user.points += 600
                     user.save()
-                    result.points = 75
-                    result.save()  # who uses referral code gets 25 points
+                    result.points = 550
+                    result.save()  # who uses referral code gets 300 points
                 else:
                     result.save()
                 user = NewUser.objects.get(email=request.POST.get('email'))
@@ -132,11 +136,15 @@ def register_group_user(request):
                     # result.referred_by_user=user
                     group_form_result.referred_by = request.POST.get(
                         'referred_by')
-                    user.referrals += 1
-                    user.points += 25
+                    if(user.college_name==single_form_1_result.college_name):
+                        user.referrals += 1
+                        user.points += 400
+                    else:
+                        user.referrals += 1
+                        user.points += 600
                     user.save()
-                    single_form_1_result.points = 75
-                    single_form_2_result.points = 75
+                    single_form_1_result.points = 800
+                    single_form_2_result.points = 800
                     single_form_1_result.save()
                     single_form_2_result.save()
                 else:
