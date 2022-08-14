@@ -275,8 +275,16 @@ def tasks(request):
         ))
     ).exclude(is_shared=True)
     promotions = Promotions.objects.all().order_by('-created_on')
-    quizzes = Quiz.objects.all()
+    all_quizzes = Quiz.objects.all()
     submitted=Submission.objects.filter(user=request.user)
+    tbd = []
+    completed = []
+    for quiz in all_quizzes:
+        if not Submission.objects.filter(user=request.user, quiz=quiz):
+            tbd.append(quiz)
+        else:
+            completed.append(quiz)
+    
     # Notifications List
     isread=True
     notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -326,9 +334,9 @@ def tasks(request):
         'grp_points':grp_points,
         'grp_tasks':grp_tasks,
         'grp_referrals':grp_referrals,
-        'quizzes': quizzes,
+        'quizzes': tbd,
+        'completed_quizzes': completed,
         'isread':isread,
-        'submitted':submitted,
         'comp': comp
     }
     notification_list = Notifications.objects.filter(
@@ -401,7 +409,7 @@ def quiz(request, quiz_id):
         for question in questions:
             print(request.POST[str(question.id)])
             Answer(submission = submission, question = question, answer = request.POST[str(question.id)]).save()
-        return redirect('submissionhome')
+        return redirect('idea-submitted')
     comp = []
     sum = 0
     profile = Profile.objects.filter(user = request.user).first()
