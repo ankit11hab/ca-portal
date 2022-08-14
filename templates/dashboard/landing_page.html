@@ -197,7 +197,8 @@
 
         font-size: 45px;
 
-            {
+       
+        {
             % comment %
         }
 
@@ -486,6 +487,7 @@
             transform: translate(-10%, -60%);
         }
 
+<<<<<<< HEAD
             {
             % comment %
         }
@@ -509,21 +511,71 @@
     .benefit {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+=======
+        
+        {% comment %} #man {
+        flex-direction: column;
+    }
+    #man img {
+        width: 50%;
+        height: 50%;
+        margin-left: 0%;
+    }  {% endcomment %}
+    
+
+    }
+
+    .benefit1 {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+>>>>>>> b1000e4cb659b3868ff85ae6f78a833362bbb09a
         justify-items: center;
         text-align: center;
     }
 
+<<<<<<< HEAD
     .benefit div h2 {
+=======
+    .benefit1 div h2 {
+>>>>>>> b1000e4cb659b3868ff85ae6f78a833362bbb09a
         color: #334d6e;
         font-weight: 500;
     }
 
-    .benefit div p {
+    .benefit1 div p {
+        color: #707683;
+        font-weight: 400;
+    }
+<<<<<<< HEAD
+
+    .benefit img {
+=======
+
+    .benefit1 img {
+        display: inline;
+        width: 240px;
+        height: 240px;
+    }
+    .benefit2 {
+        padding-left: 110px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        text-align: center;
+    }
+
+    .benefit2 div h2 {
+        color: #334d6e;
+        font-weight: 500;
+    }
+
+    .benefit2 div p {
         color: #707683;
         font-weight: 400;
     }
 
-    .benefit img {
+    .benefit2 img {
+>>>>>>> b1000e4cb659b3868ff85ae6f78a833362bbb09a
         display: inline;
         width: 240px;
         height: 240px;
@@ -555,7 +607,7 @@
         <i class="fa fa-bars" onclick="showMenu()"></i>
     </nav>
     <div class="text-box">
-        <h2>Alcheringa 2022</h2>
+        <h2>Alcheringa 2023</h2>
         <h1>Campus Ambassador</h1>
         <p>
             With the vision to bring out the essential Leadership traits in you, Alcheringa IIT Guwahati presents the
@@ -641,29 +693,21 @@
     <div>
         <p class="joining">Why should you join?</p>
     </div>
+<<<<<<< HEAD
     <div class="benefit">
+=======
+    <div class="benefit1">
+>>>>>>> b1000e4cb659b3868ff85ae6f78a833362bbb09a
         <div>
             <img src="{% static 'images/perspaleta1_0016.png' %}" />
             <h2>Level-wise Certification</h2>
             <p>Platinum Certificate (Top 5 CAs)</p>
         </div>
         <div>
-            <img src="{% static 'images\perspaleta2.png' %}" />
-            <h2>Pronites Pass</h2>
-            <p>Get direct entry to pronites</p>
-        </div>
-        <div>
             <img src="{% static 'images\perspaleta1_0003.png' %}" />
             <h2>Exciting Prizes</h2>
             <p>
                 Prizes worth 2.2 lakhs to be won<br />Certified Internships and Workshops.
-            </p>
-        </div>
-        <div>
-            <img src="{% static 'images\perspaleta4.png' %}" />
-            <h2>Marketing Internship</h2>
-            <p>
-                Feel the pride and honor of being<br /> the leader of champions
             </p>
         </div>
         <div>
@@ -674,15 +718,22 @@
                 Prizes worth 2.2 lakhs to be won<br />
                 Certified Internships and Workshops
             </p>
-        </div>
-        <div>
-            <img src="{% static 'images\Frame 144.png' %}" />
-            <h2>Join the Team
-            </h2>
-            <p>
-                A chance to be part of Alcher’s Execution Team<br />
-            </p>
-        </div>
+        </div> 
+    </div>
+    <div class="benefit2">
+            <div>
+                <img src="{% static 'images\perspaleta2.png' %}" />
+                <h2>Pronites Pass</h2>
+                <p>Get direct entry to pronites</p>
+            </div>
+            <div>
+                <img src="{% static 'images\Frame 144.png' %}" />
+                <h2>Join the Team
+                </h2>
+                <p>
+                    A chance to be part of Alcher’s Execution Team<br />
+                </p>
+            </div>
     </div>
 </section>
 
