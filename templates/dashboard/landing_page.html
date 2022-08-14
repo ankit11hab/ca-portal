@@ -1,5 +1,5 @@
 {% extends '../basicbootstrap.html'%} {% load static %} {%block title%}Alcheringa{%endblock%} {% block style %}
-<!-- <link rel="stylesheet" href="{% static 'css/landing_style.css' %}"> {% endblock %} {% block body %} -->
+<link rel="stylesheet" href="{% static 'css/landing_style.css' %}"> {% endblock %} {% block body %}
 
 <style>
     * {
@@ -200,21 +200,20 @@
        
         {
             % comment %
-            }
+        }
 
         margin-top: 100px;
 
             {
             % endcomment %
-            }
+        }
 
         margin-bottom: 60px;
         font-weight: 500;
     }
 
-    #about,
     #faq {
-        padding-top: 130px;
+        margin-top: -120px;
     }
 
     .text {
@@ -487,6 +486,31 @@
             transform: translate(-10%, -60%);
         }
 
+<<<<<<< HEAD
+            {
+            % comment %
+        }
+
+        #man {
+            flex-direction: column;
+        }
+
+        #man img {
+            width: 50%;
+            height: 50%;
+            margin-left: 0%;
+        }
+
+            {
+            % endcomment %
+        }
+
+    }
+
+    .benefit {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+=======
         
         {% comment %} #man {
         flex-direction: column;
@@ -503,11 +527,16 @@
     .benefit1 {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+>>>>>>> b1000e4cb659b3868ff85ae6f78a833362bbb09a
         justify-items: center;
         text-align: center;
     }
 
+<<<<<<< HEAD
+    .benefit div h2 {
+=======
     .benefit1 div h2 {
+>>>>>>> b1000e4cb659b3868ff85ae6f78a833362bbb09a
         color: #334d6e;
         font-weight: 500;
     }
@@ -516,6 +545,10 @@
         color: #707683;
         font-weight: 400;
     }
+<<<<<<< HEAD
+
+    .benefit img {
+=======
 
     .benefit1 img {
         display: inline;
@@ -541,6 +574,7 @@
     }
 
     .benefit2 img {
+>>>>>>> b1000e4cb659b3868ff85ae6f78a833362bbb09a
         display: inline;
         width: 240px;
         height: 240px;
@@ -658,7 +692,11 @@
     <div>
         <p class="joining">Why should you join?</p>
     </div>
+<<<<<<< HEAD
+    <div class="benefit">
+=======
     <div class="benefit1">
+>>>>>>> b1000e4cb659b3868ff85ae6f78a833362bbb09a
         <div>
             <img src="{% static 'images/perspaleta1_0016.png' %}" />
             <h2>Level-wise Certification</h2>
@@ -835,61 +873,183 @@
     <div>
         <p class="joining">FAQs</p>
     </div>
-    <div>
-        <ul>
-            <li class="que">
-                <h4><label for="btn">What you doin'?</label></h4>
-                <input type="button" id="btn-1" value="&#9660">
-                <p class="down"> My house clean, my pool warm, just shaved (smooth like a newborn). We should be
-                    dancing, romancing, in the east wing. And the west wing of this mansion, what's happenin'? </p>
-            </li>
-            <li class="que">
-                <h4><label for="btn">Where are you at?</label></h4>
-                <input type="button" id="btn-2" value="&#9660">
-                <p class="down">empty</p>
-            </li>
-            <li class="que">
-                <h4><label for="btn">Oh, you got plans?</label></h4>
-                <input type="button" id="btn-3" value="&#9660">
-                <p class="down">empty</p>
-            </li>
-            <li class="que">
-                <h4><label for="btn">Don't say that</label></h4>
-                <input type="button" id="btn-4" value="&#9660">
-                <p class="down">empty</p>
-            </li>
-            <li class="que">
-                <h4><label for="btn">I'm sippin wine</label></h4>
-                <input type="button" id="btn-5" value="&#9660">
-                <p class="down">empty</p>
-            </li>
-        </ul>
-    </div>
-</section>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
 
-
-</section>
-<section id="sponsors ">
-    <div>
-        <p class="joining ">Sponsors</p>
-    </div>
-    <div class="join ">
-        <div>
-            <p>Live Training Partner</p>
-            <img src="{% static 'images/canara.png' %} " alt="Canara " />
-
+        <p>
+            <div class="accordian-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+                aria-controls="panelsStayOpen-collapseOne">
+                Who can apply?
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"
+            aria-labelledby="panelsStayOpen-headingOne">
+            <div class="accordion-body">
+                Students from all colleges across the globe are welcome to apply. </div>
         </div>
-        <div class="mt-4 ">
-            <p>Project Partners</p>
-            <div id="man " class=" ">
-                <img src="{% static 'images/castrol.png' %} " alt="Castrol " />
-                <img src="{% static 'images/redbull.png' %} " alt="RedBull " />
+    </div>
+        </p>
+
+        <p>
+        <div class="accordion-item ">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTwo">
+                    How and when can I apply? What happens after I apply?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingTwo">
+                <div class="accordion-body">
+                    You can apply through our website as soon as the portal is active. You will be notified after you
+                    successfully register. Then you can start contributing and working immediately on your tasks.
+                </div>
             </div>
-
         </div>
+        </p>
+
+        <p>
+        <div class="accordion-item ">
+            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseThree">
+                    What is my responsibility being a part of the program?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingThree">
+                <div class="accordion-body">
+                    As a part of the program, you start at Novice level and complete various tasks such as Submitting
+                    contacts of individuals or groups of participants, increasing social media engagement, strategizing
+                    and branding on campus. </div>
+            </div>
+        </div>
+        </p>
+        <p>
+        <div class="accordion-item ">
+            <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseFour">
+                    What are the different levels & how does one go to the next levels? </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingFour">
+                <div class="accordion-body">
+                    There are 4 levels in total (Bronze, Silver, Gold and Platinum), after successful completion of
+                    tasks in each level and earning enough points you would get upgraded to the next level </div>
+            </div>
+        </div>
+        </p>
+        <p>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseFive">
+                    Can there be multiple members from one college? </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingFive">
+                <div class="accordion-body">
+                    Yes, multiple students can join the Campus Ambassador program from one college. You can join and
+                    work as a team consisting of one senior and a junior. </div>
+            </div>
+        </div>
+        </p>
+        <p>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseSix">
+                    Is there a cost to participate?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingSix">
+                <div class="accordion-body">
+                    There is no fee to participate in the Campus Ambassador Program; it's entirely free! </div>
+            </div>
+        </div>
+        </p>
+        <p>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseSeven">
+                    How much time will I have to dedicate? </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingSeven">
+                <div class="accordion-body">
+                    On average, you should put in 2 hours every week. The core aspects are commitment and consistency.
+                </div>
+            </div>
+        </div>
+        </p>
+        <p>
+        <div class="accordion-item ">
+            <h2 class="accordion-header" id="panelsStayOpen-headingEight">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseEight" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseEight">
+                    What does being a campus ambassador imply? </button>
+            </h2>
+            <div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingEight">
+                <div class="accordion-body">
+                    You will be the alcheringa'22 spokesperson at your institution and the first point of contact for
+                    any concerns that your college students may have </div>
+            </div>
+        </div>
+        </p>
+        <p>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingNine">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseNine" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseNine">
+                    What advantages do I gain from this? </button>
+            </h2>
+            <div id="panelsStayOpen-collapseNine" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingNine">
+                <div class="accordion-body">
+                    In addition to the incentives, awards, and the certification, it aids in the expansion of your
+                    network both on and off campus, as well as the improvement of your management and communication
+                    abilities. </div>
+            </div>
+        </div>
+        </p>
+        <p>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTen">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseTen" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseTen">
+                        What are City eliminations?</button>
+                </h2>
+                <div id="panelsStayOpen-collapseTen" class="accordion-collapse collapse"
+                    aria-labelledby="panelsStayOpen-headingTen">
+                    <div class="accordion-body">
+                        City eliminations are basically Alcher Prelims conducted in major cities such as Delhi, Lucknow, Bhopal, etc, to bring out the best talent in these regions. The winners of these city eliminations will be getting travel reimbursement and exciting prizes to come participate in North East’s biggest Cultural Fest Alcheringa.
+                    </div>
+                </div>
+            </div>
+            </p>
+    </div>
 
     </div>
 </section>
+
+
+</section>
+
 
 <footer class="text-gray-600 body-font " style="background-color: #109CF1; ">
     <div

@@ -284,6 +284,10 @@ def profile(request):
         comp = [90, 10]
     else:
         comp = [100,0]
+    if sum<4:
+        color_code = '#E86B73'
+    else:
+        color_code= 'rgba(0, 201, 92, 1)'
     notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
     if request.method == 'POST':
@@ -305,7 +309,7 @@ def profile(request):
             if not notif.isread:
                 isread = False
                 break
-    return render(request, 'users/profile.html', {'heading': 'Profile', 'u_form': u_form, 'notification_list': notification_list, 'isread': isread, 'profile': profile, 'comp':comp})
+    return render(request, 'users/profile.html', {'heading': 'Profile', 'u_form': u_form, 'notification_list': notification_list, 'isread': isread, 'profile': profile, 'comp':comp, 'color_code': color_code})
 
 
 def password_reset_request(request):
@@ -364,7 +368,12 @@ def scoring(request):
         comp = [90, 10]
     else:
         comp = [100,0]
-    return render(request, 'dashboard/points_system.html', {'comp':comp})
+    
+    if sum<4:
+        color_code = '#E86B73'
+    else:
+        color_code= 'rgba(0, 201, 92, 1)'
+    return render(request, 'dashboard/points_system.html', {'comp':comp, 'color_code':color_code})
 @login_required
 def guidelines(request):
     return render(request, 'dashboard/guidelines.html')

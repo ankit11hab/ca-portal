@@ -102,6 +102,10 @@ class IdeaCreateView(CreateView):
         ctx['isread'] = isread
         ctx['notification_list'] = notification_list
         ctx['heading'] = 'Submissions'
+        if sum<4:
+            ctx['color_code'] = '#E86B73'
+        else:
+            ctx['color_code'] = 'rgba(0, 201, 92, 1)'
         return ctx
 
 
@@ -152,6 +156,10 @@ class POCCreateView(CreateView):
         ctx['isread'] = isread
         ctx['notification_list'] = notification_list
         ctx['heading'] = 'Submissions'
+        if sum<4:
+            ctx['color_code'] = '#E86B73'
+        else:
+            ctx['color_code'] = 'rgba(0, 201, 92, 1)'
         return ctx
 
 
@@ -202,6 +210,10 @@ class POCBulkCreateView(CreateView):
         ctx['isread'] = isread
         ctx['notification_list'] = notification_list
         ctx['heading'] = 'Submissions'
+        if sum<4:
+            ctx['color_code'] = '#E86B73'
+        else:
+            ctx['color_code'] = 'rgba(0, 201, 92, 1)'
         return ctx
 
 
@@ -275,8 +287,16 @@ def tasks(request):
         ))
     ).exclude(is_shared=True)
     promotions = Promotions.objects.all().order_by('-created_on')
-    quizzes = Quiz.objects.all()
+    all_quizzes = Quiz.objects.all()
     submitted=Submission.objects.filter(user=request.user)
+    tbd = []
+    completed = []
+    for quiz in all_quizzes:
+        if not Submission.objects.filter(user=request.user, quiz=quiz):
+            tbd.append(quiz)
+        else:
+            completed.append(quiz)
+    
     # Notifications List
     isread=True
     notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -326,11 +346,15 @@ def tasks(request):
         'grp_points':grp_points,
         'grp_tasks':grp_tasks,
         'grp_referrals':grp_referrals,
-        'quizzes': quizzes,
+        'quizzes': tbd,
+        'completed_quizzes': completed,
         'isread':isread,
-        'submitted':submitted,
         'comp': comp
     }
+    if sum<4:
+        context['color_code'] = '#E86B73'
+    else:
+        context['color_code'] = 'rgba(0, 201, 92, 1)'
     notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
     # Notifications List
@@ -401,7 +425,7 @@ def quiz(request, quiz_id):
         for question in questions:
             print(request.POST[str(question.id)])
             Answer(submission = submission, question = question, answer = request.POST[str(question.id)]).save()
-        return redirect('submissionhome')
+        return redirect('idea-submitted')
     comp = []
     sum = 0
     profile = Profile.objects.filter(user = request.user).first()
@@ -429,4 +453,8 @@ def quiz(request, quiz_id):
         'submitted':submitted,
         'comp': comp
     }
+    if sum<4:
+        context['color_code'] = '#E86B73'
+    else:
+        context['color_code'] = 'rgba(0, 201, 92, 1)'
     return render(request, 'submissions/quiz.html', context)

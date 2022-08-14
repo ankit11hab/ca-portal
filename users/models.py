@@ -65,7 +65,11 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     interested_modules = models.CharField(
         max_length=200, unique=False, blank=True)
     instahandle = models.CharField(
+<<<<<<< HEAD
         max_length=200, blank=True,null=True ,unique=True, )
+=======
+        max_length=200, blank=True, null=True, unique=True, )
+>>>>>>> 3fed7c663ce62369de749ecf793abdd8cd53a9e8
     # Referral fields
     referred_by = models.CharField(
         max_length=9, blank=True)
@@ -146,8 +150,11 @@ class UserGroup(models.Model):
     college_state = models.CharField(max_length=200, unique=False)
     college_city = models.CharField(max_length=200, unique=False)
     college_name = models.CharField(max_length=200, unique=False)
+
+    @property
     def getPoints(self):
         return self.leader.points + self.executive.points
+       
 
     referred_by = models.CharField(
         max_length=9, blank=True)
