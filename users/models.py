@@ -146,8 +146,11 @@ class UserGroup(models.Model):
     college_state = models.CharField(max_length=200, unique=False)
     college_city = models.CharField(max_length=200, unique=False)
     college_name = models.CharField(max_length=200, unique=False)
+
+    @property
     def getPoints(self):
         return self.leader.points + self.executive.points
+       
 
     referred_by = models.CharField(
         max_length=9, blank=True)

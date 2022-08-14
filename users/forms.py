@@ -94,10 +94,14 @@ class UserUpdateForm(forms.ModelForm):
 
     firstname = forms.CharField(label="Full Name")
     phone = PhoneNumberField(widget=forms.TextInput(
-    ), label="Phone number (e.g. +12125552368)", required=False)
+    ), label="Phone number (e.g. +12125552368)", required=True)
     img = forms.ImageField()
-    fb_handle = forms.CharField(required=False,
+    position_of_responsibility=forms.CharField(required=True)
+    interested_modules=forms.CharField(required=True)
+    fb_handle = forms.CharField(required=True,
         label="Facebook Handle", widget=forms.TextInput(attrs={'class': 'input_field'}))
+    instahandle = forms.CharField(required=True,
+        label="Instagram Handle", widget=forms.TextInput(attrs={'class': 'input_field'}))
 
     class Meta:
         model = User

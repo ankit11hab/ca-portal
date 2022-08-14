@@ -466,3 +466,14 @@ nav .fa {
         margin-left: 0%;
     } */
 }
+
+
+
+.accordion-button{
+    background: #f3f6f8;
+    
+    }
+.accordion{
+    padding-left: 5%;
+    padding-right: 5%;
+}
