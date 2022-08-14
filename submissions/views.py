@@ -102,6 +102,10 @@ class IdeaCreateView(CreateView):
         ctx['isread'] = isread
         ctx['notification_list'] = notification_list
         ctx['heading'] = 'Submissions'
+        if sum<4:
+            ctx['color_code'] = '#E86B73'
+        else:
+            ctx['color_code'] = 'rgba(0, 201, 92, 1)'
         return ctx
 
 
@@ -152,6 +156,10 @@ class POCCreateView(CreateView):
         ctx['isread'] = isread
         ctx['notification_list'] = notification_list
         ctx['heading'] = 'Submissions'
+        if sum<4:
+            ctx['color_code'] = '#E86B73'
+        else:
+            ctx['color_code'] = 'rgba(0, 201, 92, 1)'
         return ctx
 
 
@@ -202,6 +210,10 @@ class POCBulkCreateView(CreateView):
         ctx['isread'] = isread
         ctx['notification_list'] = notification_list
         ctx['heading'] = 'Submissions'
+        if sum<4:
+            ctx['color_code'] = '#E86B73'
+        else:
+            ctx['color_code'] = 'rgba(0, 201, 92, 1)'
         return ctx
 
 
@@ -339,6 +351,10 @@ def tasks(request):
         'isread':isread,
         'comp': comp
     }
+    if sum<4:
+        context['color_code'] = '#E86B73'
+    else:
+        context['color_code'] = 'rgba(0, 201, 92, 1)'
     notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
     # Notifications List
@@ -437,4 +453,8 @@ def quiz(request, quiz_id):
         'submitted':submitted,
         'comp': comp
     }
+    if sum<4:
+        context['color_code'] = '#E86B73'
+    else:
+        context['color_code'] = 'rgba(0, 201, 92, 1)'
     return render(request, 'submissions/quiz.html', context)
