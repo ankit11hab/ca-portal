@@ -58,9 +58,10 @@ def dashboard(request):
             comp = [90, 10]
         else:
             comp = [100,0]
-        top_solousers = NewUser.objects.all().order_by('points')[:10]
-        top_teamusers = all_points
-        groupUsers=UserGroup.objects.all().order_by('-leader')[:5]
+        top_solousers = NewUser.objects.all().order_by('-points')[:10]
+        
+        
+        groupUsers=sorted(UserGroup.objects.all(), key=lambda t: t.getPoints,reverse=True)[:5]
         isread=True
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
         if list(UserGroup.objects.filter(leader=request.user)):
@@ -98,7 +99,7 @@ def dashboard(request):
             'grp_tasks':grp_tasks,
             'grp_referrals':grp_referrals,
             'top_solousers': top_solousers,
-            'top_teamusers':top_teamusers,
+         
             'isread':isread,
             'comp': comp,
             'grpusers':groupUsers
@@ -167,7 +168,10 @@ def leaderboard(request):
             isread = False
             break
     users = NewUser.objects.all().order_by('-points')[:10]
-    groupUsers=UserGroup.objects.all().order_by('-leader')[:5]
+    teamPoints=[]
+    teamPoints.append(UserGroup.objects.first().getPoints)
+    
+    groupUsers=sorted(UserGroup.objects.all(), key=lambda t: t.getPoints,reverse=True)[:5]
     paginator1 = Paginator(users,5)
     paginator2 = Paginator(groupUsers,5)
     page_number1 = request.GET.get('page')
