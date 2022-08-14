@@ -88,7 +88,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['firstname']
 
     def __str__(self):
-        return str(self.id)
+        return str(self.email)
 
     def save(self, *args, **kwargs):
         super().save()
@@ -124,7 +124,10 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 class Profile(models.Model):
     user = models.OneToOneField(NewUser,on_delete=models.CASCADE)
     fb_handle = models.CharField(
-        max_length=200, blank=True, null=True, unique=True, )
+        max_length=200, blank=True, null=True )
+    update_status = models.IntegerField(default=0)
+    phoneno = models.CharField(max_length=10, default="", blank=True, null=True)
+    countrycode = models.CharField(max_length=3, default="+91", blank = True, null=True)
 
 
 class UserSingle(models.Model):
@@ -143,7 +146,8 @@ class UserGroup(models.Model):
     college_state = models.CharField(max_length=200, unique=False)
     college_city = models.CharField(max_length=200, unique=False)
     college_name = models.CharField(max_length=200, unique=False)
-    
+    def getPoints(self):
+        return self.leader.points + self.executive.points
 
     referred_by = models.CharField(
         max_length=9, blank=True)

@@ -48,7 +48,7 @@ def register_single_user(request):
                 else:
                     result.save()
                 user = NewUser.objects.get(email=request.POST.get('email'))
-                Profile(user = user, fb_handle = request.POST['fb_handle']).save()
+                Profile(user = user).save()
                 userSingle = UserSingle()
                 userSingle.user = user
                 userSingle.save()
@@ -255,18 +255,41 @@ class VerificationView(View):
 @login_required
 def profile(request):
     isread = True
+    profile = Profile.objects.filter(user=request.user).first()
+    comp = []
+    sum = 0
+    if request.user.instahandle:
+        sum+=1
+    if request.user.position_of_responsibility:
+        sum+=1
+    if request.user.interested_modules:
+        sum+=1
+    if profile.fb_handle:
+        sum+=1
+    if sum==0:
+        comp = [60, 40]
+    elif sum==1:
+        comp = [70, 30]
+    elif sum==2:
+        comp = [80, 20]
+    elif sum==3:
+        comp = [90, 10]
+    else:
+        comp = [100,0]
     notification_list = Notifications.objects.filter(
         Q(user=request.user) | Q(user=None)).order_by('-created_on')
     if request.method == 'POST':
         u_form = UserUpdateForm(
-            request.POST, request.FILES, instance=request.user)
+            request.POST, request.FILES, instance=request.user, initial = {'fb_handle': profile.fb_handle})
         if u_form.is_valid():
             u_form.save()
+            profile.fb_handle = request.POST['fb_handle']
+            profile.save()
             messages.success(request, f'Your Profile has been updated!')
             return redirect('profile')
         print(u_form.errors)
     else:
-        u_form = UserUpdateForm(instance=request.user)
+        u_form = UserUpdateForm(instance=request.user, initial = {'fb_handle': profile.fb_handle})
         isread = True
         notification_list = Notifications.objects.filter(
             Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -274,7 +297,7 @@ def profile(request):
             if not notif.isread:
                 isread = False
                 break
-    return render(request, 'users/profile.html', {'heading': 'Profile', 'u_form': u_form, 'notification_list': notification_list, 'isread': isread})
+    return render(request, 'users/profile.html', {'heading': 'Profile', 'u_form': u_form, 'notification_list': notification_list, 'isread': isread, 'profile': profile, 'comp':comp})
 
 
 def password_reset_request(request):
@@ -312,7 +335,28 @@ def password_reset_request(request):
     return render(request=request, template_name="users/password/password_reset.html", context={"password_reset_form": password_reset_form})
 @login_required
 def scoring(request):
-    return render(request, 'dashboard/points_system.html')
+    comp = []
+    sum = 0
+    profile = Profile.objects.filter(user = request.user).first()
+    if request.user.instahandle:
+        sum+=1
+    if request.user.position_of_responsibility:
+        sum+=1
+    if request.user.interested_modules:
+        sum+=1
+    if profile.fb_handle:
+        sum+=1
+    if sum==0:
+        comp = [60, 40]
+    elif sum==1:
+        comp = [70, 30]
+    elif sum==2:
+        comp = [80, 20]
+    elif sum==3:
+        comp = [90, 10]
+    else:
+        comp = [100,0]
+    return render(request, 'dashboard/points_system.html', {'comp':comp})
 @login_required
 def guidelines(request):
     return render(request, 'dashboard/guidelines.html')

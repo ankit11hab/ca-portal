@@ -4,7 +4,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Promotions, ShareablePost
-from users.models import UserGroup, NewUser
+from users.models import Profile, UserGroup, NewUser
 from submissions.models import Media,User
 from django.db.models import Exists,OuterRef
 import datetime
@@ -34,31 +34,56 @@ def dashboard(request):
         ).exclude(is_shared=True)
         promotions = Promotions.objects.all().order_by('-created_on')
         # Leaderboard
-  
+
         all_points=[]
         all_points.sort(key=lambda x:x[1]) 
-
+        profile = Profile.objects.filter(user = request.user).first()
+        comp = []
+        sum = 0
+        if request.user.instahandle:
+            sum+=1
+        if request.user.position_of_responsibility:
+            sum+=1
+        if request.user.interested_modules:
+            sum+=1
+        if profile.fb_handle:
+            sum+=1
+        if sum==0:
+            comp = [60, 40]
+        elif sum==1:
+            comp = [70, 30]
+        elif sum==2:
+            comp = [80, 20]
+        elif sum==3:
+            comp = [90, 10]
+        else:
+            comp = [100,0]
         top_solousers = NewUser.objects.all().order_by('points')[:10]
         top_teamusers = all_points
-
-        # Notifications List
+        groupUsers=UserGroup.objects.all().order_by('-leader')[:5]
         isread=True
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
         if list(UserGroup.objects.filter(leader=request.user)):
             grp_points = request.user.points + UserGroup.objects.filter(leader=request.user).first().executive.points
             grp_tasks = request.user.tasks + UserGroup.objects.filter(leader=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(leader=request.user).first().executive.referrals
-            all_points.append({ 'leader':request.user.firstname,'points': grp_points})
+            grp_leaderimg=request.user.img
+            grp_exeimg=UserGroup.objects.filter(leader=request.user).first().executive.img
+            all_points.append({ 'leader':request.user.firstname,'points': grp_points,'Lpimg':grp_leaderimg,'Epimg':grp_exeimg})
         elif list(UserGroup.objects.filter(executive=request.user)):
             grp_points = request.user.points + UserGroup.objects.filter(executive=request.user).first().executive.points
             grp_tasks = request.user.tasks + UserGroup.objects.filter(executive=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(executive=request.user).first().executive.referrals
-            all_points.append({ 'leader':request.user.firstname,'points': grp_points})
+            grp_leaderimg=request.user.img
+            grp_exeimg=UserGroup.objects.filter(leader=request.user).first().executive.img
+            all_points.append({ 'leader':request.user.firstname,'points': grp_points,'Lpimg':grp_leaderimg,'Epimg':grp_exeimg})
         else:
              grp_points = request.user.points
              grp_tasks = request.user.tasks
              grp_referrals = request.user.referrals
-             all_points.append({ 'leader':request.user.firstname,'points': grp_points})
+             grp_leaderimg=request.user.img
+             
+             all_points.append({ 'leader':request.user.firstname,'points': grp_points,'Lpimg':grp_leaderimg})
         for notif in notification_list:
             if not notif.isread:
                 isread=False
@@ -74,9 +99,13 @@ def dashboard(request):
             'grp_referrals':grp_referrals,
             'top_solousers': top_solousers,
             'top_teamusers':top_teamusers,
-            'isread':isread
+            'isread':isread,
+            'comp': comp,
+            'grpusers':groupUsers
         }
         
+        if sum<4 and profile.update_status==1:
+            context['show_popup'] = 1
 
         
         return render(request, 'dashboard/dashboard_page.html',context)
@@ -137,8 +166,8 @@ def leaderboard(request):
         if not notif.isread:
             isread = False
             break
-    users = NewUser.objects.all().order_by('-points')[:30]
-    groupUsers=UserGroup.objects.all().order_by('-leader')[:10]
+    users = NewUser.objects.all().order_by('-points')[:10]
+    groupUsers=UserGroup.objects.all().order_by('-leader')[:5]
     paginator1 = Paginator(users,5)
     paginator2 = Paginator(groupUsers,5)
     page_number1 = request.GET.get('page')

@@ -14,6 +14,9 @@
 
     .third {
         margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
     }
 
@@ -64,20 +67,44 @@
         text-align: center;
         width: 100px;
     }
+
+    .user {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+    }
+
+   
+    .epimg{
+        transform:translateX(-12.5px)
+    }
+    .lpimg{
+        transform:translateX(12.5px)
+    }
 </style>
 <div class="bg-white rounded-md shadow-md my-2 pb-1">
     <div class="py-3 pl-6 font-medium text-lg border-b-2">Leaderboard</div>
     <div class="pod" style="display:flex ; justify-content: space-evenly;">
         <div class="podium pb-6">
             <div class="third">
+                <div class="user"> <img src="{{top_solousers.2.img.url}}" width="65px" alt="profile pic" border="0"
+                        style="border-radius:9999px; text-align:center;" class="pimg">
+                </div>
                 <p class="name">{{top_solousers.2.firstname}} </p>
                 <p class="tpod"></p>
             </div>
             <div class="first">
-                <p class="name">{{top_solousers.0.firstname}}</p>
+                <div class="user"> <img src="{{top_solousers.0.img.url}}" width="65px" alt="profile pic" border="0"
+                        style="border-radius:9999px; text-align:center;" class="pimg">
+                </div>
+                <p class="name">{{top_solousers.0.firstname}} </p>
                 <p class="fpod"></p>
             </div>
             <div class="second">
+                <div class="user"> <img src="{{top_solousers.1.img.url}}" width="65px" alt="profile pic" border="0"
+                        style="border-radius:9999px; text-align:center;" class="pimg">
+                </div>
                 <p class="name">{{top_solousers.1.firstname}}</p>
                 <p class="spod"></p>
             </div>
@@ -85,15 +112,43 @@
 
         <div class="podium pb-6">
             <div class="third">
-                <p class="name">{{top_teamusers.2.leader}} </p>
+                <div class="teamuser" style="display:flex; justify-content: space-around;"> <img
+                    src="{{grpusers.0.leader.img.url}}" width="50px" alt="profile pic" border="0"
+                    style="border-radius:9999px; text-align:center ; height: 50px;" class="lpimg">
+                <img src="{{grpusers.0.executive.img.url}}" width="50px" alt="profile pic" border="0"
+                    style="border-radius:9999px; text-align:center; height: 50px;" class="epimg">
+            </div>
+           
+                <p class="name">{{grpusers.2.leader.firstname}}</p>
+                <p class="name">{{grpusers.2.executive.firstname}}</p>
+           
                 <p class="tpod"></p>
             </div>
             <div class="first">
-                <p class="name">{{top_teamusers.0.leader}}</p>
+                <div class="teamuser" style="display:flex; justify-content: space-around;"> <img
+                        src="{{grpusers.0.leader.img.url}}" width="50px" alt="profile pic" border="0"
+                        style="border-radius:9999px; text-align:center ; height: 50px;" class="lpimg">
+                    <img src="{{grpusers.0.executive.img.url}}" width="50px" alt="profile pic" border="0"
+                        style="border-radius:9999px; text-align:center; height: 50px;" class="epimg">
+                </div>
+                
+                    <p class="name">{{grpusers.0.leader.firstname}}</p>
+                    <p class="name">{{grpusers.0.executive.firstname}}</p>
+               
+
                 <p class="fpod"></p>
             </div>
             <div class="second">
-                <p class="name">{{top_teamusers.1.leader}}</p>
+                <div class="teamuser" style="display:flex; justify-content: space-around;"> <img
+                    src="{{grpusers.0.leader.img.url}}" width="50px" alt="profile pic" border="0"
+                    style="border-radius:9999px; text-align:center ; height: 50px;" class="lpimg">
+                <img src="{{grpusers.0.executive.img.url}}" width="50px" alt="profile pic" border="0"
+                    style="border-radius:9999px; text-align:center; height: 50px;" class="epimg">
+            </div>
+            
+                <p class="name">{{grpusers.1.leader.firstname}}</p>
+                <p class="name">{{grpusers.1.executive.firstname}}</p>
+            
                 <p class="spod"></p>
             </div>
         </div>

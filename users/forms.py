@@ -25,16 +25,7 @@ class SingleUserRegisterForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'College State *'}))
     college_name = forms.CharField(
         label="Full Name", widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'College Name *'}))
-    instahandle = forms.CharField(
-        label="instagram-handle", widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Instagram Handle *'}))
-    fb_handle = forms.CharField(required=False,
-        label="fb-handle", widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Facebook Handle'}))
-
-    position_of_responsibility = forms.CharField(required=False,
-                                                 widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Position of Responsibility'}))
-    interested_modules = forms.CharField(required=False,
-                                         widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Interested Modules'}))
-
+    
     password1 = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'input_field', 'placeholder': 'Password *'}))
     password2 = forms.CharField(
@@ -52,7 +43,7 @@ class SingleUserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['firstname', 'email', 'phone', 'graduation_year', 'college_state', 'college_city',
-                  'college_name','instahandle','fb_handle', 'position_of_responsibility', 'interested_modules', 'referred_by']
+                  'college_name', 'referred_by']
 
 
 class GroupUserRegisterFormForSingle(forms.ModelForm):
@@ -68,15 +59,9 @@ class GroupUserRegisterFormForSingle(forms.ModelForm):
     graduation_year = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Graduation Year *'}))
 
-    position_of_responsibility = forms.CharField(required=False,
-                                                 widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Position of Responsibility'}))
-    interested_modules = forms.CharField(required=False,
-                                         widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Interested Modules'}))
-
     class Meta:
         model = User
-        fields = ['firstname', 'email', 'phone', 'graduation_year',
-                  'position_of_responsibility', 'interested_modules']
+        fields = ['firstname', 'email', 'phone', 'graduation_year']
 
 
 # incomplete
@@ -111,8 +96,10 @@ class UserUpdateForm(forms.ModelForm):
     phone = PhoneNumberField(widget=forms.TextInput(
     ), label="Phone number (e.g. +12125552368)", required=False)
     img = forms.ImageField()
+    fb_handle = forms.CharField(required=False,
+        label="Facebook Handle", widget=forms.TextInput(attrs={'class': 'input_field'}))
 
     class Meta:
         model = User
         fields = ['firstname', 'phone', 'graduation_year', 'college_state',
-                  'college_city', 'college_name',  'position_of_responsibility', 'interested_modules', 'img','instahandle']
+                  'college_city', 'college_name',  'position_of_responsibility', 'interested_modules', 'img','instahandle', 'fb_handle']
