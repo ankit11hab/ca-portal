@@ -59,8 +59,14 @@ def dashboard(request):
         else:
             comp = [100,0]
         top_solousers = NewUser.objects.all().order_by('-points')[:10]
+        top_solousers1 = NewUser.objects.all().order_by('-points')
         
-        
+        rank=1
+        while rank:
+            if request.user == top_solousers1[rank]:
+                break
+            rank=rank+1;
+
         groupUsers=sorted(UserGroup.objects.all(), key=lambda t: t.getPoints,reverse=True)[:5]
         isread=True
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
@@ -99,7 +105,7 @@ def dashboard(request):
             'grp_tasks':grp_tasks,
             'grp_referrals':grp_referrals,
             'top_solousers': top_solousers,
-         
+            'rank':rank+1,
             'isread':isread,
             'comp': comp,
             'grpusers':groupUsers
