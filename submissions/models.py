@@ -29,7 +29,7 @@ class POC(Submission):
     @property
     def points(self):
         if self.is_verified:
-            return 30
+            return 250
         else:
             return 0
     
@@ -40,7 +40,7 @@ class POCBulk(Submission):
     @property
     def points(self):
         if self.is_verified:
-            return 30*self.correct_poc
+            return 250*self.correct_poc
         else:
             return 0
 
@@ -51,7 +51,7 @@ class Idea(Submission):
     @property
     def points(self):
         if self.is_verified:
-            return 20
+            return 200
         else:
             return 0
 
@@ -61,7 +61,7 @@ class Media(Submission):
     shared_post = models.ForeignKey("dashboard.ShareablePost",on_delete=models.CASCADE,related_name="media_submissions")
     @property
     def points(self):
-        return 50
+        return 100
 
     class Meta:
         unique_together = ('user','shared_post')
@@ -76,6 +76,7 @@ class Quiz(models.Model):
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz,  related_name="quiz", on_delete=models.CASCADE)
     question = models.CharField(max_length=100, blank=True)
+    
 
     def __str__(self):
         return self.question
@@ -85,8 +86,18 @@ class Submission(models.Model):
     quiz = models.ForeignKey(Quiz, related_name='quiz_submission', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+
+    class Meta:
+        unique_together = ('user','quiz')
+
     def __str__(self):
         return f"{self.user.firstname} - {self.quiz.name}"
+    
+    def save(self, *args, **kwargs):
+        super().save()
+        self.user.points+=500
+        self.user.save()
+
 
 
 class Answer(models.Model):

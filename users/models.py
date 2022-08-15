@@ -65,7 +65,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     interested_modules = models.CharField(
         max_length=200, unique=False, blank=True)
     instahandle = models.CharField(
-        max_length=200, blank=True, null=True, unique=True, )
+        max_length=200, blank=True, unique=True, )
     # Referral fields
     referred_by = models.CharField(
         max_length=9, blank=True)
@@ -80,7 +80,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     objects = CustomAccountManager()
-    points = models.IntegerField(default=50)
+    points = models.IntegerField(default=250)
     tasks = models.IntegerField(default=0)
     
 

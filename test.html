@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-              .circle-timer, .pie-timer {
+      .circle-timer {
         width: 220px;
         height: 220px;
         position: relative;
@@ -16,15 +16,6 @@
         display: inline-block;
       }
 
-      @-webkit-keyframes timer-spin {
-        0%   { -webkit-transform: rotateY(540deg);}
-        100% { -webkit-transform: rotateY(0deg);  }
-      }
-
-      @-webkit-keyframes timer-spin2 {
-        0%   { -webkit-transform: scale(0.6) rotate(0deg); }
-        100% { -webkit-transform: scale(1.0) rotate(360deg);  }
-      }
 
       @-webkit-keyframes timer-slide {
         0%   { -webkit-transform: rotate(-225deg); }
@@ -65,7 +56,7 @@
         margin-top: -100px;
         border-left-color: transparent;
         border-top-color: transparent;
-        -webkit-animation-duration: 3s;
+        -webkit-animation-duration: 12s;
         -webkit-animation-iteration-count: infinite;
         -webkit-animation-direction: alternate;
       }
@@ -91,55 +82,7 @@
         overflow: hidden;
       }
 
-      .pie-timer .timer-l, .pie-timer .timer-r {
-        height: 0;
-        width: 0;
-        margin: -100px 0 0 -100px;
-        border-width: 100px;
-        -webkit-animation-duration: 4s;
-      }
 
-      .spin-timer {
-        -webkit-animation-name: timer-spin;
-        -webkit-animation-duration: 3s;
-        -webkit-animation-iteration-count: infinite;
-        -webkit-animation-direction: alternate;
-        box-shadow: none;
-      }
-
-      .spin-timer2 {
-        -webkit-animation-name: timer-spin2;
-        -webkit-animation-duration: 3s;
-        -webkit-animation-iteration-count: infinite;
-        -webkit-animation-direction: alternate;
-      }
-
-      /* Bars */
-      @-webkit-keyframes bar-slide {
-        0%   { width: 0%;   }
-        100% { width: 100%; }
-      }
-      .bar-timer {
-        margin: 30px 0;
-        height: 10px;
-        width: 220px;
-        border: 1px solid #48f;
-        position: relative;
-        -webkit-border-radius: 3px;
-        box-shadow: #acf 0px 0px 7px;
-      }
-
-      .bar-inner {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        background: #48f;
-        -webkit-animation-name: bar-slide;
-        -webkit-animation-duration: 3s;
-        -webkit-animation-iteration-count: infinite;
-        -webkit-animation-timing-function: ease-out;
-      }
 
 
 

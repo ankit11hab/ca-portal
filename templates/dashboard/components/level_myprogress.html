@@ -17,25 +17,25 @@
                 </div>
                 <div class=" my-2">
                     <div class=" text-gray-600 text-xl font-medium text-center">
-                        {%if grp_points >= 3000 %}
+                        {%if rank <= 5 %}
+                        Platinum
+                        {%elif rank >= 6 and rank <= 30 %}
                         Gold
-                        {%elif grp_points >= 1500 %}
+                        {%elif rank >= 31 and rank <= 80 %}
                         Silver
-                        {%elif grp_points >= 900 %}
+                        {%elif rank >= 81 %}
                         Bronze
-                        {% else %}
-                        Novice
                         {% endif %}
                     </div>
                     <div class=" text-gray-600 text-center whitespace-nowrap">
-                        {%if grp_points >= 3000 %}
-                        You are at Gold level
-                        {%elif grp_points >= 1500 %}
-                        {{3000|sub:grp_points}} more points to Gold
-                        {% elif grp_points >= 900 %}
-                        {{1500|sub:grp_points}} more points to Silver
-                        {% else %}
-                        {{900|sub:grp_points}} more points to Bronze
+                        {%if rank <= 5 %}
+                        You are at Platinum level
+                        {%elif rank >= 6 and rank <= 30 %}
+                        {{rank|sub:5}} more ranks to Platinum
+                        {%elif rank >= 31 and rank <= 80 %}
+                        {{rank|sub:30}} more ranks to Gold
+                        {%elif rank >= 81 %}
+                        {{rank|sub:80}} more ranks to Silver
                         {% endif %}
                     </div>
                 </div>

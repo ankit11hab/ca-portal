@@ -1,11 +1,32 @@
+<style>
+    body{
+        text-align:center;
+    }
+    .test + .tooltip > .tooltip-inner {
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+    }
+    </style>
+    
+    
 <div class=" my-2 bg-white max-w-5xl rounded-md shadow-md flex flex-col justify-center content-center">
     <div class="py-3 pl-6 font-medium text-lg border-b-2">Refer and Earn</div>
     <div class=" flex flex-col justify-center">
         <div class="flex justify-center">
             <img src='https://svgshare.com/i/a85.svg' title='refer and earn' />
         </div>
-        <div class=" text-lg text-center my-2">Refer your friend and you both earn</div>
-        <div class=" font-medium text-4xl text-center">25 points!</div>
+        <div class=" text-lg text-center my-2">Refer your friend and <strong>you both </strong>earn</div>
+        <div class="test font-medium text-4xl text-center" data-toggle="tooltip" 
+        title="IF REFERRAL IS USED FOR REG OF THE SAME COLLEGE,YOU GET 400 POINTS.         
+IF REFERRAL IS USED FOR REG OF THE OTHER COLLEGE,YOU GET 600 POINTS.
+YOUR FIREND GETS 300 POINTS.">
+        Bonus Points!
+        </div>
+
         <div class=" flex flex-wrap justify-center mt-4 ml-4 mr-4">
             <input type="url" class=" border-2 border-gray-400 text-gray-600 text-sm px-2 m-2"
                 value="{{request.user.alcherid}}"id="alcherid" size="35" disabled>
@@ -76,5 +97,8 @@
 
             document.getElementById("copied").innerHTML="Copied ID successfully"
         }
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
 </script>
 {% endblock %}
