@@ -98,6 +98,25 @@
     else
   document.getElementById('level-value').innerText = levelPoints[0]
 
+  var doughnut_colour;
+  if({{ rank }}>80)
+  {
+      doughnut_colour='rgb(205,127,50)'
+  }
+  else if({{ rank }}>31 && {{ rank }}<=80)
+  {
+     doughnut_colour='rgb(192,192,192)';
+  }
+  else if({{ rank }}<30 && {{ rank }}>=6)
+  {
+     doughnut_colour='rgb(255,215,0)';
+  }
+  else if({{ rank }}<6)
+  {
+     doughnut_colour='rgba(229,228,226)';
+  }
+  
+
   // class initialization(myChat)
   var levelChart = new Chart(document.getElementById('level-pie').getContext('2d'), {
     type: 'doughnut',
@@ -105,7 +124,7 @@
       datasets: [{
         data: levelPoints,
         backgroundColor: [
-          'rgba(232, 107, 115, 1)',
+          doughnut_colour,
           'rgba(243, 246, 248, 1)'
         ],
         borderWidth: 0,
@@ -119,6 +138,7 @@
       }
     }
   });
+
 
   const tasksCompletedPoints = [{{ grp_tasks }}, 8];
   if ({{ grp_tasks }}< 10)
