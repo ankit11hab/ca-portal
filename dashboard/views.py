@@ -16,12 +16,12 @@ from django.db.models import Q
 from django.contrib import messages
 from django.core.paginator import Paginator
 import time
-  
+from instagram_private_api import Client, ClientCompatPatch
 
-# start_time = datetime.now().date()
-"""user_name = 'a64guha'
-password = 'Ankit@123#'
-api = Client(user_name, password) """
+start_time = datetime.now().date()
+user_name = 'fake27_28'
+password = 'sid1234'
+api = Client(user_name, password)
 
 def dashboard(request):
     if request.user.is_authenticated:
@@ -194,9 +194,6 @@ def leaderboard(request):
 
 @login_required
 def verify_like(request):
-
-    
-    # print(start_time)
     post = ShareablePost.objects.get(id=str(list(request.GET.keys())[0]))
     curr_time = time.localtime() 
     curr_time1 = time.strftime("%H:%M:%S") 
@@ -206,65 +203,48 @@ def verify_like(request):
     timeformat = "%H:%M:%S"
     delta = (datetime.strptime(curr_time1, timeformat) - datetime.strptime(created_on1, timeformat))
     diff=delta.seconds
-    # check = 1
-    # if post.likedusers != '':
-    #     arr = post.likedusers.split()
-    #     for item in arr:
-    #         if item==request.user.instahandle:
-    #             check=0
-    #             break
-    # if check == 0:
-    #     messages.error(request,"You have already liked this post!")
-    # else:
-    #     #api = auth.login_instagram('fun_tas_tic_12','Qwerty@123')
-        
-    # curr_time=datetime.now().date()
-    #     delta = curr_time-start_time
-    #     if delta.days >50:
-    #         user_name = 'a64guha'
-    #         password = 'Ankit@123#'
-    #         api2 = Client(user_name, password)
-    #         results = api2.media_likers_chrono(post.media_id)
-    #     else:
-    #         results = api.media_likers_chrono(post.media_id)
-    #     items = results['users']
-        # flag=0
-        
-    #     for item in items: 
-    #         print(item['username'])
-    #         if item['username'] == request.user.instahandle:
-    #             flag=1
-    #             break
+    check = 1
+    if post.likedusers != '':
+        arr = post.likedusers.split()
+        for item in arr:
+            if item==request.user.instahandle:
+                check=0
+                break
+    if check == 0:
+        messages.error(request,"You have already liked this post!")
+        return redirect('dashboard_page') 
+    curr_time=datetime.now().date()
+    delta = curr_time-start_time
+    results = api.media_likers_chrono(post.media_id)
+    items = results['users']
+    flag=0
+    
+    for item in items: 
+        print(item['username'])
+        if item['username'] == request.user.instahandle:
+            flag=1
+            break
     if flag==1:
-            # if curr_time1<last_date:
-                if(diff<3600):
-                    request.user.points+=25
-                    request.user.tasks+=1
-                    request.user.save()
-                    messages.success(request,"Thank you for liking this post! You have gained 25 points")
-                    post.likedusers+=request.user.instahandle+' '
-                    post.save()
-                elif(diff<7200):
-                    request.user.points+=15
-                    request.user.tasks+=1
-                    request.user.save()
-                    messages.success(request,"Thank you for liking this post! You have gained 15 points")
-                    post.likedusers+=request.user.instahandle+' '
-                    post.save()
-                elif(diff<9800):
-                    request.user.points+=10
-                    request.user.tasks+=1
-                    request.user.save()
-                    messages.success(request,"Thank you for liking this post! You have gained 10 points")
-                    post.likedusers+=request.user.instahandle+' '
-                    post.save()
-                else:
-                    request.user.points+=5
-                    request.user.tasks+=1
-                    request.user.save()
-                    messages.success(request,"Thank you for liking this post! You have gained 5 points")
-                    post.likedusers+=request.user.instahandle+' '
-                    post.save()
+        if(diff<43200):
+            request.user.points+=25
+            request.user.tasks+=1
+            messages.success(request,"Thank you for liking this post! You have gained 25 points")
+        elif(diff<86400):
+            request.user.points+=15
+            request.user.tasks+=1
+            messages.success(request,"Thank you for liking this post! You have gained 15 points")
+        elif(diff<172800):
+            request.user.points+=10
+            request.user.tasks+=1
+            messages.success(request,"Thank you for liking this post! You have gained 10 points")
+        else:
+            request.user.points+=5
+            request.user.tasks+=1
+            messages.success(request,"Thank you for liking this post! You have gained 5 points")
+            
+        request.user.save()
+        post.likedusers+=request.user.instahandle+' '
+        post.save()
 
 
     else:
