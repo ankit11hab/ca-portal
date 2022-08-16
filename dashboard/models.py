@@ -3,6 +3,8 @@
 from django.db import models
 import uuid
 from django.utils import timezone
+from datetime import datetime
+from django.utils.timezone import utc
 # Create your models here.
 
 
