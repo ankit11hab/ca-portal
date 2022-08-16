@@ -3,6 +3,8 @@
 from django.db import models
 import uuid
 from django.utils import timezone
+from django.contrib.auth import get_user_model
+User = get_user_model()
 # Create your models here.
 
 
@@ -21,6 +23,22 @@ class ShareablePost(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    def save(self, *args, **kwargs):
+        super().save()
+        for user in User.objects.all():
+            PostUrl(post = self, user = user, url_id = uuid.uuid4()).save()
+
+class PostUrl(models.Model):
+    post = models.ForeignKey(ShareablePost, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    url_id = models.CharField(max_length=30, blank=True)
+
+    def __str__(self):
+        return f"{self.post.id} - {self.user.firstname}"
+    
+    
+
 
 
 class Promotions(models.Model):

@@ -271,3 +271,13 @@ def notif_unread(request):
                 notif.save()
         return HttpResponse("OK")
 
+@login_required
+def verify_insta_share(request):
+    if request.method == 'PUT':
+        notification_list = Notifications.objects.filter(
+        Q(user=request.user) | Q(user=None)).order_by('-created_on')
+        for notif in notification_list:
+            if not notif.isread:
+                notif.isread=True
+                notif.save()
+    return HttpResponse("OK")
