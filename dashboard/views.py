@@ -3,7 +3,7 @@ from time import timezone
 from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .models import Promotions, ShareablePost
+from .models import PostUrl, Promotions, ShareablePost
 from users.models import Profile, UserGroup, NewUser
 from submissions.models import Media,User
 from django.db.models import Exists,OuterRef
@@ -19,9 +19,9 @@ import time
 from instagram_private_api import Client, ClientCompatPatch
 
 start_time = datetime.now().date()
-user_name = 'fake27_28'
-password = 'sid1234'
-api = Client(user_name, password)
+# user_name = 'fake27_28'
+# password = 'sid1234'
+# api = Client(user_name, password)
 
 def dashboard(request):
     if request.user.is_authenticated:
@@ -34,6 +34,10 @@ def dashboard(request):
         ).exclude(is_shared=True)
         promotions = Promotions.objects.all().order_by('-created_on')
         # Leaderboard
+
+        for post in post_list:
+            post_url = PostUrl.objects.filter(post = post, user = request.user).first().url_id
+            post.url_id = post_url
 
         all_points=[]
         all_points.sort(key=lambda x:x[1]) 
@@ -65,7 +69,7 @@ def dashboard(request):
         while rank:
             if request.user == top_solousers1[rank]:
                 break
-            rank=rank+1;
+            rank=rank+1
 
         groupUsers=sorted(UserGroup.objects.all(), key=lambda t: t.getPoints,reverse=True)[:5]
         isread=True
@@ -272,12 +276,26 @@ def notif_unread(request):
         return HttpResponse("OK")
 
 @login_required
-def verify_insta_share(request):
-    if request.method == 'PUT':
-        notification_list = Notifications.objects.filter(
-        Q(user=request.user) | Q(user=None)).order_by('-created_on')
-        for notif in notification_list:
-            if not notif.isread:
-                notif.isread=True
-                notif.save()
-    return HttpResponse("OK")
+def verify_insta_share(request, url_id):
+    print(url_id)
+    post_url = PostUrl.objects.filter(url_id=url_id).first()
+    user = post_url.user
+    post = post_url.post
+    if post.is_instagram:
+        user.points += 25
+    user.save()
+    return redirect(post.link_instagram)
+
+
+@login_required
+def verify_fb_share(request, url_id):
+    print(url_id)
+    post_url = PostUrl.objects.filter(url_id=url_id).first()
+    user = post_url.user
+    post = post_url.post
+    print(post)
+    if post.is_facebook == True:
+        print("points added")
+        user.points += 25
+    user.save()
+    return redirect(post.link_facebook)

@@ -7,4 +7,6 @@ urlpatterns = [
     path('checkLike', dashboard_views.verify_like, name='verifymylike'),
     path('notif_unread', dashboard_views.notif_unread, name='notif_unread'),
     path('leaderboard/', dashboard_views.leaderboard, name='leaderboard'),
+    path('instagram/<url_id>', dashboard_views.verify_insta_share, name='verify_insta_share'),
+    path('facebook/<url_id>', dashboard_views.verify_fb_share, name='verify_fb_share'),
 ]
