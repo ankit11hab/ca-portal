@@ -138,14 +138,15 @@
                     <input type="url" class=" border-2 border-gray-400 text-gray-600 text-sm px-2 m-2"
                         value="Visit ca-portal-link. Register using my referral code {{request.user.alcherid}} and get 50 points" id="mailmsg" size="40" disabled>
                     <button onclick="copymailmessage()"
-                        class=" bg-blue-600 hover:bg-blue-700 active:bg-blue-700 text-white inline-block py-1 px-3 rounded shadow-sm font-semibold text-base m-2">
+                        class=" bg-blue-600 hover:bg-blue-700 active:bg-blue-700 text-white inline-block py-1 px-3 rounded shadow-sm font-semibold text-base m-2" id="but_mail">
                         Copy this message
                     </button><div style="clear:both"></div><br>
                     
                     
                 </div>
-                
-                <center><div class=" flex flex-wrap justify-center ml-4 mb-4 mr-4" id="copiedmessage"></div>
+                <!-- <div id="message" style="display:none">Message copied successfully!</div> -->
+
+                <center><div class=" flex flex-wrap justify-center ml-4 mb-4 mr-4" id="copiedmailmessage"></div>
                 and share on<br>
 
                 <a id = "maillink" target="_blank" style = "color:blue;font-weight: 500;font-size: 22px;cursor: pointer;">Outlook</a></center>
@@ -167,6 +168,10 @@
 		document.querySelector(".mailpopup").classList.remove("active");
 		$(".backdrop").fadeOut(200);
 	});
+    // document.getElementById('but_mail').addEventListener('click',()=>{
+    //     document.getElementById("message").style.display="block";
+
+    // });
     function copymailmessage() {
             var copyText = document.getElementById("mailmsg");
 
@@ -174,7 +179,7 @@
             copyText.setSelectionRange(0, 99999); 
             navigator.clipboard.writeText(copyText.value);
 
-            document.getElementById("copiedmessage").innerHTML="Copied message successfully"
+            document.getElementById("copiedmailmessage").innerHTML="Copied message successfully"
         }
 	
 </script>

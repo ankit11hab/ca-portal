@@ -137,15 +137,15 @@
                 <div class=" flex flex-wrap justify-center mt-4 ml-4 mr-4">
                     <input type="url" class=" border-2 border-gray-400 text-gray-600 text-sm px-2 m-2"
                         value="Visit ca-portal-link. Register using my referral code {{request.user.alcherid}} and get 50 points"id="instamsg" size="40" disabled>
-                    <button onclick="copymessage()"
-                        class=" bg-blue-600 hover:bg-blue-700 active:bg-blue-700 text-white inline-block py-1 px-3 rounded shadow-sm font-semibold text-base m-2">
+                    <button onclick="copyinstamessage()"
+                        class=" bg-blue-600 hover:bg-blue-700 active:bg-blue-700 text-white inline-block py-1 px-3 rounded shadow-sm font-semibold text-base m-2" id="but">
                         Copy this message
-                    </button><div style="clear:both"></div><br>
-                    
+                    </button><br>
+                    <!-- <div id="message" style="display:none">Message copied successfully!</div> -->
                     
                 </div>
                 
-                <center><div class=" flex flex-wrap justify-center ml-4 mb-4 mr-4" id="copiedmessage"></div>
+                <center><div class=" flex flex-wrap justify-center ml-4 mb-4 mr-4" id="copiedinstamessage"></div>
                 and share on<br>
 
                 <a id = "instalink" target="_blank" style = "color:blue;font-weight: 500;font-size: 22px;cursor: pointer;">Instagram</a></center>
@@ -167,14 +167,18 @@
 		document.querySelector(".instapopup").classList.remove("active");
 		$(".backdrop").fadeOut(200);
 	});
-    function copymessage() {
+    // document.getElementById('but').addEventListener('click',()=>{
+    //     document.getElementById("message").style.display="block";
+
+    // });
+    function copyinstamessage() {
             var copyText = document.getElementById("instamsg");
 
             copyText.select();
             copyText.setSelectionRange(0, 99999); 
             navigator.clipboard.writeText(copyText.value);
 
-            document.getElementById("copiedmessage").innerHTML="Copied message successfully"
+            document.getElementById("copiedinstamessage").innerHTML="Copied message successfully"
         }
 	
 </script>
