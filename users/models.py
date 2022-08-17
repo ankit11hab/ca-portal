@@ -7,6 +7,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
 import random
 
+import dashboard.models
+
 def create_new_ref_number():
     alcherid = "ALC"+str(random.randint(100000, 999999))
     alc=NewUser.objects.filter(alcherid=alcherid)
@@ -91,7 +93,11 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         return str(self.email)
 
     def save(self, *args, **kwargs):
+        if self.instahandle == "":
+            self.instahandle = f"None-{uuid.uuid1()}"
         super().save()
+        for post in dashboard.models.ShareablePost.objects.all():
+            dashboard.models.PostUrl(user = self, post = post, url_id = uuid.uuid4()).save()
         img = Image.open(self.img.path)
         width, height = img.size  # Get dimensions
 
