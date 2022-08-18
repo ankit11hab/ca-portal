@@ -144,9 +144,35 @@ def contactus(request):
             if not notif.isread:
                 isread = False
                 break
+        comp = []
+        sum = 0
+        profile = Profile.objects.filter(user = request.user).first()
+        if request.user.instahandle:
+            sum+=1
+        if request.user.position_of_responsibility:
+            sum+=1
+        if request.user.interested_modules:
+            sum+=1
+        if profile.fb_handle:
+            sum+=1
+        if sum==0:
+            comp = [60, 40]
+        elif sum==1:
+            comp = [70, 30]
+        elif sum==2:
+            comp = [80, 20]
+        elif sum==3:
+            comp = [90, 10]
+        else:
+            comp = [100,0]
+        
+        if sum<4:
+            color_code = '#E86B73'
+        else:
+            color_code= 'rgba(0, 201, 92, 1)'
         context = {
             'heading': 'Contact us',
-            'notification_list': notification_list, 'isread': isread
+            'notification_list': notification_list, 'isread': isread, 'comp':comp, 'color_code':color_code
         }
         return render(request, 'dashboard/contactus.html', context)
     else:
@@ -165,9 +191,35 @@ def guidelines(request):
             if not notif.isread:
                 isread = False
                 break
+        comp = []
+        sum = 0
+        profile = Profile.objects.filter(user = request.user).first()
+        if request.user.instahandle:
+            sum+=1
+        if request.user.position_of_responsibility:
+            sum+=1
+        if request.user.interested_modules:
+            sum+=1
+        if profile.fb_handle:
+            sum+=1
+        if sum==0:
+            comp = [60, 40]
+        elif sum==1:
+            comp = [70, 30]
+        elif sum==2:
+            comp = [80, 20]
+        elif sum==3:
+            comp = [90, 10]
+        else:
+            comp = [100,0]
+        
+        if sum<4:
+            color_code = '#E86B73'
+        else:
+            color_code= 'rgba(0, 201, 92, 1)'
         context = {
             'heading': 'Guidelines',
-            'notification_list': notification_list, 'isread': isread
+            'notification_list': notification_list, 'isread': isread, 'comp':comp, 'color_code':color_code
         }
         return render(request, 'dashboard/guidelines.html', context)
     else:
