@@ -20,18 +20,14 @@ class ShareablePost(models.Model):
     created_on = models.DateTimeField(default=timezone.now)
     last_date = models.DateTimeField(default=timezone.now)
     likedusers = models.TextField(default = '', null=True,blank=True)
-    @property
-    def get_time_diff(self):
+   @property
+    def getLastdate(self):
      if self.last_date:
-        now = datetime.utcnow().replace(tzinfo=utc)
-        timediff =  self.last_date - now
-        return timediff.total_seconds()
+        return (self.last_date.replace(tzinfo=None)-datetime(1970,1,1)).total_seconds()
 
     def __str__(self):
         return str(self.id)
 
-    def __str__(self):
-        return str(self.id)
 
 
 class Promotions(models.Model):
