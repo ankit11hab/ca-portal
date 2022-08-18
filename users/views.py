@@ -37,9 +37,6 @@ def register_single_user(request):
                 if(request.POST.get('referred_by')):
                     user = NewUser.objects.get(
                         alcherid=request.POST.get('referred_by'))
-                    # result.referred_by_user=user
-                    # result.points = 25
-                    # result.save()
                     if(user.college_name==result.college_name):
                         user.referrals += 1
                         user.points += 400
@@ -48,7 +45,7 @@ def register_single_user(request):
                         user.points += 600
                     user.save()
                     result.points = 550
-                    result.save()  # who uses referral code gets 300 points
+                    result.save()
                 else:
                     result.save()
                 user = NewUser.objects.get(email=request.POST.get('email'))

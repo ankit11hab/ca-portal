@@ -3,7 +3,7 @@
 
     {% for quiz in quizzes %}
     <div class=" bg-gray-100 p-4 mx-5 my-3 rounded-md shadow-md flex justify-between">
-        <div>
+        <div style="text-align:left">
             <div class=" mb-2">
                 <span class="font-medium text-xl">{{ quiz.name }}</span>
                 <span class=" bg-green-50 text-green-400 font-medium text-lg mx-1 px-2 mb-2">500
@@ -20,32 +20,34 @@
                 <div class="text-gray-500 text-xs"></div>
                 <div class="text-gray-500 font-medium text-base"></div>
             </div>
-                    {% if submitted %}
-                <a href="{% url 'quiz' quiz.id %}">
+            {% if submitted %}
+            <a href="{% url 'quiz' quiz.id %}">
                 <button
-                    class=" bg-blue-600 hover:bg-blue-700 text-white inline-block py-2 px-4 rounded shadow-sm font-semibold text-base" disabled style="background-color:rgb(181, 208, 246) ;">
+                    class=" bg-blue-600 hover:bg-blue-700 text-white inline-block py-2 px-4 rounded shadow-sm font-semibold text-base"
+                    disabled style="background-color:rgb(181, 208, 246) ;">
                     Start
                 </button></a>
-{% else %}
-<a href="{% url 'quiz' quiz.id %}">
-<button
-class=" bg-blue-600 hover:bg-blue-700 text-white inline-block py-2 px-4 rounded shadow-sm font-semibold text-base">
-Start
-</button></a>
+            {% else %}
+            <a href="{% url 'quiz' quiz.id %}">
+                <button
+                    class=" bg-blue-600 hover:bg-blue-700 text-white inline-block py-2 px-4 rounded shadow-sm font-semibold text-base">
+                    Start
+                </button></a>
             {% endif %}
         </div>
     </div>
     {% endfor %}
 
     <div class=" bg-gray-100 p-4 mx-5 my-3 rounded-md shadow-md flex justify-between">
-        <div>
+        <div style="text-align:left">
             <div class=" mb-2">
                 <span class="font-medium text-xl">Submit poc</span>
                 <span class=" bg-green-50 text-green-400 font-medium text-lg mx-1 px-2 mb-2">250
                     points</span>
             </div>
             <p class=" text-justify mr-4">
-                Submit contacts of individual or group of participants. You will be rewarded with 250 points for this task.
+                Submit contacts of individual or group of participants. You will be rewarded with 250 points for this
+                task.
 
 
             </p>
@@ -63,12 +65,13 @@ Start
         </div>
     </div>
     <div class=" bg-gray-100 p-4 mx-5 my-3 rounded-md shadow-md flex justify-between">
-        <div>
+        <div style="text-align:left">
             <span class="font-medium text-xl mb-2">Submit idea</span>
             <span class=" bg-green-50 text-green-400 font-medium text-lg mx-1 px-2 mb-2">200
                 points</span>
             <p class=" text-justify mr-4">
-                Is your mind engulfed with ideas that will make Alcheringa more enjoyable than before? Then suggest ideas to get credited with points.
+                Is your mind engulfed with ideas that will make Alcheringa more enjoyable than before? Then suggest
+                ideas to get credited with points.
             </p>
             <br>
             <span class=" text-gray-500"></span>
