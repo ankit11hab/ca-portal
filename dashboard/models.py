@@ -37,8 +37,25 @@ class PostUrl(models.Model):
     def __str__(self):
         return f"{self.post.id} - {self.user.firstname}"
     
-    
 
+class BlacklistedTokens(models.Model):
+    token = models.CharField(max_length = 100, blank = True)
+
+    def __str__(self):
+        return self.user
+
+
+class DeviceDetails(models.Model):
+    ip_address = models.CharField(max_length=200, blank=True)
+    device = models.CharField(max_length = 100, blank = True)
+    browser = models.CharField(max_length = 100, blank = True)
+    browser_version = models.CharField(max_length = 100, blank = True)
+    browser_family = models.CharField(max_length = 100, blank = True)
+    os_name = models.CharField(max_length = 100, blank = True)
+    os_version = models.CharField(max_length = 100, blank = True)
+
+    def __str__(self):
+        return self.id
 
 
 class Promotions(models.Model):

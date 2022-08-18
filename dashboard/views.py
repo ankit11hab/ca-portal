@@ -17,6 +17,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 import time
 from instagram_private_api import Client, ClientCompatPatch
+from django.http import HttpResponse 
 
 start_time = datetime.now().date()
 # user_name = 'fake27_28'
@@ -281,10 +282,14 @@ def verify_insta_share(request, url_id):
     post_url = PostUrl.objects.filter(url_id=url_id).first()
     user = post_url.user
     post = post_url.post
+    response = redirect(post.link_instagram) 
+    if f"{post_url.url_id}-insta" in request.COOKIES:
+        return response 
+    response.set_cookie(f"{post_url.url_id}-insta", "t493k01m84", max_age = None, expires = None)
     if post.is_instagram:
         user.points += 25
     user.save()
-    return redirect(post.link_instagram)
+    return response
 
 
 @login_required
@@ -294,8 +299,12 @@ def verify_fb_share(request, url_id):
     user = post_url.user
     post = post_url.post
     print(post)
+    response = redirect(post.link_facebook) 
+    if f"{post_url.url_id}-fb" in request.COOKIES:
+        return response
+    response.set_cookie(f"{post_url.url_id}-fb", "t493k01m82", max_age = None, expires = None)
     if post.is_facebook == True:
         print("points added")
         user.points += 25
     user.save()
-    return redirect(post.link_facebook)
+    return response
