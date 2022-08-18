@@ -45,7 +45,7 @@ def dashboard(request):
         profile = Profile.objects.filter(user = request.user).first()
         comp = []
         sum = 0
-        if request.user.instahandle:
+        if request.user.instahandle[0:4]!="None":
             sum+=1
         if request.user.position_of_responsibility:
             sum+=1
@@ -147,7 +147,7 @@ def contactus(request):
         comp = []
         sum = 0
         profile = Profile.objects.filter(user = request.user).first()
-        if request.user.instahandle:
+        if request.user.instahandle[0:4]!="None":
             sum+=1
         if request.user.position_of_responsibility:
             sum+=1
@@ -194,7 +194,7 @@ def guidelines(request):
         comp = []
         sum = 0
         profile = Profile.objects.filter(user = request.user).first()
-        if request.user.instahandle:
+        if request.user.instahandle[0:4]!="None":
             sum+=1
         if request.user.position_of_responsibility:
             sum+=1

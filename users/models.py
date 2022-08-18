@@ -6,11 +6,12 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
 import random
-
+import string
 import dashboard.models
 
 def create_new_ref_number():
-    alcherid = "ALC"+str(random.randint(100000, 999999))
+    ran = ''.join(random.choices(string.ascii_letters + string.digits, k = 4))    
+    alcherid = "ALC-"+str(random.randint(1000, 9999))+"-"+ran
     alc=NewUser.objects.filter(alcherid=alcherid)
     if alc:
         create_new_ref_number()

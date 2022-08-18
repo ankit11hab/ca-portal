@@ -263,7 +263,7 @@ def profile(request):
     profile = Profile.objects.filter(user=request.user).first()
     comp = []
     sum = 0
-    if request.user.instahandle:
+    if request.user.instahandle[0:4]!="None":
         sum+=1
     if request.user.position_of_responsibility:
         sum+=1
@@ -346,10 +346,20 @@ def password_reset_request(request):
 
 @login_required
 def scoring(request):
+    # Notifications List
+    notification_list = Notifications.objects.filter(
+        Q(user=request.user) | Q(user=None)).order_by('-created_on')
+    isread = True
+    notification_list = Notifications.objects.filter(
+        Q(user=request.user) | Q(user=None)).order_by('-created_on')
+    for notif in notification_list:
+        if not notif.isread:
+            isread = False
+            break
     comp = []
     sum = 0
     profile = Profile.objects.filter(user = request.user).first()
-    if request.user.instahandle:
+    if request.user.instahandle[0:4]!="None":
         sum+=1
     if request.user.position_of_responsibility:
         sum+=1
@@ -372,7 +382,7 @@ def scoring(request):
         color_code = '#E86B73'
     else:
         color_code= 'rgba(0, 201, 92, 1)'
-    return render(request, 'dashboard/points_system.html', {'comp':comp, 'color_code':color_code})
+    return render(request, 'dashboard/points_system.html', {'notification_list': notification_list, 'isread': isread,'comp':comp, 'color_code':color_code})
 
 
 @login_required
@@ -380,7 +390,7 @@ def guidelines(request):
     comp = []
     sum = 0
     profile = Profile.objects.filter(user = request.user).first()
-    if request.user.instahandle:
+    if request.user.instahandle[0:4]!="None":
         sum+=1
     if request.user.position_of_responsibility:
         sum+=1
