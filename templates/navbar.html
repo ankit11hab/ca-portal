@@ -97,12 +97,15 @@
     {% comment %} nav main {% endcomment %}
     <div class="elements flex flex-col justify-center" style="margin:1vh 0;padding:1vh 0">
       <div>
+        {% if heading == 'Dashboard' %}
         <a href="{% url 'dashboard_page' %}"
-          class="rounded-full flex flex-nowrap pl-6 w-60 hover:border-0 hover:bg-gray-100 hover:no-underline"
-          style="padding-top:1vh;padding-bottom:1vh">
-          {% if heading == 'Dashboard' %}
+          class="activePage rounded-full flex flex-nowrap pl-6 w-60 bg-gray-200"
+          style="padding-top:1vh;padding-bottom:1vh;">
           <img src="{% static 'icons/dashboard-active.png' %}" />
           {% else %}
+          <a href="{% url 'dashboard_page' %}"
+            class="rounded-full flex flex-nowrap pl-6 w-60 hover:border-0 hover:bg-gray-100 hover:no-underline active:bg-gray-300"
+            style="padding-top:1vh;padding-bottom:1vh;">
           <img src="{% static 'icons/dashboard.png' %}" />
           {% endif %}
           <p class="pl-4 hover:no-underline" style="transform: translate(-2px,0)">Dashboard</p>
@@ -110,12 +113,15 @@
       </div>
       <!-- tasks -->
       <div>
+        {% if heading == 'Tasks' %}
+        <a href="{% url 'tasks' %}"
+        class="rounded-full flex flex-nowrap pl-6 w-60 bg-gray-200"
+        style="padding-top:1vh;padding-bottom:1vh; transform: translate(3px,0)">
+        <img src="{% static 'icons/tasks-active.png' %}" />
+        {% else %}
         <a href="{% url 'tasks' %}"
           class="rounded-full flex flex-nowrap pl-6 w-60 hover:border-0 hover:bg-gray-100 hover:no-underline"
           style="padding-top:1vh;padding-bottom:1vh; transform: translate(3px,0)">
-          {% if heading == 'Tasks' %}
-          <img src="{% static 'icons/tasks-active.png' %}" />
-          {% else %}
           <img src="{% static 'icons/tasks.png' %}" />
           {% endif %}
           <p class="pl-4 hover:no-underline">Tasks</p>
@@ -123,12 +129,15 @@
       </div>
       <!-- leaderboard -->
       <div>
+        {% if heading == 'Leaderboard' %}
         <a href="{% url 'leaderboard' %}"
-          class="rounded-full flex flex-nowrap pl-6 w-60 hover:border-0 hover:bg-gray-100 hover:no-underline"
+          class="rounded-full flex flex-nowrap pl-6 w-60 bg-gray-200"
           style="padding-top:1vh;padding-bottom:1vh; transform: translate(3px,0)">
-          {% if heading == 'Leaderboard' %}
           <img src="{% static 'icons/leaderboard-active.png' %}" />
           {% else %}
+          <a href="{% url 'leaderboard' %}"
+            class="rounded-full flex flex-nowrap pl-6 w-60 hover:border-0 hover:bg-gray-100 hover:no-underline"
+            style="padding-top:1vh;padding-bottom:1vh; transform: translate(3px,0)">
           <img src="{% static 'icons/leaderboard.png' %}" />
           {% endif %}
           <p class="pl-4 hover:no-underline">Leaderboard</p>
@@ -147,46 +156,66 @@
 
       <!-- profile -->
       <div>
+        {% if heading == 'Profile' %}
         <a href="{% url 'profile' %}"
-          class="rounded-full flex flex-nowrap w-60 pl-6 hover:border-0 hover:bg-gray-100 mb-3 hover:no-underline"
+          class="rounded-full flex flex-nowrap w-60 pl-6 bg-gray-200"
           style="cursor:pointer;padding-top:1vh;padding-bottom:1vh">
-          {% if heading == 'Profile' %}
           <img src="{% static 'icons/profile-active.png' %}" />
           {% else %}
+          <a href="{% url 'profile' %}"
+            class="rounded-full flex flex-nowrap w-60 pl-6 hover:border-0 hover:bg-gray-100 mb-3 hover:no-underline"
+            style="cursor:pointer;padding-top:1vh;padding-bottom:1vh">
           <img src="{% static 'icons/profile.png' %}" />
           {% endif %}
           <p class="pl-4 no-underline">Profile</p>
         </a>
       </div>
-      <hr class="border bg-gray-200" />
-      <a href="{% url 'guidelines' %}"
-        class="rounded-full flex flex-nowrap w-60 pl-6 hover:border-0 hover:bg-gray-100 hover:no-underline mt-3"
-        style="cursor:pointer;padding-top:1vh;padding-bottom:1vh">
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M15 3.9C16.4577 3.9 17.9011 4.18711 19.2478 4.74494C20.5945 5.30276 21.8182 6.12038 22.8489 7.15112C23.8796 8.18185 24.6972 9.4055 25.2551 10.7522C25.8129 12.0989 26.1 13.5423 26.1 15C26.1 16.4577 25.8129 17.9011 25.2551 19.2478C24.6972 20.5945 23.8796 21.8182 22.8489 22.8489C21.8182 23.8796 20.5945 24.6972 19.2478 25.2551C17.9011 25.8129 16.4577 26.1 15 26.1C13.5423 26.1 12.0989 25.8129 10.7522 25.2551C9.4055 24.6972 8.18184 23.8796 7.15111 22.8489C6.12038 21.8182 5.30276 20.5945 4.74494 19.2478C4.18711 17.9011 3.9 16.4577 3.9 15C3.9 13.5423 4.18711 12.0989 4.74494 10.7522C5.30277 9.40549 6.12039 8.18184 7.15112 7.15111C8.18185 6.12038 9.40551 5.30276 10.7522 4.74493C12.0989 4.18711 13.5423 3.9 15 3.9L15 3.9Z"
-            stroke="#C2CFE0" stroke-width="2.8" stroke-linecap="round" />
-          <line x1="13.9" y1="13.9" x2="13.9" y2="19.85" stroke="#C2CFE0" stroke-width="2.8" stroke-linecap="round" />
-          <circle cx="14.25" cy="9.25" r="1.75" fill="#C2CFE0" />
-        </svg>
-        <p class="pl-3 no-underline">Guidelines</p>
-      </a>
-      <a href="{% url 'scoring' %}"
-        class="rounded-full flex flex-nowrap w-60 pl-6 hover:border-0 hover:bg-gray-100 hover:no-underline"
-        style="cursor:pointer;padding-top:1vh;padding-bottom:1vh">
-        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M13 1.9C15.1954 1.9 17.3414 2.551 19.1668 3.77069C20.9922 4.99037 22.4149 6.72395 23.2551 8.75221C24.0952 10.7805 24.315 13.0123 23.8867 15.1655C23.4584 17.3187 22.4012 19.2965 20.8489 20.8489C19.2965 22.4012 17.3187 23.4584 15.1655 23.8867C13.0123 24.315 10.7805 24.0952 8.75221 23.2551C6.72395 22.4149 4.99037 20.9922 3.77069 19.1668C2.551 17.3414 1.9 15.1954 1.9 13"
-            stroke="#C2CFE0" stroke-width="2.8" stroke-linecap="round" />
-        </svg>
-        <p class="pl-4 no-underline">Point System</p>
-      </a>
+      <hr class="border bg-gray-800" />
+      {% if heading == 'Guidelines' %}
+        <a href="{% url 'guidelines' %}"
+          class="rounded-full flex flex-nowrap w-60 pl-6 bg-gray-200 mt-3"
+          style="cursor:pointer;padding-top:1vh;padding-bottom:1vh">
+          <img src="{% static 'icons/guidelines-active.png' %}" />
+      {% else %}
+        <a href="{% url 'guidelines' %}"
+          class="rounded-full flex flex-nowrap w-60 pl-6 hover:border-0 hover:bg-gray-100 hover:no-underline mt-3"
+          style="cursor:pointer;padding-top:1vh;padding-bottom:1vh">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M15 3.9C16.4577 3.9 17.9011 4.18711 19.2478 4.74494C20.5945 5.30276 21.8182 6.12038 22.8489 7.15112C23.8796 8.18185 24.6972 9.4055 25.2551 10.7522C25.8129 12.0989 26.1 13.5423 26.1 15C26.1 16.4577 25.8129 17.9011 25.2551 19.2478C24.6972 20.5945 23.8796 21.8182 22.8489 22.8489C21.8182 23.8796 20.5945 24.6972 19.2478 25.2551C17.9011 25.8129 16.4577 26.1 15 26.1C13.5423 26.1 12.0989 25.8129 10.7522 25.2551C9.4055 24.6972 8.18184 23.8796 7.15111 22.8489C6.12038 21.8182 5.30276 20.5945 4.74494 19.2478C4.18711 17.9011 3.9 16.4577 3.9 15C3.9 13.5423 4.18711 12.0989 4.74494 10.7522C5.30277 9.40549 6.12039 8.18184 7.15112 7.15111C8.18185 6.12038 9.40551 5.30276 10.7522 4.74493C12.0989 4.18711 13.5423 3.9 15 3.9L15 3.9Z"
+              stroke="#C2CFE0" stroke-width="2.8" stroke-linecap="round" />
+            <line x1="13.9" y1="13.9" x2="13.9" y2="19.85" stroke="#C2CFE0" stroke-width="2.8" stroke-linecap="round" />
+            <circle cx="14.25" cy="9.25" r="1.75" fill="#C2CFE0" />
+          </svg>
+          {% endif %}
+          <p class="pl-3 no-underline">Guidelines</p>
+        </a>
+        {% if heading == 'pointsystem' %}
+          <a href="{% url 'scoring' %}"
+            class="rounded-full flex flex-nowrap w-60 pl-6 bg-gray-200"
+            style="cursor:pointer;padding-top:1vh;padding-bottom:1vh">
+          <img src="{% static 'icons/pointsystem-active.png' %}" />
+      {% else %}
+        <a href="{% url 'scoring' %}"
+          class="rounded-full flex flex-nowrap w-60 pl-6 hover:border-0 hover:bg-gray-100 hover:no-underline"
+          style="cursor:pointer;padding-top:1vh;padding-bottom:1vh">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M13 1.9C15.1954 1.9 17.3414 2.551 19.1668 3.77069C20.9922 4.99037 22.4149 6.72395 23.2551 8.75221C24.0952 10.7805 24.315 13.0123 23.8867 15.1655C23.4584 17.3187 22.4012 19.2965 20.8489 20.8489C19.2965 22.4012 17.3187 23.4584 15.1655 23.8867C13.0123 24.315 10.7805 24.0952 8.75221 23.2551C6.72395 22.4149 4.99037 20.9922 3.77069 19.1668C2.551 17.3414 1.9 15.1954 1.9 13"
+              stroke="#C2CFE0" stroke-width="2.8" stroke-linecap="round" />
+          </svg>
+          {% endif %}
+          <p class="pl-4 no-underline">Point System</p>
+        </a>
+      {% if heading == 'Contact us' %}
       <a href="{% url 'contactus' %}"
-        class="rounded-full flex flex-nowrap w-60 pl-6 hover:border-0 hover:bg-gray-100 hover:no-underline"
+        class="rounded-full flex flex-nowrap w-60 pl-6 bg-gray-200"
         style="cursor:pointer;padding-top:1vh;padding-bottom:1vh">
-        {% if heading == 'Contact us' %}
         <img src="{% static 'icons/contactus-active.png' %}" />
         {% else %}
+        <a href="{% url 'contactus' %}"
+          class="rounded-full flex flex-nowrap w-60 pl-6 hover:border-0 hover:bg-gray-100 hover:no-underline"
+          style="cursor:pointer;padding-top:1vh;padding-bottom:1vh">
         <img src="{% static 'icons/contactus.png' %}" />
         {% endif %}
         <p class="pl-4 no-underline">Contact Us</p>
