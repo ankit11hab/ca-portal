@@ -124,6 +124,14 @@
         width: 96%;
         height: auto;
     }
+    .test + .tooltip > .tooltip-inner {
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+    }
 }
 </style>
 <div class="backdrop">
@@ -133,10 +141,17 @@
             <div class="py-3 pl-6 font-medium text-lg border-b-2">Share and Earn</div>
             <div class=" flex flex-col justify-center">
                 <div class=" text-lg text-center my-2">Refer your friend and you both earn</div>
-                <div class=" font-medium text-4xl text-center" style="font-size: 24px;">25 points!</div>
+                <!-- <div class=" font-medium text-4xl text-center" style="font-size: 24px;">Bonus points!</div>
+                 -->
+                 <div class="test font-medium text-3xl text-center" data-toggle="tooltip" 
+                title="IF REFERRAL IS USED FOR REG OF THE SAME COLLEGE,YOU GET 400 POINTS.         
+IF REFERRAL IS USED FOR REG OF THE OTHER COLLEGE,YOU GET 600 POINTS.
+YOUR FIREND GETS 300 POINTS.">
+                Bonus Points!
+                </div>
                 <div class=" flex flex-wrap justify-center mt-4 ml-4 mr-4">
                     <input type="url" class=" border-2 border-gray-400 text-gray-600 text-sm px-2 m-2"
-                        value="Visit ca-portal-link. Register using my referral code {{request.user.alcherid}} and get 50 points"id="tweetmsg" size="40" disabled>
+                        value="Visit ca-portal-link. Register using my referral code {{request.user.alcherid}} and get bonus points"id="tweetmsg" size="40" disabled>
                     <button onclick="copytweetmessage()"
                         class=" bg-blue-600 hover:bg-blue-700 active:bg-blue-700 text-white inline-block py-1 px-3 rounded shadow-sm font-semibold text-base m-2">
                         Copy this message
