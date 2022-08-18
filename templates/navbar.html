@@ -54,11 +54,11 @@
       </button>
       <div class="hidden bg-white  text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mb-1"
         style="min-width:12rem" id="dropup-id">
-        <a href="#"
+        <a href="{% url 'guidelines' %}"
           class="text-md-left py-3 px-6 font-normal block w-full whitespace-nowrap bg-white hover:text-blue text-blueGray-700">
           Guidelines
         </a>
-        <a href="#"
+        <a href="{% url 'scoring' %}"
           class="text-md-right py-3 px-6 font-normal block w-full whitespace-nowrap bg-white hover:text-blue text-blueGray-700">
           Point System
         </a>
@@ -88,7 +88,6 @@
     <div class="flex flex-col justify-center" style="margin:1.5vh 0;align-items: center;">
       <canvas id="myChart"
         style="display:block;box-sizing:border-box;width:160px;height:160px;padding:65px;margin-top:15px;align-items: center;"></canvas>
-
       <div id="profile-value" class="absolute">
         <img src="{{request.user.img.url}}" width="93px" alt="profile pic" border="0" class="mx-auto rounded-full">
       </div>
