@@ -53,7 +53,7 @@
         </svg>
       </button>
       <div class="hidden bg-white  text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mb-1"
-        style="min-width:12rem" id="dropup-id">
+        style="min-width:12rem; transform: translate(-20px, 30px);" id="dropup-id">
         <a href="#"
           class="text-md-left py-3 px-6 font-normal block w-full whitespace-nowrap bg-white hover:text-blue text-blueGray-700">
           Guidelines
@@ -250,6 +250,10 @@
               </defs>
             </svg></a>
         </div>
+        <div class=" flex justify-center space-x-4 m-4">
+          <a href = "https://www.youtube.com/c/AlcheringaIITG" target = "_blank"><img src="{% static 'icons/youtube-icon.png' %}" class="w-full rounded-md" style="width: 55px"></a>
+          <a href = "https://www.linkedin.com/company/alcheringaiitguwahati/mycompany/" target = "_blank"><img src="{% static 'icons/linkedin-icon.png' %}" class="w-full rounded-md" style="width: 48px"></a>
+        </div>
       </div>
     </div>
     <!-- <div>
@@ -305,19 +309,19 @@
       type: 'doughnut',
       data: {
         datasets: [{
-          data: [{{comp.0}}, {{comp.1}}],
-          backgroundColor: [
-            '{{ color_code }}',
-            'rgba(243, 246, 248, 1)'
-          ],
-          cutout: 102
-        }]
+          data: [{{ comp.0}}, {{ comp.1}}],
+      backgroundColor: [
+        '{{ color_code }}',
+        'rgba(243, 246, 248, 1)'
+      ],
+      cutout: 102
+    }]
       },
-      options: {
-        plugins: {
-          legend: false,
+    options: {
+      plugins: {
+        legend: false,
           tooltip: false,
         }
-      }
+    }
     });
   </script>

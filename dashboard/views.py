@@ -283,10 +283,9 @@ def verify_insta_share(request, url_id):
     user = post_url.user
     post = post_url.post
     response = redirect(post.link_instagram) 
-    if request.COOKIES['t493k01m82']:
-        messages.error(request,"Looks like you had already shared the post!")
-        return redirect('dashboard_page') 
-    response.set_cookie('t493k01m82', "t493k01m82", max_age = None, expires = None)
+    if f"{post_url.url_id}-insta" in request.COOKIES:
+        return response 
+    response.set_cookie(f"{post_url.url_id}-insta", "t493k01m84", max_age = None, expires = None)
     if post.is_instagram:
         user.points += 25
     user.save()
@@ -301,10 +300,9 @@ def verify_fb_share(request, url_id):
     post = post_url.post
     print(post)
     response = redirect(post.link_facebook) 
-    if request.COOKIES['t493k01m82']:
-        messages.error(request,"Looks like you had already shared the post!")
-        return redirect('dashboard_page') 
-    response.set_cookie('t493k01m82', "t493k01m82", max_age = None, expires = None)
+    if f"{post_url.url_id}-fb" in request.COOKIES:
+        return response
+    response.set_cookie(f"{post_url.url_id}-fb", "t493k01m82", max_age = None, expires = None)
     if post.is_facebook == True:
         print("points added")
         user.points += 25
