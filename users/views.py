@@ -37,9 +37,6 @@ def register_single_user(request):
                 if(request.POST.get('referred_by')):
                     user = NewUser.objects.get(
                         alcherid=request.POST.get('referred_by'))
-                    # result.referred_by_user=user
-                    # result.points = 25
-                    # result.save()
                     if(user.college_name==result.college_name):
                         user.referrals += 1
                         user.points += 400
@@ -48,7 +45,7 @@ def register_single_user(request):
                         user.points += 600
                     user.save()
                     result.points = 550
-                    result.save()  # who uses referral code gets 300 points
+                    result.save()
                 else:
                     result.save()
                 user = NewUser.objects.get(email=request.POST.get('email'))
@@ -345,6 +342,8 @@ def password_reset_request(request):
                 messages.error(request, ("Email not registered with us"))
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="users/password/password_reset.html", context={"password_reset_form": password_reset_form})
+
+
 @login_required
 def scoring(request):
     comp = []
@@ -374,7 +373,35 @@ def scoring(request):
     else:
         color_code= 'rgba(0, 201, 92, 1)'
     return render(request, 'dashboard/points_system.html', {'comp':comp, 'color_code':color_code,'heading':'pointsystem'})
+
+
 @login_required
 def guidelines(request):
-    return render(request, 'dashboard/guidelines.html')
+    comp = []
+    sum = 0
+    profile = Profile.objects.filter(user = request.user).first()
+    if request.user.instahandle:
+        sum+=1
+    if request.user.position_of_responsibility:
+        sum+=1
+    if request.user.interested_modules:
+        sum+=1
+    if profile.fb_handle:
+        sum+=1
+    if sum==0:
+        comp = [60, 40]
+    elif sum==1:
+        comp = [70, 30]
+    elif sum==2:
+        comp = [80, 20]
+    elif sum==3:
+        comp = [90, 10]
+    else:
+        comp = [100,0]
+    
+    if sum<4:
+        color_code = '#E86B73'
+    else:
+        color_code= 'rgba(0, 201, 92, 1)'
+    return render(request, 'dashboard/guidelines.html', {'comp':comp, 'color_code':color_code})
 
