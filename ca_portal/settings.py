@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'mathfilters',
     'ca_portal',
+    'social_django',
     'dashboard.apps.DashboardConfig',
     'users.apps.UsersConfig',
     'submissions.apps.SubmissionsConfig',

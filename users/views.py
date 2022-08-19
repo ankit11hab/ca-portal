@@ -382,7 +382,7 @@ def scoring(request):
         color_code = '#E86B73'
     else:
         color_code= 'rgba(0, 201, 92, 1)'
-    return render(request, 'dashboard/points_system.html', {'notification_list': notification_list, 'isread': isread,'comp':comp, 'color_code':color_code})
+    return render(request, 'dashboard/points_system.html', {'notification_list': notification_list, 'isread': isread,'comp':comp, 'color_code':color_code,'heading':'Point System'})
 
 
 @login_required
