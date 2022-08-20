@@ -105,7 +105,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         super().save()
         for post in dashboard.models.ShareablePost.objects.all():
             dashboard.models.PostUrl(user = self, post = post, url_id = uuid.uuid4()).save()
-        img = Image.open(self.img.path)
+        img = Image.open(self.img)
         width, height = img.size  # Get dimensions
 
         if width > 300 and height > 300:
