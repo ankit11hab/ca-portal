@@ -8,15 +8,21 @@ from PIL import Image
 import random
 import string
 import dashboard.models
+import time
 
-def create_new_ref_number():
-    ran = ''.join(random.choices(string.ascii_letters + string.digits, k = 4))    
-    alcherid = "ALC-"+str(random.randint(1000, 9999))+"-"+ran
-    alc=NewUser.objects.filter(alcherid=alcherid)
-    if alc:
-        create_new_ref_number()
-    else:
-        return alcherid
+# def create_new_ref_number():
+    # ran = ''.join(random.choices(string.ascii_letters + string.digits, k = 4))    
+    # alcherid = "ALC-"+str(random.randint(1000, 9999))+"-"+ran
+    # alcherid = "ALC-"+str(time.time())
+    # alc=BlacklistedAlcherIDs.objects.filter(alcherid=alcherid)
+    # if alc:
+        # create_new_ref_number()
+    # else:
+        # BlacklistedAlcherIDs(alcherid = alcherid).save()
+    # return alcherid
+
+
+
 
 class CustomAccountManager(BaseUserManager):
     def create_superuser(self, email, firstname, password, **other_fields):
@@ -50,7 +56,7 @@ class CustomAccountManager(BaseUserManager):
 class NewUser(AbstractBaseUser, PermissionsMixin):
     id = models.SlugField(primary_key=True, default=uuid.uuid4)
     alcherid = models.CharField(
-        max_length=9, blank=True, unique=True, default=create_new_ref_number)
+        max_length=9, blank=True, unique=True, default="ALC-"+str(time.time()))
 
     img = models.ImageField(
         upload_to="image-uploads/", default='image-uploads/user.png')

@@ -10,10 +10,10 @@ class UserAdminConfig(UserAdmin):
     model = NewUser
     search_fields = ('email', 'username', 'firstname',)
     list_filter = ('email', 'username', 'firstname',
-                   'is_active', 'is_staff', 'id','points','tasks')
+                   'is_active', 'is_staff', 'id','points','tasks', 'alcherid')
     ordering = ('-date_joined',)
     list_display = ('email', 'username', 'firstname',
-                    'is_active', 'is_staff', 'id', 'alcherid')
+                    'is_active', 'is_staff', 'id')
     fieldsets = (
         (None, {'fields': ('email', 'username', 'firstname', 'id', 'alcherid','points')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
