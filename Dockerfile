@@ -4,7 +4,8 @@ RUN apt-get update \
     # dependencies for building Python packages
     && apt-get install -y build-essential \
     # psycopg2 dependencies
-    && apt-get install -y libpq-dev \
+    && apt-get install -y libpq-dev=14.0.1 \
+    
     # Translations dependencies
     && apt-get install -y gettext \
     && apt-get install -y git \
