@@ -56,7 +56,7 @@ class CustomAccountManager(BaseUserManager):
 class NewUser(AbstractBaseUser, PermissionsMixin):
     id = models.SlugField(primary_key=True, default=uuid.uuid4)
     alcherid = models.CharField(
-        max_length=9, blank=True, unique=True, default="ALC-"+str(time.time()))
+        max_length=100, blank=True, unique=True, default="ALC-"+str(time.time()))
 
     img = models.ImageField(
         upload_to="image-uploads/", default='image-uploads/user.png')
