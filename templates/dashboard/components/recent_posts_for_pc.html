@@ -17,7 +17,7 @@
 
             <div class=" my-2 px-4 flex justify-center space-x-4">
                 {% if post.is_facebook %}
-                <div class=" inline-block bg-gray-200 rounded shadow p-4"
+                <div class=" inline-block bg-gray-200 rounded shadow p-4 ml-1"
                     onclick='fbshare("{{ post.link_facebook}}","{{post.id}}")'>
                     <svg width="44" height="45" viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -37,6 +37,8 @@
                     </div>
                 </a>
                 {% endif %}
+                <div class="timer" style="   ">
+                    {% include 'dashboard/components/timer.html' %}</div>
             </div>
             <center>
                 <div class=" py-1 px-4 font-medium text-gray-600">SHARE</div>
@@ -56,10 +58,8 @@
                         style="border: 1px solid grey; padding: 4px 9px 4px 9px; width: 70%" disabled>
                 </div>
                 {% endif %}
-                        <div class="timer" style=" transform: scale(.5); width: 10%; margin-right: 60px; ">
-                        {% include 'dashboard/components/timer.html' %}</div>
 
-                
+
             </div>
             <center>
                 <div class=" py-2 px-4 font-medium text-gray-600">LIKE</div>
@@ -69,8 +69,8 @@
                         value='Verify your Instagram Like'></form>
             </center>
             <center>
-                <input type="submit" class="px-4 font-medium" style="color:grey"
-                        value='Verify your Facebook Like' disabled>
+                <input type="submit" class="px-4 font-medium" style="color:grey" value='Verify your Facebook Like'
+                    disabled>
             </center>
             <center>
                 <div class=" py-3 px-4 font-medium text-gray-600">DEADLINE- {{ post.last_date }}</div>

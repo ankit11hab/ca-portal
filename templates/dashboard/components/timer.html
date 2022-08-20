@@ -8,11 +8,11 @@
     <style>
         /*Timer visuell */
         .circle-timer {
-            width: 200px;
-            height: 200px;
+            width: 90px;
+            height: 90px;
             position: relative;
             box-shadow: inset 0px 0px 14px rgb(236, 183, 178);
-            border-radius: 180px;
+            border-radius: 90px;
             display: inline-block;
         }
 
@@ -71,16 +71,16 @@
 
         .timer-l,
         .timer-r {
-            border-radius: 150px;
-            position: absolute;
+            border-radius: 75px;
+            position: relative;
             top: 50%;
             left: 50%;
             z-index: 15;
             border: 8px solid #FF4231;
             width: 198.6px;
             height: 198.6px;
-            margin-left: -100px;
-            margin-top: -100px;
+            margin-left: -50px;
+            margin-top: -50px;
             border-left-color: transparent;
             border-top-color: transparent;
 
@@ -100,7 +100,7 @@
 
 
         .timer-slot {
-            position: absolute;
+            position: relative;
             width: 50%;
             height: 100%;
             top: 0;
@@ -111,15 +111,15 @@
         .pie-timer {
             height: 0;
             width: 0;
-            margin: -100px 0 0 -100px;
-            border-width: 100px;
+            margin: -50px 0 0 -50px;
+            border-width: 50px;
             animation-duration: 4s;
         }
 
 
         /*Timer Uhr*/
         #timer_numbers {
-            position: absolute;
+            position: relative;
             left: 55px;
             top: 80px;
             font-size: 20px;
@@ -132,16 +132,17 @@
 <body>
 
 
-
-    <canvas class="circle-timer" id="canvas" height="200" width="200" style="transform:rotateZ(-90deg) ;">
-        <div class="timer-r" style="z-index:-1 ;"></div>
-        <div class="timer-slot">
-            <div class="timer-l" style="z-index:-1;"></div>
-        </div>
-        </div>
-        <div id="timer_numbers" style="transform: translateY(-11.5px) translateX(150px) translateZ(10px) scale(.5); ">
-        </div>
-    </canvas>
+    <div style = "position: relative;">
+        <canvas class="circle-timer" id="canvas-{{ post.id }}" height="200" width="200" style="transform:rotateZ(-90deg) ;">
+            <div class="timer-r" style="z-index:-1 ;"></div>
+            <div class="timer-slot">
+                <div class="timer-l" style="z-index:-1;"></div>
+            </div>
+            <div id="timer_numbers-{{ post.id }}"
+                style="transform: translateY(-11.5px) translateX(150px) translateZ(10px) scale(.5); z-index: 1000; ">
+            </div>
+        </canvas>
+    </div>
 
 
 </body>
@@ -150,7 +151,7 @@
 
 
 
-    var target_date = "{{post_list.0.lastDate}}"
+    var target_date = "{{post.lastDate}}"
     // var target_date = new Date(target_date_raw)
 
 
@@ -158,11 +159,11 @@
     // Länge Countdown in Sekunden
     var minutes, seconds; // Variablen für die Zeiteinheiten
 
-    var countdown = document.getElementById("timer_numbers"); // DIV mit id= timer finden
+    var countdown = document.getElementById("timer_numbers-{{ post.id }}"); // DIV mit id= timer finden
     var current_date1 = new Date().getTime();
     var target_seconds1 = target_date * 1000;
     var seconds_left1 = (target_seconds1 - current_date1) / 1000;
-    const canvas = document.querySelector('#canvas');
+    const canvas = document.querySelector('#canvas-{{ post.id }}');
 
 
     // timerl1.style.animationDuration = `${seconds_left1}s`;
