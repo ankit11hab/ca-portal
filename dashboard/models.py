@@ -5,6 +5,7 @@ import uuid
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from datetime import datetime
 # Create your models here.
 
 
@@ -20,6 +21,12 @@ class ShareablePost(models.Model):
     created_on = models.DateTimeField(default=timezone.now)
     last_date = models.DateTimeField(default=timezone.now)
     likedusers = models.TextField(default = '', null=True,blank=True)
+
+
+    @property
+    def lastDate(self):
+     if self.last_date:
+        return (self.last_date.replace(tzinfo=None)-datetime(1970,1,1)).total_seconds()
 
     def __str__(self):
         return str(self.id)
