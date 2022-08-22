@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Getting Started with Chart JS with www.chartjs3.com</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      .chartMenu {
+        width: 100vw;
+        height: 40px;
+        background: #1A1A1A;
+        color: rgba(255, 26, 104, 1);
+      }
+      .chartMenu p {
+        padding: 10px;
+        font-size: 20px;
+      }
+      .chartCard {
+        width: 200px;
+        /* margin: 20px; */
+        height: (104px);
+        /* background: rgba(255, 26, 104, 0.2); */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .chartBox {
+        width:200px;
+        padding: 20px;
+        border-radius: 20px;
+        /* border: solid 3px rgba(255, 26, 104, 1); */
+        background: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chartCard">
+      <div class="chartBox">
+        <canvas class="myChart1{{post.id}}"></canvas>
+      </div>
+      <!-- <button id="stop">Stop</button> -->
+    </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // for (post in post_list){}
+        
+      const canvas = document.querySelector('#canvas');
+      console.log("{{post.id}}")
+      // let time = 120;
+      let timeLeft =0;
+      id = '{{post.id}}';
+      let hours,minutes,seconds;
+      target_date="{{ post.getLastdate }}"
+      var current_date1 = new Date().getTime();
+      var target_seconds1= target_date*1000;
+      var time = (target_seconds1 - current_date1) / 1000;
+
+    // setup 
+    const data = {
+      labels: ['Timer', 'White Space',],
+      datasets: [{
+        label: 'Post Timer',
+        data: [time, 0],
+        backgroundColor: [
+          'rgba(255, 26, 104, 1)',
+          'rgba(255, 26, 104, 0.1)',
+        ],
+        borderColor: [
+        'rgba(255, 26, 104, 1)',
+        'rgba(255, 26, 104, 0.0)',
+        ],
+        cutout: '90%'
+      }]
+    };
+
+    // postTimer block
+    const postTimer = {
+      beforeDraw(chart, args, options) {
+        id:'postTimer'
+        const { ctx , chartArea: {width, height} } = chart;
+        ctx.save();
+        if(hours===undefined && minutes===undefined){
+            hours = Math.floor(time/3600);
+            if(hours<10){
+              hours = '0' + hours;
+            }
+            minutes = Math.floor(time/ 60%60);
+            if(minutes<10){
+              minutes = '0' + minutes;
+            }
+            seconds ='00';
+          }
+          console.log(`${hours}:${minutes}`)
+
+        if(time>=0){
+          ctx.font = 'bolder 25px Arial';
+          ctx.fillStyle = 'red';
+          ctx.textAlign = 'center';
+            ctx.fillText(`${hours}:${minutes}`,width/2, height/2+8);
+        }
+        
+        if(time<0){
+          ctx.font = 'bolder 25px Arial';
+          ctx.fillStyle = 'red';
+          ctx.textAlign = 'center';
+          ctx.fillText('00:00',width/2, height/2);
+          
+        }
+        ctx.restore();
+      }
+    }
+
+    // config 
+    const config = {
+      type: 'doughnut',
+      data,
+      options: {
+        plugins:{
+          legend: {
+            display: false
+          },
+          tooltip: {
+            enabled: false
+          }
+        }
+      },
+      plugins: [postTimer],
+    };
+
+    // render init block
+    // const name1 = `myChart${post.id}`
+    const myChart1 = new Chart(
+      document.getElementsByClassName('myChart1{{post.id}}'),
+      config
+    );
+
+    function updateCountdown(){
+      console.log("{{post.id}}")
+        hours = Math.floor(time/3600);
+        minutes = Math.floor(time/ 60%60);
+        seconds =(time%60);
+        hours = hours <10 ? '0'+ hours : hours;
+        seconds = seconds <10 ? '0'+ seconds : seconds;
+        minutes = minutes <10 ? '0'+ minutes : minutes;
+        time--;
+        timeLeft++;
+        
+        //update chart
+        myChart1.config.data.datasets[0].data[0]= time;
+        myChart1.config.data.datasets[0].data[1]= timeLeft;
+        myChart1.update();
+
+        //stop loop 
+        if(time<0){
+          clearInterval(clear);
+          // clearTimeout(clear);
+        }
+      }
+      clear = setInterval(updateCountdown,1000);
+
+    
+      </script>
+
+  </body>
+</html>

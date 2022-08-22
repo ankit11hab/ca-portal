@@ -3,6 +3,8 @@
 from django.db import models
 import uuid
 from django.utils import timezone
+from datetime import datetime
+
 # Create your models here.
 
 
@@ -19,9 +21,13 @@ class ShareablePost(models.Model):
     last_date = models.DateTimeField(default=timezone.now)
     likedusers = models.TextField(default = '', null=True,blank=True)
 
+    @property
+    def getLastdate(self):
+     if self.last_date:
+        return (self.last_date.replace(tzinfo=None)-datetime(1970,1,1)).total_seconds()
+
     def __str__(self):
         return str(self.id)
-
 
 class Promotions(models.Model):
     id = models.SlugField(primary_key=True, default=uuid.uuid4)

@@ -45,6 +45,9 @@
                             {% endif %}
                         </div>
                         <center>
+                            <div class="timer" style=" transform: scale(.5); width: 30%; ">
+                                {% include "dashboard/components/timer.html" %}
+                            </div>
                             <form action='checkLike' method='GET'><input type="submit" class="px-4 font-medium"
                                     name="{{post.id}}" value='Verify your Like'></form>
                         </center>
