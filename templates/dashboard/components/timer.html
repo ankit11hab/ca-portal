@@ -1,157 +1,92 @@
-<html lang="en">
+<style>
+    /*Timer visuell */
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        /*Timer visuell */
-        .circle-timer {
-            width: 90px;
-            height: 90px;
-            position: relative;
-            box-shadow: inset 0px 0px 14px rgb(236, 183, 178);
-            border-radius: 90px;
-            display: inline-block;
-        }
 
-        @keyframes timer-spin2 {
-            0% {
-                transform: scale(0.6) rotate(0deg);
-            }
+ 
 
-            100% {
-                transform: scale(1.0) rotate(360deg);
-            }
-        }
+    .timer-l,
+    .timer-r {
+        border-radius: 150px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 15;
+        border: 8px solid #FF4231;
+        width: 198.6px;
+        height: 198.6px;
+        margin-left: -100px;
+        margin-top: -100px;
+        border-left-color: transparent;
+        border-top-color: transparent;
 
-        @keyframes timer-slide {
-            0% {
-                transform: rotate(-225deg);
-            }
+        animation-iteration-count: infinite;
+        animation-direction: reverse;
+        animation-name: timer-toggle;
+        animation-timing-function: linear;
+    }
 
-            50% {
-                transform: rotate(-45deg);
-            }
-
-            100% {
-                transform: rotate(-45deg);
-            }
-        }
-
-        @keyframes timer-toggle {
-            0% {
-                opacity: 0;
-            }
-
-            50% {
-                opacity: 0;
-            }
-
-            51% {
-                transform: rotate(-45deg);
-                opacity: 1;
-            }
-
-            75% {
-                border-top-color: transparent;
-            }
-
-            76% {
-                border-top-color: #FF4231;
-            }
-
-            100% {
-                transform: rotate(137deg);
-                opacity: 1;
-                border-top-color: #FF4231;
-            }
-        }
-
-        .timer-l,
-        .timer-r {
-            border-radius: 75px;
-            position: relative;
-            top: 50%;
-            left: 50%;
-            z-index: 15;
-            border: 8px solid #FF4231;
-            width: 198.6px;
-            height: 198.6px;
-            margin-left: -50px;
-            margin-top: -50px;
-            border-left-color: transparent;
-            border-top-color: transparent;
-
-            animation-iteration-count: infinite;
-            animation-direction: reverse;
-            animation-name: timer-toggle;
-            animation-timing-function: linear;
-        }
-
-        .timer-l {
-            animation-name: timer-slide;
-            animation-timing-function: linear;
-            z-index: 15;
-            left: 0;
-        }
+    .timer-l {
+        animation-name: timer-slide;
+        animation-timing-function: linear;
+        z-index: 15;
+        left: 0;
+    }
 
 
 
-        .timer-slot {
-            position: relative;
-            width: 50%;
-            height: 100%;
-            top: 0;
-            left: 50%;
-            overflow: hidden;
-        }
+    .timer-slot {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        top: 0;
+        left: 50%;
+        overflow: hidden;
+    }
 
-        .pie-timer {
-            height: 0;
-            width: 0;
-            margin: -50px 0 0 -50px;
-            border-width: 50px;
-            animation-duration: 4s;
-        }
-
-
-        /*Timer Uhr*/
-        #timer_numbers {
-            position: relative;
-            left: 55px;
-            top: 80px;
-            font-size: 20px;
-            color: black;
-
-        }
-    </style>
-</head>
-
-<body>
+    .pie-timer {
+        height: 0;
+        width: 0;
+        margin: -100px 0 0 -100px;
+        border-width: 100px;
+        animation-duration: 4s;
+    }
 
 
-    <div style = "position: relative;">
-        <canvas class="circle-timer" id="canvas-{{ post.id }}" height="200" width="200" style="transform:rotateZ(-90deg) ;">
-            <div class="timer-r" style="z-index:-1 ;"></div>
-            <div class="timer-slot">
-                <div class="timer-l" style="z-index:-1;"></div>
-            </div>
-            <div id="timer_numbers-{{ post.id }}"
-                style="transform: translateY(-11.5px) translateX(150px) translateZ(10px) scale(.5); z-index: 1000; ">
-            </div>
-        </canvas>
+ 
+</style>
+
+
+
+
+<canvas id="circle-timer{{post.id}}" height="200" width="200" style="transform:rotateZ(-90deg) ; width: 200px;
+        height: 200px;
+        position: relative;
+        box-shadow: inset 0px 0px 14px rgb(236, 183, 178);
+        border-radius: 180px;
+        display: inline-block;">
+    <div class="timer-r" style="z-index:-1 ;"></div>
+    <div class="timer-slot">
+        <div class="timer-l" style="z-index:-1;"></div>
     </div>
+    </div>
+    <div id="timer_numbers{{post.id}}"
+        style="transform: translateY(-11.5px) translateX(150px) translateZ(10px) scale(.5); position: absolute;
+        left: 55px;
+        top: 80px;
+        font-size: 20px;
+        color: black; "></div>
+</canvas>
 
 
-</body>
+
 
 <script>
+   var target_date = "{{post.getLastdate}}"
+
+console.log("{{post.id}}")
+    
 
 
-
-    var target_date = "{{post.lastDate}}"
     // var target_date = new Date(target_date_raw)
 
 
@@ -159,29 +94,28 @@
     // Länge Countdown in Sekunden
     var minutes, seconds; // Variablen für die Zeiteinheiten
 
-    var countdown = document.getElementById("timer_numbers-{{ post.id }}"); // DIV mit id= timer finden
-    var current_date1 = new Date().getTime();
-    var target_seconds1 = target_date * 1000;
-    var seconds_left1 = (target_seconds1 - current_date1) / 1000;
-    const canvas = document.querySelector('#canvas-{{ post.id }}');
+    var countdown = document.getElementById("timer_numbers{{post.id}}"); // DIV mit id= timer finden
 
 
-    // timerl1.style.animationDuration = `${seconds_left1}s`;
-    // timerr1.style.animationDuration = `${seconds_left1}s`;
-    // timerl1.style.animationDuration = `5s`;
-    // timerr1.style.animationDuration = `5s`;
-    // console.log(timerl1)
-    getCountdown();
+     canvas = document.getElementById('circle-timer{{post.id}}');
 
 
-    setInterval(function () { getCountdown(); }, 1000);
+    
+       getCountdown();
+
+
+
+
+    setInterval(function () {
+        getCountdown();
+    }, 1000);
 
     function getCountdown() {
         var current_date = new Date().getTime();
 
         var target_seconds = target_date * 1000;
         var seconds_left = (target_seconds - current_date) / 1000;
-
+        console.log("{{post.id}}")
         var seconds_left_raw12 = seconds_left;
         // var seconds_left_raw24=seconds_left%216000;
         // var seconds_left_raw48=seconds_left%129600;
@@ -212,14 +146,15 @@
             document.querySelector(timer - l).setAttribute(display, none)
         }
         if (hours >= 0) {
-            countdown.innerHTML = "<span>" + result_hrs12 + "</span><span>" + ":" + "</span><span>" + result_min12 + "</span>";
+            countdown.innerHTML = "<span>" + result_hrs12 + "</span><span>" + ":" + "</span><span>" + result_min12 +
+                "</span>";
             if (canvas.getContext) {
                 const ctx = canvas.getContext('2d');
-                if (hours >= 8) { ctx.strokeStyle = 'green'; }
-                else if (hours >= 4) {
+                if (hours >= 8) {
+                    ctx.strokeStyle = 'green';
+                } else if (hours >= 4) {
                     ctx.strokeStyle = '#FFBF00';
-                }
-                else if (hours >= 0) {
+                } else if (hours >= 0) {
                     ctx.strokeStyle = 'red';
                 }
 
@@ -276,23 +211,7 @@
 
 
 
-
-
     function pad(sec) {
         return (sec < 10 ? '0' : '') + sec;
     }
-
-
-
-
-
-
-
-
-
-
-
 </script>
-
-
-</html>
