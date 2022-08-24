@@ -10,16 +10,18 @@ import string
 import dashboard.models
 import time
 
-# def create_new_ref_number():
-    # ran = ''.join(random.choices(string.ascii_letters + string.digits, k = 4))    
-    # alcherid = "ALC-"+str(random.randint(1000, 9999))+"-"+ran
+def create_new_ref_number():
+    ran = ''.join(random.choices(string.ascii_letters + string.digits, k = 4))    
+    alcherid = "ALC-"+str(random.randint(1000, 9999))+"-"+ran
     # alcherid = "ALC-"+str(time.time())
+    if(NewUser.objects.filter(alcherid=alcherid)):
+        return create_new_ref_number()
     # alc=BlacklistedAlcherIDs.objects.filter(alcherid=alcherid)
     # if alc:
         # create_new_ref_number()
     # else:
         # BlacklistedAlcherIDs(alcherid = alcherid).save()
-    # return alcherid
+    return alcherid
 
 
 
@@ -56,7 +58,7 @@ class CustomAccountManager(BaseUserManager):
 class NewUser(AbstractBaseUser, PermissionsMixin):
     id = models.SlugField(primary_key=True, default=uuid.uuid4)
     alcherid = models.CharField(
-        max_length=9, blank=True, unique=True, default="ALC-"+str(time.time()))
+        max_length=9, blank=True, unique=True, default=create_new_ref_number)
 
     img = models.ImageField(
         upload_to="image-uploads/", default='image-uploads/user.png')
@@ -105,7 +107,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         super().save()
         for post in dashboard.models.ShareablePost.objects.all():
             dashboard.models.PostUrl(user = self, post = post, url_id = uuid.uuid4()).save()
-        img = Image.open(self.img.path)
+        img = Image.open(self.img)
         width, height = img.size  # Get dimensions
 
         if width > 300 and height > 300:
@@ -132,7 +134,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         if width > 300 and height > 300:
             img.thumbnail((300, 300))
 
-        img.save(self.img.path)
+        img.save(self.img)
         
 class Profile(models.Model):
     user = models.OneToOneField(NewUser,on_delete=models.CASCADE)

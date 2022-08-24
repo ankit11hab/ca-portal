@@ -66,11 +66,11 @@ def dashboard(request):
         top_solousers = NewUser.objects.all().order_by('-points')[:10]
         top_solousers1 = NewUser.objects.all().order_by('-points')
         
-        rank=1
-        while rank:
+        rank=0
+        while 1:
             if request.user == top_solousers1[rank]:
+                rank=rank+1
                 break
-            rank=rank+1
 
         groupUsers=sorted(UserGroup.objects.all(), key=lambda t: t.getPoints,reverse=True)[:5]
         isread=True
