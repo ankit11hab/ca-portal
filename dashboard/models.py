@@ -39,7 +39,7 @@ class ShareablePost(models.Model):
 class PostUrl(models.Model):
     post = models.ForeignKey(ShareablePost, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    url_id = models.CharField(max_length=30, blank=True)
+    url_id = models.CharField(max_length=120, blank=True)
 
     def __str__(self):
         return f"{self.post.id} - {self.user.firstname}"
