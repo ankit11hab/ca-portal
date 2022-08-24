@@ -66,11 +66,10 @@ def dashboard(request):
         top_solousers = NewUser.objects.all().order_by('-points')[:10]
         top_solousers1 = NewUser.objects.all().order_by('-points')
         
-        rank=0
-        while 1:
-            if request.user == top_solousers1[rank]:
-                rank=rank+1
-                break
+        rank=1
+        # while request.user.alcherid == top_solousers1[rank].alcherid:
+        #     rank+=1
+               
 
         groupUsers=sorted(UserGroup.objects.all(), key=lambda t: t.getPoints,reverse=True)[:5]
         isread=True
@@ -239,7 +238,8 @@ def leaderboard(request):
             break
     users = NewUser.objects.all().order_by('-points')[:10]
     teamPoints=[]
-    teamPoints.append(UserGroup.objects.first().getPoints)
+    if UserGroup.objects.first():
+        teamPoints.append(UserGroup.objects.first().getPoints)
     
     groupUsers=sorted(UserGroup.objects.all(), key=lambda t: t.getPoints,reverse=True)[:5]
     paginator1 = Paginator(users,5)
