@@ -81,7 +81,7 @@
 
 
 <script>
-   var target_date = "{{post.getLastdate}}"
+   var target_date_{{forloop.counter}} = "{{post.getLastdate}}"
 
 console.log("{{post.id}}")
     
@@ -92,78 +92,78 @@ console.log("{{post.id}}")
 
 
     // Länge Countdown in Sekunden
-    var minutes, seconds; // Variablen für die Zeiteinheiten
-
-    var countdown = document.getElementById("timer_numbers{{post.id}}"); // DIV mit id= timer finden
-
-
-     canvas = document.getElementById('circle-timer{{post.id}}');
-
+    var minutes_{{forloop.counter}}, seconds_{{forloop.counter}}; // Variablen für die Zeiteinheiten
+ 
+     
+    var countdown_{{forloop.counter}} = document.getElementById("timer_numbers{{post.id}}"); // DIV mit id= timer finden
+     var canvas_{{forloop.counter}} = document.getElementById('circle-timer{{post.id}}');
+   
 
     
-       getCountdown();
+       getCountdown_{{forloop.counter}}();
 
 
 
 
     setInterval(function () {
-        getCountdown();
+        console.log({{forloop.counter}})
+        console.log(countdown_{{forloop.counter}})
+        getCountdown_{{forloop.counter}}();
     }, 1000);
 
-    function getCountdown() {
-        var current_date = new Date().getTime();
+    function getCountdown_{{forloop.counter}}() {
+        var current_date_{{forloop.counter}} = new Date().getTime();
 
-        var target_seconds = target_date * 1000;
-        var seconds_left = (target_seconds - current_date) / 1000;
+        var target_seconds_{{forloop.counter}} = target_date_{{forloop.counter}} * 1000;
+        var seconds_left_{{forloop.counter}} = (target_seconds_{{forloop.counter}} - current_date_{{forloop.counter}}) / 1000;
         console.log("{{post.id}}")
-        var seconds_left_raw12 = seconds_left;
+        var seconds_left_raw12_{{forloop.counter}}= seconds_left_{{forloop.counter}};
         // var seconds_left_raw24=seconds_left%216000;
         // var seconds_left_raw48=seconds_left%129600;
-        minutes12 = pad(parseInt(seconds_left / 60 % 60));
+        minutes12_{{forloop.counter}} = pad(parseInt(seconds_left_{{forloop.counter}} / 60 % 60));
         // minutes24 = pad(parseInt(seconds_left / 60%60));
         // minutes48 = pad(parseInt(seconds_left / 60%60));
-        hours12 = pad(parseInt(seconds_left / 3600));
-        minutes = pad(parseInt(seconds_left / 60 % 60));
-        hours = pad(parseInt(seconds_left / 3600));
+        hours12_{{forloop.counter}} = pad(parseInt(seconds_left_{{forloop.counter}} / 3600));
+        minutes_{{forloop.counter}} = pad(parseInt(seconds_left_{{forloop.counter}} / 60 % 60));
+        hours_{{forloop.counter}}= pad(parseInt(seconds_left_{{forloop.counter}} / 3600));
         // hours24= pad(parseInt(seconds_left / 3600%48));
         // hours48= pad(parseInt(seconds_left / 3600));
-        seconds_left = seconds_left % 60;
-        seconds = pad(parseInt(seconds_left % 60));
-        seconds_left = seconds_left % 60;
-        var result_min12 = minutes12.fontsize(7)
-        var result_hrs12 = hours12.fontsize(7)
-        var result_min = minutes.fontsize(7)
-        var result_hrs = hours.fontsize(7)
+        seconds_left_{{forloop.counter}} = seconds_left_{{forloop.counter}} % 60;
+        seconds_{{forloop.counter}} = pad(parseInt(seconds_left_{{forloop.counter}} % 60));
+        seconds_left_{{forloop.counter}} = seconds_left_{{forloop.counter}} % 60;
+        var result_min12_{{forloop.counter}} = minutes12_{{forloop.counter}}.fontsize(7)
+        var result_hrs12_{{forloop.counter}} = hours12_{{forloop.counter}}.fontsize(7)
+        var result_min_{{forloop.counter}} = minutes_{{forloop.counter}}.fontsize(7)
+        var result_hrs_{{forloop.counter}} = hours_{{forloop.counter}}.fontsize(7)
         // var result_min24 = minutes24.fontsize(7)
         // var result_hrs24 = hours24.fontsize(7)
         // var result_min48 = minutes48.fontsize(7)
         // var result_hrs48 = hours48.fontsize(7)
 
-        if (current_date >= target_seconds) {
+        if (current_date_{{forloop.counter}} >= target_seconds_{{forloop.counter}}) {
             document.querySelector(circle - timer).setAttribute(display, none)
             document.querySelector(timer - slot).setAttribute(display, none)
             document.querySelector(timer - r).setAttribute(display, none)
             document.querySelector(timer - l).setAttribute(display, none)
         }
-        if (hours >= 0) {
-            countdown.innerHTML = "<span>" + result_hrs12 + "</span><span>" + ":" + "</span><span>" + result_min12 +
+        if (hours_{{forloop.counter}} >= 0) {
+            countdown_{{forloop.counter}}.innerHTML = "<span>" + result_hrs12_{{forloop.counter}} + "</span><span>" + ":" + "</span><span>" + result_min12_{{forloop.counter}} +
                 "</span>";
-            if (canvas.getContext) {
-                const ctx = canvas.getContext('2d');
-                if (hours >= 8) {
-                    ctx.strokeStyle = 'green';
-                } else if (hours >= 4) {
-                    ctx.strokeStyle = '#FFBF00';
-                } else if (hours >= 0) {
-                    ctx.strokeStyle = 'red';
+            if (canvas_{{forloop.counter}}.getContext) {
+                const ctx_{{forloop.counter}} = canvas_{{forloop.counter}}.getContext('2d');
+                if (hours_{{forloop.counter}} >= 8) {
+                    ctx_{{forloop.counter}}.strokeStyle = 'green';
+                } else if (hours_{{forloop.counter}} >= 4) {
+                    ctx_{{forloop.counter}}.strokeStyle = '#FFBF00';
+                } else if (hours_{{forloop.counter}} >= 0) {
+                    ctx_{{forloop.counter}}.strokeStyle = 'red';
                 }
 
 
-                ctx.lineWidth = 15;
-                ctx.beginPath();
-                ctx.arc(canvas.width / 2, canvas.height / 2, 100, 0, -(43200 - seconds_left_raw12) / 21600 * Math.PI);
-                console.log(seconds_left_raw12)
-                ctx.stroke();
+                ctx_{{forloop.counter}}.lineWidth = 15;
+                ctx_{{forloop.counter}}.beginPath();
+                ctx_{{forloop.counter}}.arc(canvas_{{forloop.counter}}.width / 2, canvas_{{forloop.counter}}.height / 2, 100, 0, -(43200 - seconds_left_raw12_{{forloop.counter}}) / 21600 * Math.PI);
+                ctx_{{forloop.counter}}.stroke();
 
             }
         }
