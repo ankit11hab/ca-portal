@@ -69,21 +69,30 @@
         <div class="timer-l" style="z-index:-1;"></div>
     </div>
     </div>
+    {% if post.is_instagram and post.is_facebook %}
     <div id="timer_numbers{{post.id}}"
-        style="transform: translateY(-11.5px) translateX(150px) translateZ(10px) scale(.5); position: absolute;
+        style="transform: translateY(-13px) translateX(150px) translateZ(10px) scale(.5); position: absolute;
         left: 55px;
         top: 80px;
         font-size: 20px;
         color: black; "></div>
+    {% else %}
+    <div id="timer_numbers{{post.id}}"
+        style="transform: translateY(-13px) translateX(99px) translateZ(10px) scale(.5); position: absolute;
+        left: 55px;
+        top: 80px;
+        font-size: 20px;
+        color: black; "></div>
+    {% endif %}
 </canvas>
 
 
 
 
 <script>
-   var target_date_{{forloop.counter}} = "{{post.getLastdate}}"
+   var target_date_{{forloop.counter}} = "{{post.lastDate}}"
 
-console.log("{{post.id}}")
+    console.log(target_date_{{forloop.counter}})
     
 
 
@@ -140,9 +149,9 @@ console.log("{{post.id}}")
         // var result_min48 = minutes48.fontsize(7)
         // var result_hrs48 = hours48.fontsize(7)
 
-        // if (current_date_{{forloop.counter}} >= target_seconds_{{forloop.counter}}) {
-        //     document.querySelector("#circle-timer{{post.id}}").setAttribute(display, none)
-        // }
+        if (current_date_{{forloop.counter}} >= target_seconds_{{forloop.counter}}) {
+            document.querySelector("#circle-timer{{post.id}}").style.display = "none";
+        }
         if (hours_{{forloop.counter}} >= 0) {
             countdown_{{forloop.counter}}.innerHTML = "<span>" + result_hrs12_{{forloop.counter}} + "</span><span>" + ":" + "</span><span>" + result_min12_{{forloop.counter}} +
                 "</span>";
