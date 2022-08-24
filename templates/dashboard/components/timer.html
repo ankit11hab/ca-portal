@@ -141,10 +141,7 @@ console.log("{{post.id}}")
         // var result_hrs48 = hours48.fontsize(7)
 
         if (current_date_{{forloop.counter}} >= target_seconds_{{forloop.counter}}) {
-            document.querySelector(circle - timer).setAttribute(display, none)
-            document.querySelector(timer - slot).setAttribute(display, none)
-            document.querySelector(timer - r).setAttribute(display, none)
-            document.querySelector(timer - l).setAttribute(display, none)
+            document.querySelector("#circle-timer{{post.id}}").setAttribute(display, none)
         }
         if (hours_{{forloop.counter}} >= 0) {
             countdown_{{forloop.counter}}.innerHTML = "<span>" + result_hrs12_{{forloop.counter}} + "</span><span>" + ":" + "</span><span>" + result_min12_{{forloop.counter}} +
