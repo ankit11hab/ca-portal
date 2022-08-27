@@ -139,8 +139,8 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 class Profile(models.Model):
     user = models.OneToOneField(NewUser,on_delete=models.CASCADE)
     fb_handle = models.CharField(
-        max_length=200, blank=True, null=True )
-    update_status = models.IntegerField(default=0)
+        default="",max_length=200, blank=True, null=True )
+    update_status = models.IntegerField(default=0,blank = True,null=True)
     phoneno = models.CharField(max_length=10, default="", blank=True, null=True)
     countrycode = models.CharField(max_length=3, default="+91", blank = True, null=True)
 
