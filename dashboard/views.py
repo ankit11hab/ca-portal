@@ -85,8 +85,8 @@ def dashboard(request):
             grp_points = request.user.points + UserGroup.objects.filter(executive=request.user).first().executive.points
             grp_tasks = request.user.tasks + UserGroup.objects.filter(executive=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(executive=request.user).first().executive.referrals
-            grp_leaderimg=request.user.img
-            grp_exeimg=UserGroup.objects.filter(leader=request.user).first().executive.img
+            grp_leaderimg=UserGroup.objects.filter(executive=request.user).first().leader.img
+            grp_exeimg=request.user.img
             all_points.append({ 'leader':request.user.firstname,'points': grp_points,'Lpimg':grp_leaderimg,'Epimg':grp_exeimg})
         else:
              grp_points = request.user.points
