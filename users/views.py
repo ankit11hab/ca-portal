@@ -5,7 +5,7 @@ from dashboard.models import Notifications
 from .forms import SingleUserRegisterForm, GroupUserRegisterForm, GroupUserRegisterFormForSingle, UserUpdateForm
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
-from .models import NewUser, Profile
+from .models import NewUser, Profile, UserGroup
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
@@ -122,7 +122,6 @@ def register_group_user(request):
                     request.POST.get('password1'))
                 single_form_2_result.username = "Groupuser"
 
-                
 
                 group_form_result = group_user_form.save(commit=False)
                 
@@ -155,6 +154,11 @@ def register_group_user(request):
                     email=request.POST.get('form_2-email'))
                 Profile(user = user_1).save()
                 Profile(user = user_2).save()
+                userGroup = UserGroup()
+                userGroup.leader = user_1
+                userGroup.executive = user_2
+                userGroup.save()
+
                 group_form_result.leader = user_1
                 group_form_result.executive = user_2
                 group_form_result.save()
@@ -250,7 +254,7 @@ class VerificationView(View):
         if user is not None and token_generator.check_token(user, token):
             user.is_active = True
             user.save()
-            messages.success(request, ('Your account have been confirmed.'))
+            messages.success(request, ('Your account has been confirmed.'))
             return redirect('dashboard_page')
         else:
             messages.warning(
