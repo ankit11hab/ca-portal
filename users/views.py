@@ -151,8 +151,6 @@ def register_group_user(request):
                 # Sending mail to leader
                 user_1 = NewUser.objects.get(
                     email=request.POST.get('form_1-email'))
-                Profile(user = user_1).save()
-
                 user_2 = NewUser.objects.get(
                     email=request.POST.get('form_2-email'))
                 Profile(user = user_1).save()
