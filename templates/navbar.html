@@ -309,7 +309,7 @@
   <!-- top_nav-all_screens -->
   <nav class=" px-6 py-3 flex justify-between bg-white sm:bg-none -mx-4 mx-0">
     <a href="/" class=" block sm:hidden">
-      <img src="{{request.user.img.url}}" width="38px" alt="profile pic" border="0" style="border-radius:9999px;" />
+      <img src="{{request.user.img.url}}" width="38px" alt="profile pic"  style="border-radius:9999px;border:0" />
     </a>
     <a class=" font-medium text-xl ">{{ heading }}</a>
     {%include 'navbarnotifications.html'%}
@@ -330,7 +330,7 @@
     }
 
   </script>
-  <script>
+  <!-- <script>
     const tasksCompletedPoint = [{{ grp_tasks }}, 8];
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
@@ -352,4 +352,4 @@
         }
     }
     });
-  </script>
+  </script> -->
