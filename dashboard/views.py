@@ -180,7 +180,7 @@ def leaderboard(request):
         if not notif.isread:
             isread = False
             break
-    users = NewUser.objects.all().order_by('-points')[:10]
+    users = NewUser.objects.filter(is_active=True).order_by('-points')[:10]
     teamPoints=[]
     teamPoints.append(UserGroup.objects.first().getPoints)
     
