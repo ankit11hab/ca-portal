@@ -61,19 +61,47 @@
                         <div class=" py-1 px-4 font-medium text-gray-600">SHARE</div>
                     </center>
                     <div style="margin-bottom: 18px;">
-                        {% if post.is_instagram %}
+                     {% if post.is_instagram %}
                         <div style="margin-bottom: 5px;">
                             <div class="my-1">Instagram:</div>
-                            <input type="text" value="{{ request.get_host }}/instagram/{{ post.url_id }}"
-                                style="border: 1px solid grey; padding: 4px 9px 4px 9px; width: 70%" disabled>
+                            <input type="text" value="{{ request.get_host }}/instagram/{{ post.url_id }}" 
+                                style="border: 1px solid grey; padding: 4px 9px 4px 9px; width: 70%" disabled >
+                                <button onclick="myFunction1{{forloop.counter}}()"  style="background-color:blue ; color: white; border-radius: 5px; width: 80px; height: 30px; font-weight: 500;transform: scale(.8)">Copy Link</button>
+                                <div class=" flex flex-wrap justify-center ml-4 mb-4 mr-4 I" id="copied1{{forloop.counter}}"></div>
                         </div>
+                        <script>
+
+                            function myFunction1{{forloop.counter}}() {
+                              /* Get the text field */
+                             
+                              navigator.clipboard.writeText("{{ request.get_host }}/instagram/{{ post.url_id }}");
+                            
+                              /* Alert the copied text */
+                              document.getElementById("copied1{{forloop.counter}}").innerHTML="Copied ID successfully"
+                              
+                            }
+                            </script>
                         {% endif %}
                         {% if post.is_facebook %}
                         <div>
                             <div class="my-1">Facebook:</div>
-                            <input type="text" value="{{ request.get_host }}/facebook/{{ post.url_id }}"
-                                style="border: 1px solid grey; padding: 4px 9px 4px 9px; width: 70%" disabled>
-                        </div>
+                            <input type="text" value="{{ request.get_host }}/facebook/{{ post.url_id }}" 
+                                style="border: 1px solid grey; padding: 4px 9px 4px 9px; width: 70%" disabled >
+                                <button onclick="myFunction2{{forloop.counter}}()" style="background-color:blue ; color: white; border-radius: 5px; width: 80px; height: 30px; font-weight: 500; transform: scale(.8);">Copy Link</button>
+                                <div class=" flex flex-wrap justify-center ml-4 mb-4 mr-4 F" id="copied2{{forloop.counter}}"></div>
+                            </div>
+                            <script>
+
+                                function myFunction2{{forloop.counter}}() {
+                                  /* Get the text field */
+                                 
+                                  navigator.clipboard.writeText("{{ request.get_host }}/facebook/{{ post.url_id }}");
+                                
+                                  /* Alert the copied text */
+                                  document.getElementById("copied2{{forloop.counter}}").innerHTML="Copied ID successfully"
+                                  
+                                }
+                                </script>
                         {% endif %}
 
 
