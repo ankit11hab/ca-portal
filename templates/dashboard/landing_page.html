@@ -606,8 +606,8 @@
                 <p style="font-weight:bold;font-size:2rem">Aftermovie, Alcheringa 2022</p>
             </div>
         </div>
-
-        <div class="carousel-item active" data-bs-interval="10000">
+ 
+        <div class="carousel-item" data-bs-interval="10000">
             <div class="iframe-container">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/xSDlUEJ22vU"
                     title="YouTube video player" frameborder="0"
@@ -644,11 +644,11 @@
             </div>
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark2" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-target="#carouselExampleDark2" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark2" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-target="#carouselExampleDark2" data-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
@@ -821,17 +821,16 @@
 
             <div class="flex mx-auto rounded overflow-hidden mt-6 -ml-10 mb-8">
                 <button class="py-1 px-4 border-b-4 focus:outline-none"
-                    style="border-color: #334D6E; color: #334D6E;">Team</button>
-                <button class="py-1 px-4 focus:outline-none" style="color: #90A0B7;">Solo</button>
+                    style="border-color: #334D6E; color: #334D6E;" onclick="switchVisible2();" id="teamH">Team</button>
+                <button class="py-1 px-4 focus:outline-none" style="color: #90A0B7;" onclick="switchVisible1();" id="soloH">Solo</button>
             </div>
-            <ul class="list-disc">
+            <ul class="list-disc" id="teamT" style="display: block;">
                 <li class="mb-4" style="color: #707683;">
                     Play as a team to increase collaborations and allows for brainstorming. As a consequence, develop
                     more ideas which increase productivity.
                 </li>
                 <li class="mb-4" style="color: #707683;">
-                    Working as a Team gives a chance to look at a problem from multiple angles, thus creating a greater
-                    multitude of solutions. Teamwork makes members more open and enables learning of different cultures.
+                    Working as a Team gives a chance to look at a problem from multiple angles, thus creating a greater multitude of solutions. Teamwork makes members more open and enables learning of different cultures.
                 </li>
                 <li class="mb-4" style="color: #707683;">
                     Teamwork encourages communication among the team, enhances socialising traits, and helps to build
@@ -839,6 +838,20 @@
                 </li>
                 <li class="mb-4" style="color: #707683;">
                     Working as a team makes you learn faster.
+                </li>
+            </ul>
+            <ul class="list-disc" id="soloT" style="display: none;">
+                <li class="mb-4" style="color: #707683;">
+                    Be the only one to think, organise and execute your plan to get an output.
+                </li>
+                <li class="mb-4" style="color: #707683;">
+                    Work at your own pace and make things fall in place in your style.
+                </li>
+                <li class="mb-4" style="color: #707683;">
+                    Be the only stress buster of your own and keep motivating yourself throughout your tenure.
+                </li>
+                <li class="mb-4" style="color: #707683;">
+                    Be in Charge of your tasks and complete them.
                 </li>
             </ul>
         </div>
@@ -1121,6 +1134,29 @@
 
     function hideMenu() {
         navLinks.style.right = "-200px ";
+    }
+
+    function switchVisible1() {
+            if (document.getElementById('teamT')) {
+                    document.getElementById('teamT').style.display = 'none';
+                    document.getElementById('teamH').style.borderBottomWidth = '0px';
+                    document.getElementById('teamH').style.color = '#90A0B7';
+                    document.getElementById('soloT').style.display = 'block';
+                    document.getElementById('soloH').style.color = '#334D6E';
+                    document.getElementById('soloH').style.borderColor = '#334D6E';
+                    document.getElementById('soloH').style.borderBottomWidth = '4px';       
+            }
+    }
+    function switchVisible2() {
+            if (document.getElementById('soloT')) {
+                    document.getElementById('soloT').style.display = 'none';
+                    document.getElementById('soloH').style.borderBottomWidth = '0px';
+                    document.getElementById('soloH').style.color = '#90A0B7';
+                    document.getElementById('teamT').style.display = 'block';
+                    document.getElementById('teamH').style.color = '#334D6E';
+                    document.getElementById('teamH').style.borderColor = '#334D6E';
+                    document.getElementById('teamH').style.borderBottomWidth = '4px'; 
+            }
     }
 </script>
 <script src="{% static 'js/home_main.js' %} "></script>
