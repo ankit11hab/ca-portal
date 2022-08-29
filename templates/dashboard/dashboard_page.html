@@ -67,6 +67,11 @@
     <div class="flex">
       <div>
         <!-- complete registration -->
+        {%if messages %}
+          {% for message in messages %}
+            <div>{{message}}</div>
+          {%endfor%}
+        {%endif%}
         {% if show_popup %}
         {% include "dashboard/components/update_prof.html" %}
         {% endif %}
