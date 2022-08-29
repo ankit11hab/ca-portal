@@ -121,7 +121,10 @@ def dashboard(request):
         if profile.update_status==1 and sum==4:
             request.user.points+=200
             profile.update_status=0
-        
+        check_user=NewUser.objects.filter(email=request.user).first()
+        if check_user.is_active==False:
+            messages.warning(request,f"Your Email is not verified")
+
         return render(request, 'dashboard/dashboard_page.html',context)
     else:
         return render(request, 'dashboard/landing_page.html')
