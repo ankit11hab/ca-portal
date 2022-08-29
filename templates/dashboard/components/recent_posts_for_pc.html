@@ -1,3 +1,4 @@
+{% load static %}
 <div class="sharedpost" style="display:flex; flex-direction: column;">
     <div style="display:flex; flex-direction: column;">
         <div class="py-3 pl-6 font-medium text-lg border-b-2">Recent Posts</div>
@@ -66,7 +67,7 @@
                             <div class="my-1">Instagram:</div>
                             <input type="text" value="{{ request.get_host }}/instagram/{{ post.url_id }}" 
                                 style="border: 1px solid grey; padding: 4px 9px 4px 9px; width: 70%" disabled >
-                                <button onclick="myFunction1{{forloop.counter}}()"  style="background-color:blue ; color: white; border-radius: 5px; width: 80px; height: 30px; font-weight: 500;transform: scale(.8)">Copy Link</button>
+                                 <button onclick="myFunction1{{forloop.counter}}()" style=" transform: scale(.8); max-width: 30px; max-height: 30px;" ><img src="{% static 'icons/copy.png' %}" alt="" style="transform:scale(.9) ; transform: translateY(12px);"></img></button>
                                 <div class=" flex flex-wrap justify-center ml-4 mb-4 mr-4 I" id="copied1{{forloop.counter}}"></div>
                         </div>
                         <script>
@@ -77,7 +78,7 @@
                               navigator.clipboard.writeText("{{ request.get_host }}/instagram/{{ post.url_id }}");
                             
                               /* Alert the copied text */
-                              document.getElementById("copied1{{forloop.counter}}").innerHTML="Copied ID successfully"
+                              document.getElementById("copied1{{forloop.counter}}").innerHTML="Copied Link successfully"
                               
                             }
                             </script>
@@ -87,7 +88,7 @@
                             <div class="my-1">Facebook:</div>
                             <input type="text" value="{{ request.get_host }}/facebook/{{ post.url_id }}" 
                                 style="border: 1px solid grey; padding: 4px 9px 4px 9px; width: 70%" disabled >
-                                <button onclick="myFunction2{{forloop.counter}}()" style="background-color:blue ; color: white; border-radius: 5px; width: 80px; height: 30px; font-weight: 500; transform: scale(.8);">Copy Link</button>
+                                 <button onclick="myFunction2{{forloop.counter}}()" style=" transform: scale(.8); max-width: 30px; max-height: 30px;" ><img src="{% static 'icons/copy.png' %}" alt="" style="transform:scale(.9) ; transform: translateY(12px);"></img></button>
                                 <div class=" flex flex-wrap justify-center ml-4 mb-4 mr-4 F" id="copied2{{forloop.counter}}"></div>
                             </div>
                             <script>
@@ -98,7 +99,7 @@
                                   navigator.clipboard.writeText("{{ request.get_host }}/facebook/{{ post.url_id }}");
                                 
                                   /* Alert the copied text */
-                                  document.getElementById("copied2{{forloop.counter}}").innerHTML="Copied ID successfully"
+                                  document.getElementById("copied2{{forloop.counter}}").innerHTML="Copied Link successfully"
                                   
                                 }
                                 </script>
