@@ -225,6 +225,7 @@ def loginPage(request):
             user = NewUser.objects.filter(email=email)
             if(user):
                 user = NewUser.objects.filter(email=email, provider="email")
+                emails_list = NewUser.objects.filter(is_active=True).values_list('email', flat=True)
                 if user:
                     user = authenticate(
                         request, email=email, password=password)
@@ -232,9 +233,10 @@ def loginPage(request):
                         login(request, user)
                         return redirect('dashboard_page')
                     else:
-                        print("errrr")
-                        messages.error(
-                            request, 'Password is incorrect for the email address entered or the email is not activated')
+                        if not(email in emails_list):
+                            messages.error(request,'Email is not activated.')
+                        else:
+                            messages.error(request, 'Password is incorrect for the email address entered.')
                 else:
                     messages.error(
                         request, 'This email is registered with another provider')
