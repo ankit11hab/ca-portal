@@ -279,7 +279,7 @@ def profile(request):
     profile = Profile.objects.filter(user=request.user).first()
     comp = []
     sum = 0
-    if request.user.instahandle[0:4]!="None":
+    if request.user.instahandle:
         sum+=1
     if request.user.position_of_responsibility:
         sum+=1
@@ -299,9 +299,8 @@ def profile(request):
         comp = [80, 20]
     elif sum==3:
         comp = [90, 10]
-    elif sum==4:
+    else:
         comp = [100,0]
-    elif sum==5:
         profile.update_status=1
     if sum<4:
         color_code = '#E86B73'
@@ -316,6 +315,8 @@ def profile(request):
             u_form.save()
             profile.fb_handle = request.POST['fb_handle']
             profile.save()
+            request.user.points += 200
+            request.user.save()
             messages.success(request, f'Your Profile has been updated!')
             return redirect('profile')
         print(u_form.errors)
@@ -328,6 +329,7 @@ def profile(request):
             if not notif.isread:
                 isread = False
                 break
+    print(comp)
     return render(request, 'users/profile.html', {'heading': 'Profile', 'u_form': u_form, 'notification_list': notification_list, 'isread': isread, 'profile': profile, 'comp':comp, 'color_code': color_code})
 
 
@@ -381,7 +383,7 @@ def scoring(request):
     comp = []
     sum = 0
     profile = Profile.objects.filter(user = request.user).first()
-    if request.user.instahandle[0:4]!="None":
+    if request.user.instahandle:
         sum+=1
     if request.user.position_of_responsibility:
         sum+=1
@@ -412,7 +414,7 @@ def guidelines(request):
     comp = []
     sum = 0
     profile = Profile.objects.filter(user = request.user).first()
-    if request.user.instahandle[0:4]!="None":
+    if request.user.instahandle:
         sum+=1
     if request.user.position_of_responsibility:
         sum+=1

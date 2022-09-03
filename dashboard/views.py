@@ -45,7 +45,7 @@ def dashboard(request):
         profile = Profile.objects.filter(user = request.user).first()
         comp = []
         sum = 0
-        if request.user.instahandle[0:4]!="None":
+        if request.user.instahandle:
             sum+=1
         if request.user.position_of_responsibility:
             sum+=1
@@ -146,7 +146,7 @@ def contactus(request):
         comp = []
         sum = 0
         profile = Profile.objects.filter(user = request.user).first()
-        if request.user.instahandle[0:4]!="None":
+        if request.user.instahandle:
             sum+=1
         if request.user.position_of_responsibility:
             sum+=1
@@ -193,7 +193,7 @@ def guidelines(request):
         comp = []
         sum = 0
         profile = Profile.objects.filter(user = request.user).first()
-        if request.user.instahandle[0:4]!="None":
+        if request.user.instahandle:
             sum+=1
         if request.user.position_of_responsibility:
             sum+=1
@@ -248,6 +248,28 @@ def leaderboard(request):
     page_number2 = request.GET.get('page')
     page_obj1= paginator1.get_page(page_number1)
     page_obj2= paginator2.get_page(page_number2)
+    comp = []
+    sum = 0
+    profile = Profile.objects.filter(user = request.user).first()
+    if request.user.instahandle:
+        sum+=1
+    if request.user.position_of_responsibility:
+        sum+=1
+    if request.user.interested_modules:
+        sum+=1
+    if profile.fb_handle:
+        sum+=1
+    if sum==0:
+        comp = [60, 40]
+    elif sum==1:
+        comp = [70, 30]
+    elif sum==2:
+        comp = [80, 20]
+    elif sum==3:
+        comp = [90, 10]
+    else:
+        comp = [100,0]
+        
     context = {
         'heading': "Leaderboard",
         'users': users,
@@ -255,7 +277,13 @@ def leaderboard(request):
         'notification_list': notification_list, 'isread': isread,
         'index': page_obj1,
         'index1':page_obj2,
+        'comp': comp
     }
+    
+    if sum<4:
+        context['color_code'] = '#E86B73'
+    else:
+        context['color_code'] = 'rgba(0, 201, 92, 1)'
     return render(request, 'dashboard/complete_leaderboard.html', context)
 
 @login_required
