@@ -67,6 +67,10 @@
         {% if show_popup %}
         {% include "dashboard/components/update_prof.html" %}
         {% endif %}
+        <!------- Group Users --------->
+        {% if isgrp %}
+        {% include "dashboard/components/grp_details.html" %}
+        {% endif %}
         <!-- scores -->
         {% include "dashboard/components/level_myprogress.html" %}
         <!-- recent_posts -->

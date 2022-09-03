@@ -74,16 +74,19 @@ def dashboard(request):
         # while request.user.alcherid == top_solousers1[rank].alcherid:
         #     rank+=1
                
-
+        leader = executive = ""
         groupUsers=sorted(UserGroup.objects.all(), key=lambda t: t.getPoints,reverse=True)[:5]
         isread=True
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
+        isgrp = 1
         if UserGroup.objects.filter(leader=request.user):
             grp_points = UserGroup.objects.filter(leader=request.user).first().getPoints
             grp_tasks = request.user.tasks + UserGroup.objects.filter(leader=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(leader=request.user).first().executive.referrals
             grp_leaderimg=request.user.img
             grp_exeimg=UserGroup.objects.filter(leader=request.user).first().executive.img
+            leader = request.user.firstname
+            executive = UserGroup.objects.filter(leader=request.user).first().executive.firstname
             all_points.append({ 'leader':request.user.firstname,'points': grp_points,'Lpimg':grp_leaderimg,'Epimg':grp_exeimg})
         elif UserGroup.objects.filter(executive=request.user):
             grp_points = UserGroup.objects.filter(executive=request.user).first().getPoints
@@ -91,14 +94,17 @@ def dashboard(request):
             grp_referrals = request.user.referrals + UserGroup.objects.filter(executive=request.user).first().executive.referrals
             grp_leaderimg=UserGroup.objects.filter(executive=request.user).first().leader.img
             grp_exeimg=request.user.img
+            leader = UserGroup.objects.filter(executive=request.user).first().leader.firstname
+            executive = request.user.firstname
             all_points.append({ 'leader':request.user.firstname,'points': grp_points,'Lpimg':grp_leaderimg,'Epimg':grp_exeimg})
         else:
-             grp_points = request.user.points
-             grp_tasks = request.user.tasks
-             grp_referrals = request.user.referrals
-             grp_leaderimg=request.user.img
+            isgrp = 0
+            grp_points = request.user.points
+            grp_tasks = request.user.tasks
+            grp_referrals = request.user.referrals
+            grp_leaderimg=request.user.img
              
-             all_points.append({ 'leader':request.user.firstname,'points': grp_points,'Lpimg':grp_leaderimg})
+            all_points.append({ 'leader':request.user.firstname,'points': grp_points,'Lpimg':grp_leaderimg})
         for notif in notification_list:
             if not notif.isread:
                 isread=False
@@ -113,8 +119,11 @@ def dashboard(request):
             'grp_tasks':grp_tasks,
             'grp_referrals':grp_referrals,
             'top_solousers': top_solousers,
+            'leader':leader,
+            'executive': executive,
             'rank':rank+1,
             'isread':isread,
+            'isgrp': isgrp,
             'comp': comp,
             'grpusers':groupUsers
         }
