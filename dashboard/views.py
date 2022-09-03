@@ -236,7 +236,10 @@ def leaderboard(request):
         if not notif.isread:
             isread = False
             break
-    users = NewUser.objects.all().order_by('-points')[:10]
+    group_leader_ids=UserGroup.objects.values_list('executive_id',flat=True)
+    group_executive_ids=UserGroup.objects.values_list('leader_id',flat=True)
+    users1 = NewUser.objects.all().order_by('-points').exclude(id__in=group_executive_ids)
+    users = users1.exclude(id__in=group_leader_ids)[:10]
     teamPoints=[]
     if UserGroup.objects.first():
         teamPoints.append(UserGroup.objects.first().getPoints)
