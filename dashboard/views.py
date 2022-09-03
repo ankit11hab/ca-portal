@@ -79,14 +79,14 @@ def dashboard(request):
         isread=True
         notification_list = Notifications.objects.filter(Q(user=request.user) | Q(user=None)).order_by('-created_on')
         if UserGroup.objects.filter(leader=request.user):
-            grp_points = request.user.points + UserGroup.objects.filter(leader=request.user).first().executive.points
+            grp_points = UserGroup.objects.filter(leader=request.user).first().getPoints
             grp_tasks = request.user.tasks + UserGroup.objects.filter(leader=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(leader=request.user).first().executive.referrals
             grp_leaderimg=request.user.img
             grp_exeimg=UserGroup.objects.filter(leader=request.user).first().executive.img
             all_points.append({ 'leader':request.user.firstname,'points': grp_points,'Lpimg':grp_leaderimg,'Epimg':grp_exeimg})
         elif UserGroup.objects.filter(executive=request.user):
-            grp_points = request.user.points + UserGroup.objects.filter(executive=request.user).first().executive.points
+            grp_points = UserGroup.objects.filter(executive=request.user).first().getPoints
             grp_tasks = request.user.tasks + UserGroup.objects.filter(executive=request.user).first().executive.tasks
             grp_referrals = request.user.referrals + UserGroup.objects.filter(executive=request.user).first().executive.referrals
             grp_leaderimg=UserGroup.objects.filter(executive=request.user).first().leader.img
@@ -126,9 +126,9 @@ def dashboard(request):
         else:
             context['color_code'] = 'rgba(0, 201, 92, 1)'
 
-        if profile.update_status==1 and sum==4:
-            request.user.points+=200
-            profile.update_status=0
+        # if profile.update_status==1 and sum==4:
+        #     request.user.points+=200
+        #     profile.update_status=0
         
         return render(request, 'dashboard/dashboard_page.html',context)
     else:
@@ -240,7 +240,6 @@ def leaderboard(request):
         if not notif.isread:
             isread = False
             break
-    # users = NewUser.objects.all().order_by('-points')[:10]
     group_leader_ids=UserGroup.objects.values_list('executive_id',flat=True)
     group_executive_ids=UserGroup.objects.values_list('leader_id',flat=True)
     users1 = NewUser.objects.all().order_by('-points').exclude(id__in=group_executive_ids)
@@ -277,7 +276,11 @@ def leaderboard(request):
         comp = [90, 10]
     else:
         comp = [100,0]
-        
+    
+    if sum<4:
+        color_code = '#E86B73'
+    else:
+        color_code= 'rgba(0, 201, 92, 1)'
     context = {
         'heading': "Leaderboard",
         'users': users,
@@ -285,13 +288,9 @@ def leaderboard(request):
         'notification_list': notification_list, 'isread': isread,
         'index': page_obj1,
         'index1':page_obj2,
-        'comp': comp
+        'comp':comp, 
+        'color_code':color_code
     }
-    
-    if sum<4:
-        context['color_code'] = '#E86B73'
-    else:
-        context['color_code'] = 'rgba(0, 201, 92, 1)'
     return render(request, 'dashboard/complete_leaderboard.html', context)
 
 @login_required
