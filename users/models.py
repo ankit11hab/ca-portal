@@ -76,7 +76,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     interested_modules = models.CharField(
         max_length=200, unique=False, blank=True)
     instahandle = models.CharField(
-        max_length=200, blank=True, unique=True, )
+        max_length=200, blank=True, )
     # Referral fields
     referred_by = models.CharField(
         max_length=9, blank=True)
@@ -102,8 +102,6 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         return str(self.email)
 
     def save(self, *args, **kwargs):
-        if self.instahandle == "":
-            self.instahandle = f"None-{uuid.uuid1()}"
         super().save()
         for post in dashboard.models.ShareablePost.objects.all():
             dashboard.models.PostUrl(user = self, post = post, url_id = uuid.uuid4()).save()
