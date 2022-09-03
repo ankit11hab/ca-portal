@@ -287,7 +287,7 @@ def profile(request):
         sum+=1
     if profile.fb_handle:
         sum+=1
-    if profile.update_status==0 and sum==4 :
+    if  profile.update_status==0 :
         request.user.points+=200
         sum=5
 
@@ -299,8 +299,10 @@ def profile(request):
         comp = [80, 20]
     elif sum==3:
         comp = [90, 10]
-    else:
+    elif sum==4:
         comp = [100,0]
+        
+    elif sum==5:
         profile.update_status=1
     if sum<4:
         color_code = '#E86B73'
@@ -315,8 +317,7 @@ def profile(request):
             u_form.save()
             profile.fb_handle = request.POST['fb_handle']
             profile.save()
-            request.user.points += 200
-            request.user.save()
+          
             messages.success(request, f'Your Profile has been updated!')
             return redirect('profile')
         print(u_form.errors)
