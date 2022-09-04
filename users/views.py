@@ -287,7 +287,7 @@ def profile(request):
         sum+=1
     if profile.fb_handle:
         sum+=1
-    if profile.update_status==0 and sum==4 :
+    if profile.update_status==0:
         print("here")
         request.user.points+=200
         sum=5
