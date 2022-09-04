@@ -1,7 +1,8 @@
 #!/bin/sh
 pip install git+https://git@github.com/ping/instagram_private_api.git@1.6.0
 python manage.py collectstatic --no-input --clear
-#python manage.py createsuperuser --noinput --username alchercaadmin --email alcher@gmail.com
+#python manage.py createsuperuser --noinput --username alchercaadmin --email alcher@gmail.
+python manage.py makemigrations users
 python manage.py migrate --run-syncdb
 python manage.py migrate
 # python manage.py createsuperuser --noinput --firstname admin --email admin@admin.com
