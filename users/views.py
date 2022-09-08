@@ -274,6 +274,9 @@ def profile(request):
         sum+=1
     if profile.fb_handle:
         sum+=1
+    if profile.update_status==0 and sum==4 :
+        request.user.points+=200
+        sum=5
     if sum==0:
         comp = [60, 40]
     elif sum==1:
@@ -282,8 +285,12 @@ def profile(request):
         comp = [80, 20]
     elif sum==3:
         comp = [90, 10]
-    else:
+    elif sum==4:
         comp = [100,0]
+        
+    
+    elif sum==5:
+        profile.update_status=1
     if sum<4:
         color_code = '#E86B73'
     else:
