@@ -14,7 +14,7 @@ class SingleUserRegisterForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Full Name *'}))
     referred_by = forms.CharField(required=False, widget=forms.TextInput(
         attrs={'class': 'input_field', 'placeholder': 'Enter referral id'}))
-    phone = PhoneNumberField(widget=forms.TextInput(attrs={
+    phone = forms.CharField(widget=forms.TextInput(attrs={
                              'class': 'input_field', 'placeholder': 'Phone Number (e.g. +12125552368) *'}), label="Phone number (e.g. +12125552368)", )
 
     graduation_year = forms.CharField(
@@ -53,7 +53,7 @@ class GroupUserRegisterFormForSingle(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'input_field', 'placeholder': 'Full Name *'}))
     # referred_by = forms.CharField(required=False, widget=forms.TextInput(
     #     attrs={'class': 'input_field', 'placeholder': 'Enter referral id'}))
-    phone = PhoneNumberField(widget=forms.TextInput(attrs={
+    phone = forms.CharField(widget=forms.TextInput(attrs={
                              'class': 'input_field', 'placeholder': 'Phone Number (e.g. +12125552368) *'}), label="Phone number (e.g. +12125552368)", )
 
     graduation_year = forms.CharField(

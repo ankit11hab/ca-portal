@@ -46,15 +46,15 @@ class CustomAccountManager(BaseUserManager):
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
     id = models.SlugField(primary_key=True, default=uuid.uuid4)
-    alcherid = models.CharField(
-        max_length=9, blank=True, unique=True, default=create_new_ref_number)
+    alcherid = models.TextField(
+         blank=True, unique=True, default=create_new_ref_number)
 
     img = models.ImageField(
         upload_to="image-uploads/", default='image-uploads/user.png')
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(max_length=150, unique=False, default="user")
     firstname = models.CharField(max_length=150, blank=True)
-    phone = PhoneNumberField(unique=False, blank=True)
+    phone = models.TextField(unique=False, blank=True)
     
     graduation_year = models.CharField(max_length=200, unique=False)
     college_state = models.CharField(max_length=200, unique=False)
@@ -67,8 +67,8 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     instahandle = models.CharField(
         max_length=200,unique=False,default="", blank=True)
     # Referral fields
-    referred_by = models.CharField(
-        max_length=9, blank=True)
+    referred_by = models.TextField(
+        blank=True)
     # referred_by_user = models.ForeignKey(
     #     'NewUser', blank=True, on_delete=models.CASCADE)
     referrals = models.IntegerField(default=0)
@@ -152,8 +152,8 @@ class UserGroup(models.Model):
         return self.leader.points + self.executive.points
        
 
-    referred_by = models.CharField(
-        max_length=9, blank=True)
+    referred_by = models.TextField(
+         blank=True)
     # referred_by_user = models.ForeignKey(
     #     'NewUser', blank=True, on_delete=models.CASCADE)
 
