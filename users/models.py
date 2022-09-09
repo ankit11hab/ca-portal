@@ -57,8 +57,8 @@ class CustomAccountManager(BaseUserManager):
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
     id = models.SlugField(primary_key=True, default=uuid.uuid4)
-    alcherid = models.CharField(
-        max_length=9, blank=True, unique=True, default="create_new_ref_number")
+    alcherid = models.TextField(
+         blank=True, unique=True, default="create_new_ref_number")
 
     img = models.ImageField(
         upload_to="image-uploads/", default='image-uploads/user.png')
@@ -78,8 +78,8 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     instahandle = models.CharField(
         max_length=200, blank=True, )
     # Referral fields
-    referred_by = models.CharField(
-        max_length=9, blank=True)
+    referred_by = models.TextField(
+        blank=True)
     # referred_by_user = models.ForeignKey(
     #     'NewUser', blank=True, on_delete=models.CASCADE)
     referrals = models.IntegerField(default=0)
@@ -166,8 +166,8 @@ class UserGroup(models.Model):
         return self.leader.points + self.executive.points
        
 
-    referred_by = models.CharField(
-        max_length=9, blank=True)
+    referred_by = models.TextField(
+         blank=True)
     # referred_by_user = models.ForeignKey(
     #     'NewUser', blank=True, on_delete=models.CASCADE)
 
