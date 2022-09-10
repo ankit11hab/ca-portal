@@ -20,9 +20,9 @@ from instagram_private_api import Client, ClientCompatPatch
 from django.http import HttpResponse 
 
 start_time = datetime.now().date()
-user_name = 'fake27_28'
-password = 'sid1234'
-api = Client(user_name, password)
+# user_name = 'fake27_28'
+# password = 'sid1234'
+# api = Client(user_name, password)
 
 def dashboard(request):
     if request.user.is_authenticated:
