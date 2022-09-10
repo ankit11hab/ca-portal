@@ -108,7 +108,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         for post in dashboard.models.ShareablePost.objects.all():
             dashboard.models.PostUrl(user = self, post = post, url_id = uuid.uuid4()).save()
         # img = Image.open(self.img)
-        image_read = storage.open(self.img.name, "w")
+        image_read = storage.open(self.img.name, "r")
         img = Image.open(image_read)
         imageBuffer = BytesIO()
         width, height = img.size  # Get dimensions
