@@ -108,37 +108,37 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         for post in dashboard.models.ShareablePost.objects.all():
             dashboard.models.PostUrl(user = self, post = post, url_id = uuid.uuid4()).save()
         # img = Image.open(self.img)
-        image_read = storage.open(self.img.name, "r")
-        img = Image.open(image_read)
-        imageBuffer = BytesIO()
-        width, height = img.size  # Get dimensions
+        # image_read = storage.open(self.img.name, "r")
+        # img = Image.open(image_read)
+        # imageBuffer = BytesIO()
+        # width, height = img.size  # Get dimensions
 
-        if width > 300 and height > 300:
-            # keep ratio but shrink down
-            img.thumbnail((width, height))
+        # if width > 300 and height > 300:
+        #     # keep ratio but shrink down
+        #     img.thumbnail((width, height))
 
-        # check which one is smaller
-        if height < width:
-            # make square by cutting off equal amounts left and right
-            left = (width - height) / 2
-            right = (width + height) / 2
-            top = 0
-            bottom = height
-            img = img.crop((left, top, right, bottom))
+        # # check which one is smaller
+        # if height < width:
+        #     # make square by cutting off equal amounts left and right
+        #     left = (width - height) / 2
+        #     right = (width + height) / 2
+        #     top = 0
+        #     bottom = height
+        #     img = img.crop((left, top, right, bottom))
 
-        elif width < height:
-            # make square by cutting off bottom
-            left = 0
-            right = width
-            top = 0
-            bottom = width
-            img = img.crop((left, top, right, bottom))
+        # elif width < height:
+        #     # make square by cutting off bottom
+        #     left = 0
+        #     right = width
+        #     top = 0
+        #     bottom = width
+        #     img = img.crop((left, top, right, bottom))
 
-        if width > 300 and height > 300:
-            img.thumbnail((300, 300))
+        # if width > 300 and height > 300:
+        #     img.thumbnail((300, 300))
 
-        img.save(imageBuffer, "png")
-        img.close()
+        # img.save(imageBuffer, "png")
+        # img.close()
         
 class Profile(models.Model):
     user = models.OneToOneField(NewUser,on_delete=models.CASCADE)
