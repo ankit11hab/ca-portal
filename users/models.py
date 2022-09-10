@@ -137,7 +137,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         if width > 300 and height > 300:
             img.thumbnail((300, 300))
 
-        img.save(imageBuffer, "jpg")
+        img.save(imageBuffer, "png")
         img.close()
         
 class Profile(models.Model):
