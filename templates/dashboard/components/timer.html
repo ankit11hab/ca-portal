@@ -157,9 +157,9 @@
                 "</span>";
             if (canvas_{{forloop.counter}}.getContext) {
                 const ctx_{{forloop.counter}} = canvas_{{forloop.counter}}.getContext('2d');
-                if (hours_{{forloop.counter}} >= 8) {
+                if (hours_{{forloop.counter}} >= 24) {
                     ctx_{{forloop.counter}}.strokeStyle = 'green';
-                } else if (hours_{{forloop.counter}} >= 4) {
+                } else if (hours_{{forloop.counter}} >= 12) {
                     ctx_{{forloop.counter}}.strokeStyle = '#FFBF00';
                 } else if (hours_{{forloop.counter}} >= 0) {
                     ctx_{{forloop.counter}}.strokeStyle = 'red';
