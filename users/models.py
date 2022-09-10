@@ -4,7 +4,9 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from phonenumber_field.modelfields import PhoneNumberField
+from django.core.files.storage import default_storage as storage   
 from PIL import Image
+from io import BytesIO
 import random
 import string
 import dashboard.models
@@ -105,7 +107,10 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         super().save()
         for post in dashboard.models.ShareablePost.objects.all():
             dashboard.models.PostUrl(user = self, post = post, url_id = uuid.uuid4()).save()
-        img = Image.open(self.img)
+        # img = Image.open(self.img)
+        image_read = storage.open(self.img.name, "w")
+        img = Image.open(image_read)
+        imageBuffer = BytesIO()
         width, height = img.size  # Get dimensions
 
         if width > 300 and height > 300:
@@ -132,7 +137,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         if width > 300 and height > 300:
             img.thumbnail((300, 300))
 
-        img.save(self.img)
+        img.save(imageBuffer, img.format)
         img.close()
         
 class Profile(models.Model):
