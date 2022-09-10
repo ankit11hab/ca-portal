@@ -107,10 +107,8 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         super().save()
         for post in dashboard.models.ShareablePost.objects.all():
             dashboard.models.PostUrl(user = self, post = post, url_id = uuid.uuid4()).save()
-        # img = Image.open(self.img)
-        # image_read = storage.open(self.img.name, "r")
-        # img = Image.open(image_read)
-        # imageBuffer = BytesIO()
+            
+        # img = Image.open(self.img.path)
         # width, height = img.size  # Get dimensions
 
         # if width > 300 and height > 300:
@@ -137,9 +135,9 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         # if width > 300 and height > 300:
         #     img.thumbnail((300, 300))
 
-        # img.save(imageBuffer, "png")
+        # img.save(self.img.path)
         # img.close()
-        
+
 class Profile(models.Model):
     user = models.OneToOneField(NewUser,on_delete=models.CASCADE)
     fb_handle = models.CharField(
