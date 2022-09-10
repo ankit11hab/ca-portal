@@ -167,9 +167,9 @@ def register_group_user(request):
                 userGroup.executive = user_2
                 userGroup.save()
 
-                group_form_result.leader = user_1
-                group_form_result.executive = user_2
-                group_form_result.save()
+                # group_form_result.leader = user_1
+                # group_form_result.executive = user_2
+                # group_form_result.save()
                 uidb64 = urlsafe_base64_encode(force_bytes(user_1.pk))
                 domain = get_current_site(request).domain
                 link = reverse('activate', kwargs={
