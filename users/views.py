@@ -37,17 +37,9 @@ def register_single_user(request):
                 if(request.POST.get('referred_by')):
                     user = NewUser.objects.get(
                         alcherid=request.POST.get('referred_by'))
-                    if(user.college_name==result.college_name):
-                        user.referrals += 1
-                        user.points += 400
-                    else:
-                        user.referrals += 1
-                        user.points += 600
-                    user.save()
-                    result.points = 550
-                    result.save()
-                else:
-                    result.save()
+    
+                result.save()
+                
                 user = NewUser.objects.get(email=request.POST.get('email'))
                 Profile(user = user).save()
                 userSingle = UserSingle()
@@ -141,14 +133,10 @@ def register_group_user(request):
                     group_form_result.referred_by = request.POST.get(
                         'referred_by')
                     if(user.college_name==single_form_1_result.college_name):
-                        user.referrals += 1
-                        user.points += 400
-                    else:
-                        user.referrals += 1
-                        user.points += 600
-                    user.save()
-                    single_form_1_result.points = 800
-                    single_form_2_result.points = 800
+               
+                
+                     user.save()
+                
                     single_form_1_result.save()
                     single_form_2_result.save()
                 else:
@@ -263,6 +251,17 @@ class VerificationView(View):
             user = None
         if user is not None and token_generator.check_token(user, token):
             user.is_active = True
+            if user.referred_by:
+               Ruser = NewUser.objects.get(
+                       alcherid=user.referred_by)
+               if(Ruser.college_name==user.college_name):
+                        Ruser.referrals += 1
+                        Ruser.points += 400
+               else:
+                        Ruser.referrals += 1
+                        Ruser.points += 600
+               Ruser.save()
+               user.points=550
             user.save()
             messages.success(request, ('Your account has been confirmed.'))
             return redirect('dashboard_page')
