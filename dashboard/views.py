@@ -73,6 +73,8 @@ def dashboard(request):
         
         rank=0
         while request.user.id != top_solousers1[rank].id:
+            if(rank>=len(top_solousers1)):
+                break
             rank+=1
                
         leader = executive = ""
