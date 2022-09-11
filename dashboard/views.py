@@ -72,7 +72,7 @@ def dashboard(request):
         top_solousers1 = NewUser.objects.all().order_by('-points')
         
         rank=0
-        while request.user.alcherid != top_solousers2[rank].alcherid:
+        while request.user.id != top_solousers1[rank].id:
             rank+=1
                
         leader = executive = ""
