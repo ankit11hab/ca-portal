@@ -68,11 +68,12 @@ def dashboard(request):
         group_executive_ids=UserGroup.objects.values_list('leader_id',flat=True)
         users1 = NewUser.objects.all().order_by('-points').exclude(id__in=group_executive_ids)
         top_solousers = users1.exclude(id__in=group_leader_ids)[:10]
+        top_solousers2 = users1.exclude(id__in=group_leader_ids)
         top_solousers1 = NewUser.objects.all().order_by('-points')
         
-        rank=1
-        # while request.user.alcherid == top_solousers1[rank].alcherid:
-        #     rank+=1
+        rank=0
+        while request.user.alcherid != top_solousers2[rank].alcherid:
+            rank+=1
                
         leader = executive = ""
         groupUsers=sorted(UserGroup.objects.all(), key=lambda t: t.getPoints,reverse=True)[:5]
