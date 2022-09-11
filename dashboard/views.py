@@ -122,7 +122,7 @@ def dashboard(request):
             'top_solousers': top_solousers,
             'leader':leader,
             'executive': executive,
-            'rank':rank+1,
+            'rank':rank-1,
             'isread':isread,
             'isgrp': isgrp,
             'comp': comp,
