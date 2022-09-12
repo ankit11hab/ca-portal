@@ -20,6 +20,30 @@ from instagram_private_api import Client, ClientCompatPatch
 from django.http import HttpResponse 
 
 start_time = datetime.now().date()
+
+
+api = -1
+insta_id_list1 = [
+    {
+        "username": "1alfikhan48@gmail.com",
+        "password": "Qwerty@9760"
+    },
+    {
+        "username": "rahuldua9760@gmail.com",
+        "password": "Qwerty@9760"
+    },
+    {
+        "username": "fake27_28",
+        "password": "sid1234"
+    }
+]
+for account in insta_id_list1:
+    try:
+        api = Client(account['username'],account['password'])
+    except:
+        print("Error")
+    if api!=-1:
+        break
 # user_name = 'fake27_28'
 # password = 'sid1234'
 # api = Client(user_name, password)
@@ -328,6 +352,8 @@ def verify_like(request):
         return redirect('dashboard_page') 
     curr_time=datetime.now().date()
     delta = curr_time-start_time
+    if api==-1:
+        return HttpResponse("<b>Oops, there has been an error while verifying your like!</b>")
     results = api.media_likers_chrono(post.media_id)
     items = results['users']
     flag=0
