@@ -29,7 +29,7 @@ SECRET_KEY = '1x$%_n-6&+^ch=_6j)0kg+5*1p0=ri#*b)g1=ge8f8#-(8)9rb'
 # DEBUG = False
 # ALLOWED_HOSTS = ["localhost"]
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
@@ -105,31 +105,31 @@ WSGI_APPLICATION = 'ca_portal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-
-       'ENGINE': 'django.db.backends.postgresql',
-
-        'NAME': os.environ.get('db_name'),
-
-        'USER': os.environ.get('db_user'),
-
-        'PASSWORD': os.environ.get('db_password'),
-
-        'HOST': os.environ.get('db_host'),
-
-        'PORT': os.environ.get('db_port')
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         # 'ENGINE': 'django.db.backends.sqlite3',
+#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+#        'ENGINE': 'django.db.backends.postgresql',
+
+#         'NAME': os.environ.get('db_name'),
+
+#         'USER': os.environ.get('db_user'),
+
+#         'PASSWORD': os.environ.get('db_password'),
+
+#         'HOST': os.environ.get('db_host'),
+
+#         'PORT': os.environ.get('db_port')
+#     }
+# }
 
 
 # Password validation
@@ -179,16 +179,16 @@ STATICFILES_DIRS = [
 ]
 
 
-DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
-STATICFILES_STORAGE = "minio_storage.storage.MinioStaticStorage"
-MINIO_STORAGE_ENDPOINT =os.environ.get('minio_endpoint')
-MINIO_STORAGE_ACCESS_KEY = os.environ.get('minio_access')
-MINIO_STORAGE_SECRET_KEY = os.environ.get('minio_secret')
-MINIO_STORAGE_USE_HTTPS = True
-MINIO_STORAGE_MEDIA_BUCKET_NAME = 'alchercamedia'
-MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
-MINIO_STORAGE_STATIC_BUCKET_NAME = 'alchercastatic'
-MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
+# DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
+# STATICFILES_STORAGE = "minio_storage.storage.MinioStaticStorage"
+# MINIO_STORAGE_ENDPOINT =os.environ.get('minio_endpoint')
+# MINIO_STORAGE_ACCESS_KEY = os.environ.get('minio_access')
+# MINIO_STORAGE_SECRET_KEY = os.environ.get('minio_secret')
+# MINIO_STORAGE_USE_HTTPS = True
+# MINIO_STORAGE_MEDIA_BUCKET_NAME = 'alchercamedia'
+# MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
+# MINIO_STORAGE_STATIC_BUCKET_NAME = 'alchercastatic'
+# MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
 
 
 MEDIA_URL = '/image-uploads/'
