@@ -353,7 +353,28 @@ def verify_like(request):
     curr_time=datetime.now().date()
     delta = curr_time-start_time
     if api==-1:
-        return HttpResponse("<b>Oops, there has been an error while verifying your like!</b>")
+        # return HttpResponse("<b>Oops, there has been an error while verifying your like!</b>")
+        insta_id_list1 = [
+            {
+                "username": "1alfikhan48@gmail.com",
+                "password": "Qwerty@9760"
+            },
+            {
+                "username": "rahuldua9760@gmail.com",
+                "password": "Qwerty@9760"
+            },
+            {
+                "username": "fake27_28",
+                "password": "sid1234"
+            }
+        ]
+        for account in insta_id_list1:
+            try:
+                api = Client(account['username'],account['password'])
+            except:
+                print("Error")
+            if api!=-1:
+                break
     results = api.media_likers_chrono(post.media_id)
     items = results['users']
     flag=0
