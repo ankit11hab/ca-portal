@@ -37,13 +37,13 @@ insta_id_list1 = [
         "password": "sid1234"
     }
 ]
-for account in insta_id_list1:
-    try:
-        api = Client(account['username'],account['password'])
-    except:
-        print("Error")
-    if api!=-1:
-        break
+# for account in insta_id_list1:
+#     try:
+#         api = Client(account['username'],account['password'])
+#     except:
+#         print("Error")
+#     if api!=-1:
+#         break
 # user_name = 'fake27_28'
 # password = 'sid1234'
 # api = Client(user_name, password)
@@ -352,6 +352,14 @@ def verify_like(request):
         return redirect('dashboard_page') 
     curr_time=datetime.now().date()
     delta = curr_time-start_time
+    api = -1
+    for account in insta_id_list1:
+        try:
+            api = Client(account['username'],account['password'])
+        except:
+            print("Error")
+        if api!=-1:
+            break
     if api==-1:
         return HttpResponse("<b>Oops, there has been an error while verifying your like!</b>")
     results = api.media_likers_chrono(post.media_id)
