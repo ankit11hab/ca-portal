@@ -331,6 +331,7 @@ def leaderboard(request):
 
 @login_required
 def verify_like(request):
+    print("Came to verify like")
     post = ShareablePost.objects.get(id=str(list(request.GET.keys())[0]))
     curr_time = time.localtime() 
     curr_time1 = time.strftime("%H:%M:%S") 
@@ -354,8 +355,10 @@ def verify_like(request):
     delta = curr_time-start_time
     api = -1
     for account in insta_id_list1:
+        print("In for loop")
         try:
             api = Client(account['username'],account['password'])
+            print("API called")
         except:
             print("Error")
         if api!=-1:
