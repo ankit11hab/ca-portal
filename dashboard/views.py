@@ -330,67 +330,67 @@ def leaderboard(request):
     }
     return render(request, 'dashboard/complete_leaderboard.html', context)
 
-@login_required
-def verify_like(request):
-    print("Came to verify like")
-    post = ShareablePost.objects.get(id=str(list(request.GET.keys())[0]))
-    curr_time = time.localtime() 
-    curr_time1 = time.strftime("%H:%M:%S") 
-    created_on=post.created_on
-    created_on1=created_on.strftime("%H:%M:%S")
-    last_date=post.last_date.strftime("%H:%M:%S")
-    timeformat = "%H:%M:%S"
-    delta = (datetime.strptime(curr_time1, timeformat) - datetime.strptime(created_on1, timeformat))
-    diff=delta.seconds
-    check = 1
-    if post.likedusers != '':
-        arr = post.likedusers.split()
-        for item in arr:
-            if item==request.user.instahandle:
-                check=0
-                break
-    if check == 0:
-        messages.error(request,"You have already liked this post!")
-        return redirect('dashboard_page') 
-    curr_time=datetime.now().date()
-    delta = curr_time-start_time
-    if api==-1:
-        return HttpResponse("<b>Oops, there has been an error while verifying your like!</b>")
-    results = api.media_likers_chrono(post.media_id)
-    items = results['users']
-    flag=0
+# @login_required
+# def verify_like(request):
+#     print("Came to verify like")
+#     post = ShareablePost.objects.get(id=str(list(request.GET.keys())[0]))
+#     curr_time = time.localtime() 
+#     curr_time1 = time.strftime("%H:%M:%S") 
+#     created_on=post.created_on
+#     created_on1=created_on.strftime("%H:%M:%S")
+#     last_date=post.last_date.strftime("%H:%M:%S")
+#     timeformat = "%H:%M:%S"
+#     delta = (datetime.strptime(curr_time1, timeformat) - datetime.strptime(created_on1, timeformat))
+#     diff=delta.seconds
+#     check = 1
+#     if post.likedusers != '':
+#         arr = post.likedusers.split()
+#         for item in arr:
+#             if item==request.user.instahandle:
+#                 check=0
+#                 break
+#     if check == 0:
+#         messages.error(request,"You have already liked this post!")
+#         return redirect('dashboard_page') 
+#     curr_time=datetime.now().date()
+#     delta = curr_time-start_time
+#     if api==-1:
+#         return HttpResponse("<b>Oops, there has been an error while verifying your like!</b>")
+#     results = api.media_likers_chrono(post.media_id)
+#     items = results['users']
+#     flag=0
     
-    for item in items: 
-        print(item['username'])
-        if item['username'] == request.user.instahandle:
-            flag=1
-            break
-    if flag==1:
-        if(diff<43200):
-            request.user.points+=25
-            request.user.tasks+=1
-            messages.success(request,"Thank you for liking this post! You have gained 25 points")
-        elif(diff<86400):
-            request.user.points+=15
-            request.user.tasks+=1
-            messages.success(request,"Thank you for liking this post! You have gained 15 points")
-        elif(diff<172800):
-            request.user.points+=10
-            request.user.tasks+=1
-            messages.success(request,"Thank you for liking this post! You have gained 10 points")
-        else:
-            request.user.points+=5
-            request.user.tasks+=1
-            messages.success(request,"Thank you for liking this post! You have gained 5 points")
+#     for item in items: 
+#         print(item['username'])
+#         if item['username'] == request.user.instahandle:
+#             flag=1
+#             break
+#     if flag==1:
+#         if(diff<43200):
+#             request.user.points+=25
+#             request.user.tasks+=1
+#             messages.success(request,"Thank you for liking this post! You have gained 25 points")
+#         elif(diff<86400):
+#             request.user.points+=15
+#             request.user.tasks+=1
+#             messages.success(request,"Thank you for liking this post! You have gained 15 points")
+#         elif(diff<172800):
+#             request.user.points+=10
+#             request.user.tasks+=1
+#             messages.success(request,"Thank you for liking this post! You have gained 10 points")
+#         else:
+#             request.user.points+=5
+#             request.user.tasks+=1
+#             messages.success(request,"Thank you for liking this post! You have gained 5 points")
             
-        request.user.save()
-        post.likedusers+=request.user.instahandle+' '
-        post.save()
+#         request.user.save()
+#         post.likedusers+=request.user.instahandle+' '
+#         post.save()
 
 
-    else:
-        messages.warning(request,f"Looks like you have not liked this post yet!")
-    return redirect('dashboard_page') 
+#     else:
+#         messages.warning(request,f"Looks like you have not liked this post yet!")
+#     return redirect('dashboard_page') 
 
 @login_required
 def notif_unread(request):
