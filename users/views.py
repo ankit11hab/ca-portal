@@ -107,9 +107,13 @@ def register_group_user(request):
                     'college_name')
                 single_form_1_result.referred_by = request.POST.get(
                     'referred_by')
-                single_form_1_result.set_password(
-                    request.POST.get('password1'))
-                single_form_1_result.username = "Groupuser"
+                if request.POST.get('password1')!=request.POST.get('password2'):
+                    messages.warning(request,"Passwords do not Match")
+                    return redirect('register_group')
+                else:
+                    single_form_1_result.set_password(
+                     request.POST.get('password1'))
+                    single_form_1_result.username = "Groupuser"
 
                 # 2nd form
                 single_form_2_result = single_user_form_2.save(commit=False)
@@ -121,9 +125,14 @@ def register_group_user(request):
                     'college_name')
                 single_form_2_result.referred_by = request.POST.get(
                     'referred_by')
-                single_form_2_result.set_password(
-                    request.POST.get('password1'))
-                single_form_2_result.username = "Groupuser"
+                if request.POST.get('password1')!=request.POST.get('password2'):
+                    messages.warning(request,"Passwords do not Match")
+                    return redirect('register_group')
+                else:
+                    single_form_2_result.set_password(
+                     request.POST.get('password1'))
+                    single_form_2_result.username = "Groupuser"
+                
 
                 
 
