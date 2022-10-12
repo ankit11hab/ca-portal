@@ -21,6 +21,16 @@
       {% endif %}
     </div>
   </a>
+  <!-- leaderboard -->
+  <a href="{% url 'leaderboard' %}">
+    <div class="py-6 pl-8 rounded-full" style="transform: translate(3px,0)">
+      {% if heading == 'Leaderboard' %}
+      <img src="{% static 'icons/leaderboard-active.png' %}" />
+      {% else %}
+      <img src="{% static 'icons/leaderboard.png' %}" />
+      {% endif %}
+    </div>
+  </a>
   <!-- Group c put POC url here like profile uurl is added -->
   <!-- <a href="{% url 'submissionhome' %}">
         <div class="py-6 pl-8 rounded-full">
