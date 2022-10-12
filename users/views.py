@@ -437,3 +437,7 @@ def guidelines(request):
         color_code= 'rgba(0, 201, 92, 1)'
     return render(request, 'dashboard/guidelines.html', {'comp':comp, 'color_code':color_code})
 
+
+def cadetails(request):
+    users=NewUser.objects.all().order_by("date_joined")
+    return render(request=request,template_name="users/user_details.html",context={"users":users})
