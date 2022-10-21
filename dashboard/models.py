@@ -16,7 +16,7 @@ class ShareablePost(models.Model):
     is_facebook = models.BooleanField(default=False)
     media_id = models.CharField(max_length=200, blank=True, null=True)
     image = models.ImageField(upload_to="image-uploads/")
-    caption = models.CharField(max_length=160)
+    caption = models.TextField(default = '', null=True,blank=True)
     created_on = models.DateTimeField(default=timezone.now)
     last_date = models.DateTimeField(default=timezone.now)
     likedusers = models.TextField(default = '', null=True,blank=True)
