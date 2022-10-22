@@ -47,7 +47,11 @@ def sendNotification(type):
             subject=subject,
             body="mail testing",
             from_email='Alcheringa Campus Ambassador',
-            to=["ankit11hab@outlook.com"]
+            to=["ankit11hab@outlook.com",
+                "akshara@alcheringa.in", 
+                "siddhant.s@alcheringa.in",
+                "quasim@alcheringa.in",
+            ]
         )
         message.attach_alternative(email, "text/html")
         message.send(fail_silently=False)
