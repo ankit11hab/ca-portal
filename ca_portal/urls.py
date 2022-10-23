@@ -12,6 +12,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('', include('dashboard.urls')),
     path('submissions/', include('submissions.urls')),
+    path('api/',include('api.urls')),
     
 
    

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+import requests
 
 from dashboard.models import Notifications
 from .forms import SingleUserRegisterForm, GroupUserRegisterForm, GroupUserRegisterFormForSingle, UserUpdateForm
@@ -35,11 +36,10 @@ def register_single_user(request):
                 result = single_user_form.save(commit=False)
 
                 if(request.POST.get('referred_by')):
-                    user = NewUser.objects.get(
-                        alcherid=request.POST.get('referred_by'))
-    
+                    alcherid=request.POST.get('referred_by')
+                    requests.put(request.build_absolute_uri(reverse('points-referal')),data = {'alcherid': alcherid,'points': 50})
                 result.save()
-                
+
                 user = NewUser.objects.get(email=request.POST.get('email'))
                 Profile(user = user).save()
                 userSingle = UserSingle()

@@ -42,13 +42,16 @@ INSTALLED_APPS = [
     # 'social_django',
     'dashboard.apps.DashboardConfig',
     'users.apps.UsersConfig',
+    'api.apps.ApiConfig',
     'submissions.apps.SubmissionsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
+    
+    'rest_framework'
 ]
 
 SITE_ID = 1
