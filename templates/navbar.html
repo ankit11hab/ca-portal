@@ -286,9 +286,9 @@
   <!-- top_nav-all_screens -->
   <nav class=" px-6 py-3 flex justify-between bg-white sm:bg-none -mx-4 mx-0">
     <a href="/" class=" block sm:hidden">
-      <img src="{{request.user.img.url}}" width="38px" alt="profile pic" border="0" style="border-radius:9999px;" />
+      <img src="{% static 'images/Logo.png' %}" alt="profile-pic" width="110px"  border="0" style="border-radius:9999px;" />
     </a>
-    <a class=" font-medium text-xl ">{{ heading }}</a>
+    <a class=" font-medium text-xl position-relative mr-16 ">{{ heading }}</a>
     {%include 'navbarnotifications.html'%}
   </nav>
 
