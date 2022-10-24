@@ -65,7 +65,7 @@ def register_single_user(request):
                         to=[user.email]
                     )
                     message.attach_alternative(email, "text/html")
-                    # message.send(fail_silently=False)
+                    message.send(fail_silently=False)
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
                 messages.success(
@@ -204,9 +204,9 @@ def register_group_user(request):
                         to=[user_2.email]
                     )
                     message.attach_alternative(email1, "text/html")
-                    # message.send(fail_silently=False)
+                    message.send(fail_silently=False)
                     message2.attach_alternative(email2, "text/html")
-                    # message2.send(fail_silently=False)
+                    message2.send(fail_silently=False)
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
                 messages.success(
