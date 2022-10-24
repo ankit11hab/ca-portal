@@ -7,6 +7,7 @@ def points_referal_id(request):
     if(request.data.get('alcherid')):
         user = NewUser.objects.filter(alcherid = request.data.get('alcherid')).first()
         user.points += int(request.data.get('points'))
+        user.referrals += 1
         user.save()
         # print('success')
         return Response('success')

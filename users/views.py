@@ -65,7 +65,7 @@ def register_single_user(request):
                         to=[user.email]
                     )
                     message.attach_alternative(email, "text/html")
-                    message.send(fail_silently=False)
+                    # message.send(fail_silently=False)
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
                 messages.success(
@@ -127,9 +127,10 @@ def register_group_user(request):
                 
 
                 if(request.POST.get('referred_by')):
-                    user = NewUser.objects.get(
-                        alcherid=request.POST.get('referred_by'))
+                    alcherid=request.POST.get('referred_by')
+                    user = NewUser.objects.get(alcherid = alcherid)
                     # result.referred_by_user=user
+                    requests.put(request.build_absolute_uri(reverse('points-referal')),data = {'alcherid': alcherid,'points': 50})
                     group_form_result.referred_by = request.POST.get(
                         'referred_by')
                     if(user.college_name==single_form_1_result.college_name):
@@ -153,6 +154,10 @@ def register_group_user(request):
                 userGroup = UserGroup()
                 userGroup.leader = user_1
                 userGroup.executive = user_2
+                userGroup.college_state = request.POST.get('college_state')
+                userGroup.college_city = request.POST.get('college_city')
+                userGroup.college_name = request.POST.get('college_name')
+                userGroup.referred_by = request.POST.get('referred_by')
                 userGroup.save()
 
                 # group_form_result.leader = user_1
@@ -199,9 +204,9 @@ def register_group_user(request):
                         to=[user_2.email]
                     )
                     message.attach_alternative(email1, "text/html")
-                    message.send(fail_silently=False)
+                    # message.send(fail_silently=False)
                     message2.attach_alternative(email2, "text/html")
-                    message2.send(fail_silently=False)
+                    # message2.send(fail_silently=False)
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
                 messages.success(
