@@ -1,5 +1,6 @@
-
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from users.models import NewUser
 from django.db import models
 import uuid
 from django.utils import timezone
@@ -27,7 +28,15 @@ class ShareablePost(models.Model):
         return (self.last_date.replace(tzinfo=None)-datetime(1970,1,1)).total_seconds()
 
     def __str__(self):
-        return str(self.id)
+            return str(self.id)
+
+@receiver(post_save, sender=ShareablePost)
+def send_notifs(sender, instance, created, **kwargs):
+    if created:
+        users = NewUser.objects.all()
+        for user in users:
+            notif = Notifications(user = user, type = 'Info', message = 'Check out the New Post!')
+            notif.save()
 
 class Promotions(models.Model):
     id = models.SlugField(primary_key=True, default=uuid.uuid4)
