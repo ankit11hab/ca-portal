@@ -22,6 +22,7 @@ from django.db.models.query_utils import Q
 from .models import UserSingle
 from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
+from django.views.decorators.csrf import csrf_exempt
 User = get_user_model()
 
 
@@ -387,3 +388,14 @@ def scoring(request):
 def guidelines(request):
     return render(request, 'dashboard/guidelines.html')
 
+def handleCSV(request):
+    if request.method=="POST":
+        csv_file=request.FILES['document']
+        file_data=csv_file.read().decode('utf-8');
+        csv_data=file_data.split('\n');
+        for x in csv_data:
+            fields=x.split(',')
+            user=NewUser(alcherid=fields[1],firstname=fields[2],email=fields[3],phone=fields[4],graduation_year=fields[5],college_state=fields[6],college_city=fields[7],college_name=fields[8],points=fields[9],position_of_responsibility=fields[10],interested_modules=fields[11]);
+            user.save()
+        print(f'{len(csv_data)} users added')
+    return render(request,'upload_csv.html')
