@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'rest_framework'
+    'rest_framework',
+    'storages'
 ]
 
 SITE_ID = 1
