@@ -29,7 +29,7 @@ SECRET_KEY = '1x$%_n-6&+^ch=_6j)0kg+5*1p0=ri#*b)g1=ge8f8#-(8)9rb'
 # DEBUG = False
 # ALLOWED_HOSTS = ["localhost"]
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
