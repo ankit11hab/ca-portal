@@ -228,6 +228,12 @@ def loginPage(request):
                 user = NewUser.objects.filter(email=email, provider="email")
                 emails_list = NewUser.objects.filter(is_active=True).values_list('email', flat=True)
                 if user:
+                    curr_user = user.first()
+                    if not curr_user.has_password:
+                        curr_user.set_password(password)
+                        curr_user.has_password = True
+                        curr_user.save()
+                        print(curr_user)
                     user = authenticate(
                         request, email=email, password=password)
                     if user is not None:
@@ -441,6 +447,21 @@ def guidelines(request):
     else:
         color_code= 'rgba(0, 201, 92, 1)'
     return render(request, 'dashboard/guidelines.html', {'comp':comp, 'color_code':color_code})
+
+
+def handleCSV(request):
+    if request.method=="POST":
+        print(request.POST)
+        csv_file=request.FILES['file']
+        file_data=csv_file.read().decode('utf-8')
+        csv_data=file_data.split('\n')
+        for x in csv_data:
+            fields=x.split(',')
+            user=NewUser(alcherid=fields[1],firstname=fields[2],email=fields[3],phone=fields[4],graduation_year=fields[5],college_state=fields[6],college_city=fields[7],college_name=fields[8],points=fields[9],position_of_responsibility=fields[10],interested_modules=fields[11], has_password=False, is_active=True)
+            user.save()
+            Profile(user=user).save()
+        print(f'{len(csv_data)} users added')
+    return render(request,'users/upload_csv.html')
 
 
 def cadetails(request):
