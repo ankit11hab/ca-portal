@@ -29,7 +29,7 @@ def decrypt_data(encrypted_data, key):
 
 @api_view(['GET'])
 def get_decrypted_data(request):
-    if(request.data.get('encrypted_data')):
+    if(request.GET.get('encrypted_data')):
         encrypted_data = request.data.get('encrypted_data')
         encrypted_data = str.encode(html.unescape(encrypted_data))
         key = b'mysecretkey'
