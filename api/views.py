@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from users.models import NewUser
 import html.parser
+from django.http import JsonResponse
 
 @api_view(['PUT'])
 def points_referal_id(request):
@@ -34,7 +35,7 @@ def get_decrypted_data(request):
         key = b'mysecretkey'
         decrypted_data = decrypt_data(encrypted_data, key).decode()
         # print('success')
-        return Response(decrypted_data)
+        return JsonResponse({'decrypted_data':decrypted_data})
     else:
         # print('error')
-        return Response('error')
+        return JsonResponse({'error':'error'})
