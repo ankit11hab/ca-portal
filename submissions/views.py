@@ -409,6 +409,21 @@ def pocs(request):
 def idea_submitted(request):
     return render(request,'submissions/idea_submitted.html')
 
+@login_required(login_url='dashboard_page')
+def quiz(request):   
+    questions = Question.objects.all()
+      
+   
+    answer=request.POST.get('answer')
+    form=AnswerForm()
+  
+    if form.is_valid():
+        form.save()
+    context ={
+        'questions':questions,'answer':answer,'form':form
+    }
+  
+    return render(request, 'submissions/quiz.html',context)
 
 @login_required(login_url='dashboard_page')
 def quiz(request, quiz_id):
